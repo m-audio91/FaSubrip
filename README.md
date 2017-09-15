@@ -15,3 +15,4 @@ Copyright (C) 2017 Mohammadreza Bahrami, m.audio91 [AT] gmail.com
 
 [**Download Latest Version**](https://github.com/m-audio91/FaSubrip/releases/latest)  
 [**Screenshots**](https://github.com/m-audio91/FaSubrip/tree/master/extra/screenshots)
+

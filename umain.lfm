@@ -1,0 +1,261 @@
+object FaSubripMain: TFaSubripMain
+  Left = 537
+  Height = 281
+  Top = 218
+  Width = 433
+  AllowDropFiles = True
+  AutoSize = True
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'FaSubrip v1.0.7'
+  ClientHeight = 281
+  ClientWidth = 433
+  DefaultMonitor = dmPrimary
+  OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
+  OnShow = FormShow
+  Position = poScreenCenter
+  SessionProperties = 'ArabicCharsToFarsi.State;CensExtraPhrases.Text;CensorshipPhrases.State;OpenDlg.InitialDir;StripHTMLFontTags.State;StripHTMLStyleTags.State;AppendEncodingToFileName.State;OutFileEncoding.ItemIndex'
+  LCLVersion = '1.9.0.0'
+  object Extras: TGroupBox
+    Left = 8
+    Height = 182
+    Top = 50
+    Width = 417
+    Align = alTop
+    AutoSize = True
+    BidiMode = bdRightToLeft
+    BorderSpacing.Left = 8
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 2
+    Caption = 'تنظیمات اختیاری'
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 162
+    ClientWidth = 413
+    ParentBidiMode = False
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    object StripHTMLFontTags: TCheckBox
+      Left = 6
+      Height = 19
+      Hint = 'حذف تگ های <font .....> و </font>'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
+      Top = 0
+      Width = 397
+      BidiMode = bdRightToLeft
+      BorderSpacing.Right = 8
+      Caption = 'حذف برچسب های HTML رنگ و اندازه قلم'
+      ParentBidiMode = False
+      TabOrder = 0
+    end
+    object StripHTMLStyleTags: TCheckBox
+      Left = 6
+      Height = 19
+      Hint = 'حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
+      Top = 19
+      Width = 397
+      BidiMode = bdRightToLeft
+      BorderSpacing.Right = 8
+      Caption = 'حذف برچسب های HTML حالات متن'
+      ParentBidiMode = False
+      TabOrder = 1
+    end
+    object ArabicCharsToFarsi: TCheckBox
+      Left = 6
+      Height = 19
+      Hint = 'حروف ''ك'' و ''ي'' در صورت موجود بودن با نسخه فارسی خودشان جایگزین  بشوند.'#13#10#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند. مثالی که'#10'به ذهنم می رسد نرم افزار ConvertXToDVD می باشد و انتخاب فونت Verdana '#10'برای زیرنویس. که برای حل این مشکل در نرم افزار مذکور می شود از فونت های'#10'سری B یا همان برنا رایانه کمک گرفت.'
+      Top = 38
+      Width = 397
+      BidiMode = bdRightToLeft
+      BorderSpacing.Right = 8
+      Caption = 'ی و ک فارسی'
+      ParentBidiMode = False
+      TabOrder = 4
+    end
+    object CensorshipPhrases: TCheckBox
+      Left = 6
+      Height = 19
+      Hint = 'که شامل حذف دسته ای از کلمات و عبارات ناشایست از قبل وارد شده در نرم افزار می باشد.'#13#10'عبارات ناشایست با چند ستاره ***** جایگزین می شوند'#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن عبارات بیشتر قرار داده شده'#13#10#13#10'برای تهیه فایل حاوی عبارات اضافی برای حذف:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'از منوی File گزینه Save As رو بزنید'#13#10'پائین دیالوگ باز شده در قسمت Encoding گزینه UTF-8 رو انتخاب کنید'#13#10'حالا در مسیر دلخواه با پسوند dat یا txt ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید'#13#10'ترجیحا با پسوند dat ذخیره کنید که کسی ناخواسته باز نکنه و:)'#13#10'هر وقت هم خواستید dat رو بازش کنید اول نت پد رو باز کنید بعد بکشیدش توی نت پد'#13#10'توی لینوکس هم مشکلی نباید باشه مثلا در فدورا gedit رو داریم که  امکانات مورد بحث رو داره'#13#10'اما چون هر توزیع ویرایشگر متفاوتی استفاده می کنه خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'
+      Top = 57
+      Width = 397
+      BidiMode = bdRightToLeft
+      BorderSpacing.Right = 10
+      Caption = 'سانسور عبارات نامناسب'
+      ParentBidiMode = False
+      TabOrder = 2
+    end
+    object CensExtraPhrases: TFileNameEdit
+      Left = 6
+      Height = 23
+      Hint = 'فایل حاوی عبارات اضافی برای حذف'
+      Top = 76
+      Width = 397
+      DialogOptions = [ofReadOnly, ofFileMustExist, ofEnableSizing, ofViewDetail]
+      Filter = 'فایل متنی ساده حاوی عبارات|*.txt;*.dat'
+      FilterIndex = 0
+      DefaultExt = 'txt'
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      BorderSpacing.Left = 6
+      MaxLength = 0
+      ParentBidiMode = False
+      TabOrder = 3
+    end
+    object OutFileEncodingL: TLabel
+      Left = 6
+      Height = 15
+      Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری باز کنید که مثلا تنها از ANSI'#13#10'پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'#13#10'همچنین وقتی دارید بصورت ANSI خروجی می گیرید'#13#10'تیک "ی و ک فارسی" رو حتما بردارید.'
+      Top = 99
+      Width = 397
+      Caption = 'کدگذاری حروف فایل خروجی'
+      ParentColor = False
+    end
+    object OutFileEncoding: TComboBox
+      Left = 6
+      Height = 23
+      Top = 114
+      Width = 397
+      ItemHeight = 15
+      ItemIndex = 0
+      Items.Strings = (
+        'UTF-8'
+        'ANSI WINDOWS-1256'
+        'Unicode (UTF-16 LE)'
+      )
+      ParentBidiMode = False
+      Style = csDropDownList
+      TabOrder = 5
+      Text = 'UTF-8'
+    end
+    object AppendEncodingToFileName: TCheckBox
+      Left = 6
+      Height = 19
+      Hint = 'صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان'
+      Top = 137
+      Width = 397
+      BorderSpacing.Bottom = 6
+      Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
+      Checked = True
+      State = cbChecked
+      TabOrder = 6
+    end
+  end
+  object Header: TPanel
+    Left = 0
+    Height = 19
+    Top = 0
+    Width = 433
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    BidiMode = bdRightToLeft
+    ClientHeight = 19
+    ClientWidth = 433
+    Color = 4342338
+    Font.Color = clWhite
+    ParentBidiMode = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 2
+    object Description: TLabel
+      Left = 8
+      Height = 15
+      Top = 4
+      Width = 417
+      Align = alTop
+      BorderSpacing.Left = 8
+      BorderSpacing.Top = 4
+      BorderSpacing.Right = 8
+      Caption = 'نرم افزاری رایگان برای حل مشکل نمایش بصورت حروف پرت در زیرنویس های SRT فارسی'
+      ParentColor = False
+    end
+  end
+  object OpenSubsContainer: TPanel
+    Left = 8
+    Height = 25
+    Top = 22
+    Width = 417
+    Align = alTop
+    Alignment = taRightJustify
+    AutoSize = True
+    BorderSpacing.Left = 8
+    BorderSpacing.Top = 3
+    BorderSpacing.Right = 8
+    BevelOuter = bvNone
+    BidiMode = bdRightToLeft
+    Caption = 'یا بکشید و اینجا رها کنید'
+    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 25
+    ClientWidth = 417
+    Color = clForm
+    Font.Color = 4342338
+    ParentBidiMode = False
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 0
+    object OpenSubs: TButton
+      Left = 146
+      Height = 25
+      Hint = 'زیرنویس (های) خود را انتخاب کنید'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'تذکر: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و روی آیکون فاسابریپ رها کنید'
+      Top = 0
+      Width = 125
+      AutoSize = True
+      Caption = 'بازکنید زیرنویس ها را'
+      OnClick = OpenSubsClick
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+  end
+  object Footer: TPanel
+    Left = 8
+    Height = 0
+    Top = 234
+    Width = 417
+    Align = alTop
+    AutoSize = True
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 4
+    BevelOuter = bvNone
+    Color = clForm
+    Font.Color = clGrayText
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+  end
+  object SaveDlg: TSaveDialog
+    Title = 'محل و نام زیرنویس خروجی را انتخاب کنید'
+    DefaultExt = '.srt'
+    Filter = 'زیرنویس های Subrip|*.srt'
+    FilterIndex = 0
+    left = 24
+    top = 72
+  end
+  object IniProps: TIniPropStorage
+    StoredValues = <>
+    left = 80
+    top = 72
+  end
+  object SaveDirDlg: TSelectDirectoryDialog
+    Title = 'پوشه ای که حاوی فایل های خروجی خواهد شد'
+    Options = [ofPathMustExist, ofEnableSizing, ofViewDetail]
+    left = 136
+    top = 72
+  end
+  object OpenDlg: TOpenDialog
+    Title = 'زیرنویس (های) خود را انتخاب کنید'
+    DefaultExt = '.srt'
+    Filter = 'زیرنویس های Subrip|*.srt'
+    Options = [ofReadOnly, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 192
+    top = 72
+  end
+end

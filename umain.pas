@@ -359,7 +359,7 @@ begin
     FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
     if Execute then
     begin
-      if LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
+      if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
         FileName := FileName + extSrt;
       ExportSubtitle(FileName);
     end;

@@ -19,8 +19,8 @@ object FaSubripMain: TFaSubripMain
   LCLVersion = '1.9.0.0'
   object Extras: TGroupBox
     Left = 8
-    Height = 182
-    Top = 50
+    Height = 196
+    Top = 51
     Width = 417
     Align = alTop
     AutoSize = True
@@ -33,7 +33,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 162
+    ClientHeight = 180
     ClientWidth = 413
     ParentBidiMode = False
     ParentShowHint = False
@@ -41,7 +41,7 @@ object FaSubripMain: TFaSubripMain
     TabOrder = 1
     object StripHTMLFontTags: TCheckBox
       Left = 6
-      Height = 19
+      Height = 21
       Hint = 'حذف تگ های <font .....> و </font>'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
       Top = 0
       Width = 397
@@ -53,9 +53,9 @@ object FaSubripMain: TFaSubripMain
     end
     object StripHTMLStyleTags: TCheckBox
       Left = 6
-      Height = 19
+      Height = 21
       Hint = 'حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
-      Top = 19
+      Top = 21
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 8
@@ -65,9 +65,9 @@ object FaSubripMain: TFaSubripMain
     end
     object ArabicCharsToFarsi: TCheckBox
       Left = 6
-      Height = 19
+      Height = 21
       Hint = 'حروف ''ك'' و ''ي'' در صورت موجود بودن با نسخه فارسی خودشان جایگزین  بشوند.'#13#10#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند. مثالی که'#10'به ذهنم می رسد نرم افزار ConvertXToDVD می باشد و انتخاب فونت Verdana '#10'برای زیرنویس. که برای حل این مشکل در نرم افزار مذکور می شود از فونت های'#10'سری B یا همان برنا رایانه کمک گرفت.'
-      Top = 38
+      Top = 42
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 8
@@ -77,9 +77,9 @@ object FaSubripMain: TFaSubripMain
     end
     object CensorshipPhrases: TCheckBox
       Left = 6
-      Height = 19
+      Height = 21
       Hint = 'که شامل حذف دسته ای از کلمات و عبارات ناشایست از قبل وارد شده در نرم افزار می باشد.'#13#10'عبارات ناشایست با چند ستاره ***** جایگزین می شوند'#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن عبارات بیشتر قرار داده شده'#13#10#13#10'برای تهیه فایل حاوی عبارات اضافی برای حذف:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'از منوی File گزینه Save As رو بزنید'#13#10'پائین دیالوگ باز شده در قسمت Encoding گزینه UTF-8 رو انتخاب کنید'#13#10'حالا در مسیر دلخواه با پسوند dat یا txt ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید'#13#10'ترجیحا با پسوند dat ذخیره کنید که کسی ناخواسته باز نکنه و:)'#13#10'هر وقت هم خواستید dat رو بازش کنید اول نت پد رو باز کنید بعد بکشیدش توی نت پد'#13#10'توی لینوکس هم مشکلی نباید باشه مثلا در فدورا gedit رو داریم که  امکانات مورد بحث رو داره'#13#10'اما چون هر توزیع ویرایشگر متفاوتی استفاده می کنه خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'
-      Top = 57
+      Top = 63
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 10
@@ -89,9 +89,9 @@ object FaSubripMain: TFaSubripMain
     end
     object CensExtraPhrases: TFileNameEdit
       Left = 6
-      Height = 23
+      Height = 27
       Hint = 'فایل حاوی عبارات اضافی برای حذف'
-      Top = 76
+      Top = 84
       Width = 397
       DialogOptions = [ofReadOnly, ofFileMustExist, ofEnableSizing, ofViewDetail]
       Filter = 'فایل متنی ساده حاوی عبارات|*.txt;*.dat'
@@ -107,19 +107,19 @@ object FaSubripMain: TFaSubripMain
     end
     object OutFileEncodingL: TLabel
       Left = 6
-      Height = 15
+      Height = 17
       Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری باز کنید که مثلا تنها از ANSI'#13#10'پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'#13#10'همچنین وقتی دارید بصورت ANSI خروجی می گیرید'#13#10'تیک "ی و ک فارسی" رو حتما بردارید.'
-      Top = 99
+      Top = 111
       Width = 397
       Caption = 'کدگذاری حروف فایل خروجی'
       ParentColor = False
     end
     object OutFileEncoding: TComboBox
       Left = 6
-      Height = 23
-      Top = 114
+      Height = 25
+      Top = 128
       Width = 397
-      ItemHeight = 15
+      ItemHeight = 0
       ItemIndex = 0
       Items.Strings = (
         'UTF-8'
@@ -133,9 +133,9 @@ object FaSubripMain: TFaSubripMain
     end
     object AppendEncodingToFileName: TCheckBox
       Left = 6
-      Height = 19
+      Height = 21
       Hint = 'صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان'
-      Top = 137
+      Top = 153
       Width = 397
       BorderSpacing.Bottom = 6
       Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
@@ -146,14 +146,14 @@ object FaSubripMain: TFaSubripMain
   end
   object Header: TPanel
     Left = 0
-    Height = 19
+    Height = 21
     Top = 0
     Width = 433
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     BidiMode = bdRightToLeft
-    ClientHeight = 19
+    ClientHeight = 21
     ClientWidth = 433
     Color = 4342338
     Font.Color = clWhite
@@ -163,7 +163,7 @@ object FaSubripMain: TFaSubripMain
     TabOrder = 2
     object Description: TLabel
       Left = 8
-      Height = 15
+      Height = 17
       Top = 4
       Width = 417
       Align = alTop
@@ -176,8 +176,8 @@ object FaSubripMain: TFaSubripMain
   end
   object OpenSubsContainer: TPanel
     Left = 8
-    Height = 25
-    Top = 22
+    Height = 24
+    Top = 24
     Width = 417
     Align = alTop
     Alignment = taRightJustify
@@ -191,7 +191,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 25
+    ClientHeight = 24
     ClientWidth = 417
     Color = clForm
     Font.Color = 4342338
@@ -200,11 +200,11 @@ object FaSubripMain: TFaSubripMain
     ParentFont = False
     TabOrder = 0
     object OpenSubs: TButton
-      Left = 146
-      Height = 25
+      Left = 150
+      Height = 24
       Hint = 'زیرنویس (های) خود را انتخاب کنید'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'تذکر: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و روی آیکون فاسابریپ رها کنید'
       Top = 0
-      Width = 125
+      Width = 117
       AutoSize = True
       Caption = 'بازکنید زیرنویس ها را'
       OnClick = OpenSubsClick
@@ -216,8 +216,8 @@ object FaSubripMain: TFaSubripMain
   end
   object Footer: TPanel
     Left = 8
-    Height = 0
-    Top = 234
+    Height = 1
+    Top = 249
     Width = 417
     Align = alTop
     AutoSize = True
@@ -236,26 +236,26 @@ object FaSubripMain: TFaSubripMain
     DefaultExt = '.srt'
     Filter = 'زیرنویس های Subrip|*.srt'
     FilterIndex = 0
-    left = 24
-    top = 72
+    Left = 24
+    Top = 72
   end
   object IniProps: TIniPropStorage
     StoredValues = <>
-    left = 80
-    top = 72
+    Left = 80
+    Top = 72
   end
   object SaveDirDlg: TSelectDirectoryDialog
     Title = 'پوشه ای که حاوی فایل های خروجی خواهد شد'
     Options = [ofPathMustExist, ofEnableSizing, ofViewDetail]
-    left = 136
-    top = 72
+    Left = 136
+    Top = 72
   end
   object OpenDlg: TOpenDialog
     Title = 'زیرنویس (های) خود را انتخاب کنید'
     DefaultExt = '.srt'
     Filter = 'زیرنویس های Subrip|*.srt'
     Options = [ofReadOnly, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    left = 192
-    top = 72
+    Left = 192
+    Top = 72
   end
 end

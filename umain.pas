@@ -50,6 +50,7 @@ type
     CensExtraPhrases: TFileNameEdit;
     SaveDlg: TSaveDialog;
     Footer: TPanel;
+    CensorshipExtraPhrases: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject); 
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
@@ -66,6 +67,7 @@ type
     procedure SwapArabicChars(var S: String);
     procedure StripHTMLTags(var S: String);
     procedure CensorshipImpolitePhrases(var S: String);
+    procedure CensorshipExtraPhrasesFile(var S: String);
     procedure PromptExport;
     procedure ExportSubtitle(const Subtitle: String);
   public
@@ -242,6 +244,7 @@ begin
   ClearBOMs(FSrt);
   SwapArabicChars(FSrt);
   StripHTMLTags(FSrt);
+  CensorshipExtraPhrasesFile(FSrt);
   CensorshipImpolitePhrases(FSrt);
   if FBatchMode then
     ExportSubtitle(GenFileName(FInputFile, wFaSubed, extSrt, True, FBatchOutDir))
@@ -318,27 +321,18 @@ end;
 procedure TFaSubripMain.CensorshipImpolitePhrases(var S: String);
 var
   rs: TResourceStream;
-  sl,sl2: TStringList;
+  sl: TStringList;
   i,j: Cardinal;
   Enc: TEncoding;
 begin
   if CensorshipPhrases.State <> cbChecked then Exit;
-  Enc := nil;
+  Enc := Default(TEncoding);
   sl := TStringList.Create;
-  sl2 := TStringList.Create;
   try
     rs := TResourceStream.Create(HInstance, BadPhrasesResName, RT_RCDATA);
     sl.LoadFromStream(rs, Enc.UTF8);
     for i := 0 to sl.Count-1 do
         sl[i] := ReplaceStrings(sl[i], ArabicChars, FarsiChars);
-    if (CensExtraPhrases.Text <> EmptyStr)
-    and FileExists(CensExtraPhrases.Text)
-    and FileIsText(CensExtraPhrases.Text) then
-    begin
-      sl2.LoadFromFile(CensExtraPhrases.Text, Enc.UTF8);
-      for i := 0 to sl2.Count-1 do
-        sl.Add(ReplaceStrings(sl2[i], ArabicChars, FarsiChars));
-    end;
     j := sl.Count;
     for i := 0 to j-1 do
       sl.Add(ReplaceStrings(sl[i], FarsiChars, ArabicChars));
@@ -346,8 +340,38 @@ begin
       DeleteAllOccurrences(sl[i], S, CensorMask);
   finally
     sl.Free;
-    sl2.Free;
     rs.Free;
+  end;
+end;
+
+procedure TFaSubripMain.CensorshipExtraPhrasesFile(var S: String);
+var
+  sl: TStringList;
+  i,j: Cardinal;
+  Enc: TEncoding;
+begin
+  if CensorshipExtraPhrases.State <> cbChecked then Exit;
+  if IsEmptyStr(CensExtraPhrases.Text) then Exit;
+  if not FileExists(CensExtraPhrases.Text) then Exit;
+  if not FileIsText(CensExtraPhrases.Text) then Exit;
+  Enc := Default(TEncoding);
+  sl := TStringList.Create;
+  try
+    sl.LoadFromFile(CensExtraPhrases.Text, Enc.UTF8);
+    for i := 0 to sl.Count-1 do
+      sl[i] := ReplaceStrings(sl[i], ArabicChars, FarsiChars);
+    j := sl.Count;
+    for i := 0 to j-1 do
+      sl.Add(ReplaceStrings(sl[i], FarsiChars, ArabicChars));
+    for i := 0 to sl.Count-1 do
+    begin
+      if not IsEmptyStr(sl.Values[sl.Names[i]]) then
+        S := S.Replace(sl.Names[i], sl.Values[sl.Names[i]])
+      else
+        DeleteAllOccurrences(sl[i], S, CensorMask);
+    end;
+  finally
+    sl.Free;
   end;
 end;
 

@@ -52,7 +52,7 @@ type
     Footer: TPanel;
     CensorshipExtraPhrases: TCheckBox;
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject); 
+    procedure FormShow(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure OpenSubsClick(Sender: TObject);
   private
@@ -70,6 +70,7 @@ type
     procedure CensorshipExtraPhrasesFile(var S: String);
     procedure PromptExport;
     procedure ExportSubtitle(const Subtitle: String);
+    procedure ShowGuide(Sender: TObject);
   public
     FInputFiles: array of String;
     FAutoRun: Boolean;
@@ -78,7 +79,7 @@ type
 var
   FaSubripMain: TFaSubripMain;
 
-implementation 
+implementation
 
 {$R *.lfm}
 {$R badphrases.rc}
@@ -109,7 +110,8 @@ resourcestring
   rsAllDone = 'عملیات انجام شد';
   rsSelectOutDir = 'پوشه ای برای قرار دادن فایل های خروجی انتخاب کنید';
   rsContact = 'ارتباط';
-  rsIssueReporting = 'پشتیبانی و گزارش خطا';
+  rsGuide = 'راهنمای تنظیمات';
+  rsIssueReporting = 'پشتیبانی';
   rsLicenseHint = 'فاسابریپ و متن آن تحت این مجوز برای عموم منتشر گردیده است'
     +LineEnding + 'متن برنامه و طریقه کامپایل آن در آدرس زیر موجود است'
     +LineEnding + SourceUrl;
@@ -120,17 +122,30 @@ resourcestring
 
 procedure TFaSubripMain.FormCreate(Sender: TObject);
 var
+  Url0: TCustomUrlLabel;
   Url1,Url2,Url3,Url4: TUrlLabelEx;
 begin
+  Url0 := TCustomUrlLabel.Create(Self);
+  with Url0 do
+  begin
+    Parent := Header;
+    Align := alLeft;
+    Caption := rsGuide;
+    OnClick := @ShowGuide;
+    Font.Color := $0086C6E4;
+    BorderSpacing.Left := 8;
+    BorderSpacing.Top := 4;
+    BorderSpacing.Bottom := 4;
+  end;
   Url1 := TUrlLabelEx.Create(Self);
   with Url1 do
   begin
     Parent := Header;
-    Align := alLeft;
+    Align := alRight;
     Caption := rsContact;
     URL := ContactUrl;
     Font.Color := $0086C6E4;
-    BorderSpacing.Left := 8;
+    BorderSpacing.Right := 8;
     BorderSpacing.Top := 4;
     BorderSpacing.Bottom := 4;
   end;
@@ -425,6 +440,68 @@ begin
     end;
   finally
     sl.Free;
+  end;
+end;
+
+procedure TFaSubripMain.ShowGuide(Sender: TObject);
+var
+  HelpForm: TForm;
+  Labels: array[0..15] of TLabel;
+  i: Integer;
+begin
+  HelpForm := TForm.CreateNew(Self);
+  try
+    with HelpForm do
+    begin
+      DefaultMonitor := dmActiveForm;
+      Position := poOwnerFormCenter;
+      Caption := rsGuide;
+      AutoScroll := True;
+      HorzScrollBar.Visible := False;
+      VertScrollBar.Tracking := True;
+      VertScrollBar.Smooth := True;
+      ChildSizing.ControlsPerLine := 1;
+      ChildSizing.EnlargeHorizontal := crsHomogenousChildResize;
+      ChildSizing.ShrinkHorizontal := crsHomogenousChildResize;
+      ChildSizing.Layout := cclLeftToRightThenTopToBottom;
+      ChildSizing.VerticalSpacing := 2;
+      ChildSizing.LeftRightSpacing := 8;
+      ChildSizing.TopBottomSpacing := 8;
+    end;
+
+    for i := 0 to High(Labels) do
+    begin
+      Labels[i] := TLabel.Create(HelpForm);
+      Labels[i].Parent := HelpForm;
+      Labels[i].BiDiMode := bdRightToLeft;
+      Labels[i].WordWrap := True;
+      if (i = 0) or (i mod 2 = 0) then
+      begin
+        Labels[i].BorderSpacing.Top := 8;
+        Labels[i].Font.Height := Canvas.GetTextHeight('AText')*3;
+      end;
+    end;
+
+    Labels[0].Caption := OpenSubs.Caption;
+    Labels[1].Caption := OpenSubs.Hint;
+    Labels[2].Caption := StripHTMLFontTags.Caption;
+    Labels[3].Caption := StripHTMLFontTags.Hint;
+    Labels[4].Caption := StripHTMLStyleTags.Caption;
+    Labels[5].Caption := StripHTMLStyleTags.Hint;
+    Labels[6].Caption := ArabicCharsToFarsi.Caption;
+    Labels[7].Caption := ArabicCharsToFarsi.Hint;
+    Labels[8].Caption := CensorshipPhrases.Caption;
+    Labels[9].Caption := CensorshipPhrases.Hint;
+    Labels[10].Caption := CensorshipExtraPhrases.Caption;
+    Labels[11].Caption := CensorshipExtraPhrases.Hint;
+    Labels[12].Caption := OutFileEncodingL.Caption;
+    Labels[13].Caption := OutFileEncodingL.Hint;
+    Labels[14].Caption := AppendEncodingToFileName.Caption;
+    Labels[15].Caption := AppendEncodingToFileName.Hint;
+
+    HelpForm.ShowModal;
+  finally
+    HelpForm.Free;
   end;
 end;
 

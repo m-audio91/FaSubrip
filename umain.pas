@@ -480,7 +480,7 @@ begin
       if (i = 0) or (i mod 2 = 0) then
       begin
         Labels[i].BorderSpacing.Top := 8;
-        Labels[i].Font.Height := Canvas.GetTextHeight('AText')*3;
+        Labels[i].Font.Height := Canvas.GetTextHeight('AText')*2;
       end;
     end;
 

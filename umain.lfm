@@ -115,6 +115,7 @@ object FaSubripMain: TFaSubripMain
       MaxLength = 0
       ParentBidiMode = False
       TabOrder = 5
+      OnKeyDown = CensExtraPhrasesKeyDown
     end
     object OutFileEncodingL: TLabel
       Left = 6

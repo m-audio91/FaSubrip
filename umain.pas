@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, CommonStrUtils, CommonFileUtils;
+  uUrlLabel, LazFileUtils, CommonStrUtils, CommonFileUtils, CommonGUIUtils;
 
 type
 
@@ -51,6 +51,8 @@ type
     SaveDlg: TSaveDialog;
     Footer: TPanel;
     CensorshipExtraPhrases: TCheckBox;
+    procedure CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
@@ -183,6 +185,19 @@ begin
     Hint := rsUpdateHint;
     HighlightColor := clHighlight;
   end;
+
+  StripHTMLFontTags.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+  StripHTMLStyleTags.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+  ArabicCharsToFarsi.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+  CensorshipPhrases.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+  CensorshipExtraPhrases.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+  AppendEncodingToFileName.OnKeyDown := @CheckBoxUtils.OnKeyDown;
+end;
+
+procedure TFaSubripMain.CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then (Sender as TFileNameEdit).ShowDialog;
 end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);

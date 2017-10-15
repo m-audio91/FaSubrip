@@ -34,6 +34,8 @@ var
 {$R *.res}
 
 begin
+  Application.Scaled:=True;
+  Application.Title:='FaSubrip';
   RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TFaSubripMain, FaSubripMain);

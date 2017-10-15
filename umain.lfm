@@ -7,7 +7,7 @@ object FaSubripMain: TFaSubripMain
   AutoSize = True
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FaSubrip v1.0.8'
+  Caption = 'FaSubrip v1.0.9'
   ClientHeight = 281
   ClientWidth = 433
   DefaultMonitor = dmPrimary
@@ -19,8 +19,8 @@ object FaSubripMain: TFaSubripMain
   LCLVersion = '1.9.0.0'
   object Extras: TGroupBox
     Left = 8
-    Height = 217
-    Top = 51
+    Height = 201
+    Top = 50
     Width = 417
     Align = alTop
     AutoSize = True
@@ -33,14 +33,14 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 201
+    ClientHeight = 181
     ClientWidth = 413
     ParentBidiMode = False
     ParentShowHint = False
     TabOrder = 1
     object StripHTMLFontTags: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'فعال کردن این گزینه منجر به حذف تگ های <font .....> و </font> می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
       Top = 0
       Width = 397
@@ -52,9 +52,9 @@ object FaSubripMain: TFaSubripMain
     end
     object StripHTMLStyleTags: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'فعال کردن این گزینه منجر به حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
-      Top = 21
+      Top = 19
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 8
@@ -64,9 +64,9 @@ object FaSubripMain: TFaSubripMain
     end
     object ArabicCharsToFarsi: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'با فعال کردن این گزینه حروف ''ك'' و ''ي'' در صورت موجود بودن'#13#10'با نسخه فارسی خودشان جایگزین  خواهند شد.'#13#10#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#13#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند.'#13#10#13#10'تذکر: هنگامی که با کدگذاری ANSI WINDOWS-1256 خروجی می گیرید این گزینه بطور خودکار'#13#10'غیر فعال می گردد زیرا نسخه فارسی این دو حرف در این کدگذاری در برخی'#13#10'از پخش کننده ها مشکل ساز است!'
-      Top = 42
+      Top = 38
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 8
@@ -76,9 +76,9 @@ object FaSubripMain: TFaSubripMain
     end
     object CensorshipPhrases: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین می کند.'#13#10#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات بطور جداگانه و مستقل از این گزینه قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید یا در عین فعال بودن این گزینه، عبارات دیگری را'#13#10'با آن گزینه هدف قرار بدهید.'
-      Top = 63
+      Top = 57
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 10
@@ -88,9 +88,9 @@ object FaSubripMain: TFaSubripMain
     end
     object CensorshipExtraPhrases: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'در صورت فعال کردن این گزینه و ارائه دادن یک فایل معتبر حاوی عبارات مدنظرتان فاسابریپ اقدام'#13#10'به سانسور یا جایگزینی آنها می کند.'#13#10'طریقه تهیه این فایل:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی لینوکس چون هر توزیع ویرایشگر متن متفاوتی استفاده می کند خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'#13#10'همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و غیره'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که اضافه می کنید بجای تبدیل شدن به ***** با چیز'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10#13#10'(نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک)'
-      Top = 84
+      Top = 76
       Width = 397
       BidiMode = bdRightToLeft
       BorderSpacing.Right = 10
@@ -100,9 +100,9 @@ object FaSubripMain: TFaSubripMain
     end
     object CensExtraPhrases: TFileNameEdit
       Left = 6
-      Height = 27
+      Height = 23
       Hint = 'فایل حاوی عبارات اضافی برای حذف یا جایگزینی'
-      Top = 105
+      Top = 95
       Width = 397
       DialogOptions = [ofReadOnly, ofFileMustExist, ofEnableSizing, ofViewDetail]
       Filter = 'فایل متنی ساده حاوی عبارات|*.txt;*.dat'
@@ -118,19 +118,19 @@ object FaSubripMain: TFaSubripMain
     end
     object OutFileEncodingL: TLabel
       Left = 6
-      Height = 17
+      Height = 15
       Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری یا پخش کننده سخت افزاری'#13#10'باز کنید که مثلا تنها از ANSI پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'
-      Top = 132
+      Top = 118
       Width = 397
       Caption = 'کدگذاری حروف فایل خروجی'
       ParentColor = False
     end
     object OutFileEncoding: TComboBox
       Left = 6
-      Height = 25
-      Top = 149
+      Height = 23
+      Top = 133
       Width = 397
-      ItemHeight = 0
+      ItemHeight = 15
       ItemIndex = 0
       Items.Strings = (
         'UTF-8'
@@ -144,9 +144,9 @@ object FaSubripMain: TFaSubripMain
     end
     object AppendEncodingToFileName: TCheckBox
       Left = 6
-      Height = 21
+      Height = 19
       Hint = 'فعال کردن این گزینه صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان مفید می باشد'#13#10#13#10'مثلا خروجی'#13#10'test.srt'#13#10'در حالت عادی'#13#10'test_FaSubrip.srt'#13#10'می باشد که با فعال کردن این گزینه و یو تی اف 8 بودن کدگذاری انتخابی خروجی می شود'#13#10'test_FaSubripUTF-8.srt'
-      Top = 174
+      Top = 156
       Width = 397
       BorderSpacing.Bottom = 6
       Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
@@ -157,14 +157,14 @@ object FaSubripMain: TFaSubripMain
   end
   object Header: TPanel
     Left = 0
-    Height = 21
+    Height = 19
     Top = 0
     Width = 433
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     BidiMode = bdRightToLeft
-    ClientHeight = 21
+    ClientHeight = 19
     ClientWidth = 433
     Color = 4342338
     Font.Color = clWhite
@@ -174,7 +174,7 @@ object FaSubripMain: TFaSubripMain
     TabOrder = 2
     object Description: TLabel
       Left = 8
-      Height = 17
+      Height = 15
       Top = 4
       Width = 417
       Align = alTop
@@ -187,8 +187,8 @@ object FaSubripMain: TFaSubripMain
   end
   object OpenSubsContainer: TPanel
     Left = 8
-    Height = 24
-    Top = 24
+    Height = 25
+    Top = 22
     Width = 417
     Align = alTop
     Alignment = taRightJustify
@@ -202,7 +202,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 24
+    ClientHeight = 25
     ClientWidth = 417
     Color = clForm
     Font.Color = 4342338
@@ -211,11 +211,11 @@ object FaSubripMain: TFaSubripMain
     ParentFont = False
     TabOrder = 0
     object OpenSubs: TButton
-      Left = 150
-      Height = 24
+      Left = 146
+      Height = 25
       Hint = 'با این دکمه زیرنویس (های) خود را بارگزاری کنید.'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و روی آیکون فاسابریپ رها کنید'#13#10#13#10'توجه: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'
       Top = 0
-      Width = 117
+      Width = 125
       AutoSize = True
       Caption = 'بازکنید زیرنویس ها را'
       OnClick = OpenSubsClick
@@ -226,8 +226,8 @@ object FaSubripMain: TFaSubripMain
   end
   object Footer: TPanel
     Left = 8
-    Height = 1
-    Top = 270
+    Height = 0
+    Top = 253
     Width = 417
     Align = alTop
     AutoSize = True

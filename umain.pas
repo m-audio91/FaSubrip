@@ -382,8 +382,10 @@ begin
       sl.Add(ReplaceStrings(sl[i], FarsiChars, ArabicChars));
     for i := 0 to sl.Count-1 do
     begin
-      if not IsEmptyStr(sl.Values[sl.Names[i]]) then
+      if (sl.Values[sl.Names[i]] <> EmptyStr) then
         S := S.Replace(sl.Names[i], sl.Values[sl.Names[i]])
+      else if sl[i].EndsWith('=') then
+        S := S.Replace(sl[i].Remove(sl[i].Length-1), EmptyStr)
       else
         DeleteAllOccurrences(sl[i], S, CensorMask);
     end;

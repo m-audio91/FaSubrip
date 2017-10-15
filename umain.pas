@@ -82,7 +82,7 @@ var
 implementation
 
 {$R *.lfm}
-{$R badphrases.rc}
+{$R badphrases.res}
 
 const
   ContactUrl = 'http://mohammadrezab.blogsky.com';

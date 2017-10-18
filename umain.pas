@@ -427,7 +427,7 @@ begin
   with SaveDlg do
   begin
     InitialDir := OpenDlg.InitialDir;
-    FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
+    FileName := GenFileName(FInputFile, EmptyStr, extSrt, False);
     if Execute then
     begin
       if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
@@ -444,9 +444,9 @@ var
   Sub: String;
 begin
   if AppendEncodingToFileName.State = cbChecked then
-    Sub := GenFileName(Subtitle, EncodingNames[OutFileEncoding.ItemIndex])
+    Sub := GenFileName(Subtitle, '_'+EncodingNames[OutFileEncoding.ItemIndex])
   else
-    Sub := Subtitle;
+    Sub := GenFileName(Subtitle, wFaSubed);
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try

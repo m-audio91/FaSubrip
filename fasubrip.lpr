@@ -27,6 +27,16 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, umain, uUrlLabel
   { you can add units after this };
+  {$ifdef FPC_CROSSCOMPILING}
+  {$ifdef Linux}
+    // for most versions of Linux in case of linking errors
+    {$linklib libc_nonshared.a}
+    {$IFDEF CPUARM}
+      // for GUI on RPi[1,2,3] with Arch Linux in case of linking errors
+      // {$linklib GLESv2}
+    {$ENDIF}
+  {$endif}
+{$endif}
 
 var
   i: Word;

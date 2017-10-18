@@ -25,7 +25,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, CommonStrUtils, CommonFileUtils, CommonGUIUtils;
+  uUrlLabel, LazFileUtils, CommonStrUtils, CommonFileUtils, CommonGUIUtils
+  {$ifdef darwin},Menus{$endif};
 
 type
 
@@ -58,6 +59,10 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure OpenSubsClick(Sender: TObject);
   private
+    {$ifdef darwin}
+    MainMenu: TMainMenu;
+    AppMenu: TMenuItem;
+    {$endif}
     FSrt: String;
     FBatchMode: Boolean;
     FBatchOutDir: String;
@@ -127,6 +132,14 @@ var
   Url0: TCustomUrlLabel;
   Url1,Url2,Url3,Url4: TUrlLabelEx;
 begin
+  {$ifdef darwin}
+    MainMenu := TMainMenu.Create(Self);
+    MainMenu.Parent := Self;
+    AppMenu := TMenuItem.Create(Self);
+    AppMenu.Caption := #$EF#$A3#$BF;
+    MainMenu.Items.Insert(0, AppMenu);
+  {$endif}
+
   Url0 := TCustomUrlLabel.Create(Self);
   with Url0 do
   begin

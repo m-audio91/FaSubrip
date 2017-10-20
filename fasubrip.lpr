@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, umain
+  Forms, lazcontrols, umain
   { you can add units after this };
   {$ifdef FPC_CROSSCOMPILING}
   {$ifdef Linux}

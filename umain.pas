@@ -25,8 +25,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, CommonStrUtils, CommonFileUtils, CommonGUIUtils
-  {$ifdef darwin},Menus{$endif};
+  uUrlLabel, LazFileUtils, DividerBevel, CommonStrUtils, CommonFileUtils,
+  CommonGUIUtils {$ifdef darwin},Menus{$endif};
 
 type
 
@@ -46,12 +46,14 @@ type
     Header: TPanel;
     StripHTMLStyleTags: TCheckBox;
     StripHTMLFontTags: TCheckBox;
-    Extras: TGroupBox;
     IniProps: TIniPropStorage;
     CensExtraPhrases: TFileNameEdit;
     SaveDlg: TSaveDialog;
     Footer: TPanel;
     CensorshipExtraPhrases: TCheckBox;
+    DragNotifierL: TLabel;
+    HeaderLinks: TPanel;
+    OptionalSettings: TDividerBevel;
     procedure CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -79,6 +81,11 @@ type
     procedure ExportSubtitle(const Subtitle: String);
     procedure ShowGuide(Sender: TObject);
   public
+    ShowGuideUrlL: TCustomUrlLabel;
+    ContactUrlL: TUrlLabelEx;
+    IssuesUrlL: TUrlLabelEx;
+    LicenseUrlL: TUrlLabelEx;
+    UpdatesUrlL: TUrlLabelEx;
     FInputFiles: array of String;
     FAutoRun: Boolean;
   end;
@@ -128,9 +135,6 @@ resourcestring
 { TFaSubripMain }
 
 procedure TFaSubripMain.FormCreate(Sender: TObject);
-var
-  Url0: TCustomUrlLabel;
-  Url1,Url2,Url3,Url4: TUrlLabelEx;
 begin
   {$ifdef darwin}
     MainMenu := TMainMenu.Create(Self);
@@ -140,44 +144,33 @@ begin
     MainMenu.Items.Insert(0, AppMenu);
   {$endif}
 
-  Url0 := TCustomUrlLabel.Create(Self);
-  with Url0 do
+  ShowGuideUrlL := TCustomUrlLabel.Create(Self);
+  with ShowGuideUrlL do
   begin
-    Parent := Header;
-    Align := alLeft;
+    Parent := HeaderLinks;
+    Align := alRight;
     Caption := rsGuide;
     OnClick := @ShowGuide;
     Font.Color := $0086C6E4;
-    BorderSpacing.Left := 8;
-    BorderSpacing.Top := 4;
-    BorderSpacing.Bottom := 4;
   end;
-  Url1 := TUrlLabelEx.Create(Self);
-  with Url1 do
+  ContactUrlL := TUrlLabelEx.Create(Self);
+  with ContactUrlL do
   begin
-    Parent := Header;
-    Align := alRight;
+    Parent := HeaderLinks;
     Caption := rsContact;
     URL := ContactUrl;
     Font.Color := $0086C6E4;
-    BorderSpacing.Right := 8;
-    BorderSpacing.Top := 4;
-    BorderSpacing.Bottom := 4;
   end;
-  Url2 := TUrlLabelEx.Create(Self);
-  with Url2 do
+  IssuesUrlL := TUrlLabelEx.Create(Self);
+  with IssuesUrlL do
   begin
-    Parent := Header;
-    Align := alRight;
+    Parent := HeaderLinks;
     Caption := rsIssueReporting;
     URL := IssuesUrl;
     Font.Color := $0086C6E4;
-    BorderSpacing.Right := 8;
-    BorderSpacing.Top := 4;
-    BorderSpacing.Bottom := 4;
   end;
-  Url3 := TUrlLabelEx.Create(Self);
-  with Url3 do
+  LicenseUrlL := TUrlLabelEx.Create(Self);
+  with LicenseUrlL do
   begin
     Parent := Footer;
     Align := alRight;
@@ -187,8 +180,8 @@ begin
     Hint := rsLicenseHint;
     HighlightColor := clHighlight;
   end;
-  Url4 := TUrlLabelEx.Create(Self);
-  with Url4 do
+  UpdatesUrlL := TUrlLabelEx.Create(Self);
+  with UpdatesUrlL do
   begin
     Parent := Footer;
     Align := alLeft;
@@ -215,6 +208,14 @@ end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);
 begin
+  {$ifdef darwin}
+  {$ifdef cpu64}
+  OutFileEncodingL.BiDiMode := bdLeftToRight;
+  ShowGuideUrlL.Align := alNone;
+  HeaderLinks.ChildSizing.ControlsPerLine := 1;
+  {$endif}
+  {$endif}
+  AutoSize := True;
   if FAutoRun then
   begin
     DoRun;
@@ -476,10 +477,14 @@ begin
 end;
 
 procedure TFaSubripMain.ShowGuide(Sender: TObject);
+const
+  SectSep = LineEnding+LineEnding+'**********************'
+    +'**********************';
+  SectHead = '** ';
+  SectHeadEnd = ':';
 var
   HelpForm: TForm;
-  Labels: array[0..15] of TLabel;
-  i: Integer;
+  Memo: TMemo;
 begin
   HelpForm := TForm.CreateNew(Self);
   try
@@ -488,48 +493,45 @@ begin
       DefaultMonitor := dmActiveForm;
       Position := poOwnerFormCenter;
       Caption := rsGuide;
-      AutoScroll := True;
-      HorzScrollBar.Visible := False;
-      VertScrollBar.Tracking := True;
-      VertScrollBar.Smooth := True;
-      ChildSizing.ControlsPerLine := 1;
-      ChildSizing.EnlargeHorizontal := crsHomogenousChildResize;
-      ChildSizing.ShrinkHorizontal := crsHomogenousChildResize;
-      ChildSizing.Layout := cclLeftToRightThenTopToBottom;
-      ChildSizing.VerticalSpacing := 2;
       ChildSizing.LeftRightSpacing := 8;
       ChildSizing.TopBottomSpacing := 8;
     end;
 
-    for i := 0 to High(Labels) do
+    Memo := TMemo.Create(HelpForm);
+    with Memo do
     begin
-      Labels[i] := TLabel.Create(HelpForm);
-      Labels[i].Parent := HelpForm;
-      Labels[i].BiDiMode := bdRightToLeft;
-      Labels[i].WordWrap := True;
-      if (i = 0) or (i mod 2 = 0) then
-      begin
-        Labels[i].BorderSpacing.Top := 8;
-        Labels[i].Font.Height := Canvas.GetTextHeight('AText')*2;
-      end;
-    end;
+      Parent := HelpForm;
+      Align := alClient;
+      ScrollBars := ssAutoVertical;
+      ReadOnly := True;
+      Color := clForm;
+      BiDiMode := bdRightToLeft;
 
-    Labels[0].Caption := OpenSubs.Caption;
-    Labels[1].Caption := OpenSubs.Hint;
-    Labels[2].Caption := StripHTMLFontTags.Caption;
-    Labels[3].Caption := StripHTMLFontTags.Hint;
-    Labels[4].Caption := StripHTMLStyleTags.Caption;
-    Labels[5].Caption := StripHTMLStyleTags.Hint;
-    Labels[6].Caption := ArabicCharsToFarsi.Caption;
-    Labels[7].Caption := ArabicCharsToFarsi.Hint;
-    Labels[8].Caption := CensorshipPhrases.Caption;
-    Labels[9].Caption := CensorshipPhrases.Hint;
-    Labels[10].Caption := CensorshipExtraPhrases.Caption;
-    Labels[11].Caption := CensorshipExtraPhrases.Hint;
-    Labels[12].Caption := OutFileEncodingL.Caption;
-    Labels[13].Caption := OutFileEncodingL.Hint;
-    Labels[14].Caption := AppendEncodingToFileName.Caption;
-    Labels[15].Caption := AppendEncodingToFileName.Hint;
+      Lines.Add(SectSep.Trim);
+      Lines.Add(SectHead+OpenSubs.Caption+SectHeadEnd);
+      Lines.Add(OpenSubs.Hint);
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+StripHTMLFontTags.Caption+SectHeadEnd);
+      Lines.Add(StripHTMLFontTags.Hint);
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+StripHTMLStyleTags.Caption+SectHeadEnd);
+      Lines.Add(StripHTMLStyleTags.Hint);
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+ArabicCharsToFarsi.Caption+SectHeadEnd);
+      Lines.Add(ArabicCharsToFarsi.Hint); 
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+CensorshipPhrases.Caption+SectHeadEnd);
+      Lines.Add(CensorshipPhrases.Hint); 
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+CensorshipExtraPhrases.Caption+SectHeadEnd);
+      Lines.Add(CensorshipExtraPhrases.Hint);
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+OutFileEncodingL.Caption+SectHeadEnd);
+      Lines.Add(OutFileEncodingL.Hint);  
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+AppendEncodingToFileName.Caption+SectHeadEnd);
+      Lines.Add(AppendEncodingToFileName.Hint);
+    end;
 
     HelpForm.ShowModal;
   finally

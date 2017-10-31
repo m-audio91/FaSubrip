@@ -306,9 +306,7 @@ begin
     SrtEnc := GuessEncoding(PChar(bs.Bytes));
     if SrtEnc = 'ucs2le' then
       FSrt := UTF16ToUTF8(PWideChar(bs.Bytes), bs.Size div SizeOf(WideChar))
-    else if (SrtEnc = 'cp1252')
-    or (SrtEnc = 'cp1256')
-    or (SrtEnc = 'ISO-8859-1') then
+    else if (' cp1252 cp1256 ISO-8859-1 ').Contains(SrtEnc) then
       FSrt := ConvertEncoding(PChar(bs.Bytes), EncodingCP1256, EncodingUTF8)
     else
     begin

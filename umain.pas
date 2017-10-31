@@ -196,7 +196,7 @@ end;
 procedure TFaSubripMain.CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if Key = VK_RETURN then (Sender as TFileNameEdit).ShowDialog;
+  if Key = VK_RETURN then (Sender as TFileNameEdit).RunDialog;
 end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);

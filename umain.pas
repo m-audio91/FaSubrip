@@ -34,6 +34,7 @@ type
 
   TFaSubripMain = class(TForm)
     AppendEncodingToFileName: TCheckBox;
+    ReplaceSourceFile: TCheckBox;
     OutFileEncodingL: TLabel;
     OutFileEncoding: TComboBox;
     OpenSubs: TButton;
@@ -416,17 +417,22 @@ end;
 
 procedure TFaSubripMain.PromptExport;
 begin
-  with SaveDlg do
+  if ReplaceSourceFile.State <> cbChecked then
   begin
-    InitialDir := OpenDlg.InitialDir;
-    FileName := GenFileName(FInputFile, EmptyStr, extSrt, False);
-    if Execute then
+    with SaveDlg do
     begin
-      if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
-        FileName := FileName + extSrt;
-      ExportSubtitle(FileName);
+      InitialDir := OpenDlg.InitialDir;
+      FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
+      if Execute then
+      begin
+        if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
+          FileName := FileName + extSrt;
+          ExportSubtitle(FileName);
+      end;
     end;
-  end;
+  end
+  else
+    ExportSubtitle(FInputFile);
 end;
 
 procedure TFaSubripMain.ExportSubtitle(const Subtitle: String);
@@ -435,10 +441,11 @@ var
   Enc: TEncoding;
   Sub: String;
 begin
+  Sub := Subtitle;
+  if FInputFile.Equals(Sub) and FileExists(Sub) then
+    DeleteFile(Sub);
   if AppendEncodingToFileName.State = cbChecked then
-    Sub := GenFileName(Subtitle, '_'+EncodingNames[OutFileEncoding.ItemIndex])
-  else
-    Sub := GenFileName(Subtitle, wFaSubed);
+    Sub := GenFileName(Sub, '_'+EncodingNames[OutFileEncoding.ItemIndex]);
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try
@@ -522,6 +529,9 @@ begin
       Lines.Add(SectSep);
       Lines.Add(SectHead+AppendEncodingToFileName.Caption+SectHeadEnd);
       Lines.Add(AppendEncodingToFileName.Hint);
+      Lines.Add(SectSep);
+      Lines.Add(SectHead+ReplaceSourceFile.Caption+SectHeadEnd);
+      Lines.Add(ReplaceSourceFile.Hint);
     end;
 
     HelpForm.ShowModal;

@@ -285,7 +285,7 @@ begin
   CensorshipExtraPhrasesFile(FSrt);
   CensorshipImpolitePhrases(FSrt);
   if FBatchMode then
-    ExportSubtitle(GenFileName(FInputFile, wFaSubed, extSrt, True, FBatchOutDir))
+    ExportSubtitle(GenFileName(FInputFile, EmptyStr, extSrt, True, FBatchOutDir, true))
   else
     PromptExport;
 end;

@@ -25,8 +25,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, DividerBevel, CommonStrUtils, CommonFileUtils,
-  CommonGUIUtils {$ifdef darwin},Menus{$endif};
+  uUrlLabel, LazFileUtils, DividerBevel, CommonStrUtils, CommonFileUtils
+  {$ifdef darwin},Menus{$endif};
 
 type
 

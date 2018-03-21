@@ -21,7 +21,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="6"/>
+      <BuildNr Value="7"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.1.0.0"/>
     </VersionInfo>
     <BuildModes Count="7">

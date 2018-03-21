@@ -492,7 +492,11 @@ begin
       Position := poOwnerFormCenter;
       Caption := rsGuide;
       ChildSizing.LeftRightSpacing := 8;
-      ChildSizing.TopBottomSpacing := 8;
+      ChildSizing.TopBottomSpacing := 8; 
+      Constraints.MinWidth := Self.Width;
+      Constraints.MinHeight := Self.Height-10;
+      Left := Self.Left;
+      Top := Self.Top;
     end;
 
     Memo := TMemo.Create(HelpForm);

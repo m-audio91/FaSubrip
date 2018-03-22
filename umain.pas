@@ -25,8 +25,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, DividerBevel, CommonStrUtils, CommonFileUtils
-  {$ifdef darwin},Menus{$endif};
+  uUrlLabel, LazFileUtils, DividerBevel, CommonGUIUtils, CommonStrUtils,
+  CommonFileUtils {$ifdef darwin},Menus{$endif};
 
 type
 
@@ -70,6 +70,7 @@ type
     FBatchMode: Boolean;
     FBatchOutDir: String;
     FInputFile: String;
+    function OutputDirValid(const Dir: String): Boolean;
     procedure DoRun;
     procedure ProcessSubtitle;
     function TryReadSubtitle: Boolean;
@@ -132,6 +133,8 @@ resourcestring
     +LineEnding + SourceUrl;
   rsUpdatesCaption = 'بروزرسانی ها';
   rsUpdateHint = 'برای مطلع شدن از آخرین بروزرسانی ها کلیک کنید';
+  rsDirIsNotWritable = 'محل انتخابی برای خروجی قابلیت نوشتن ندارد';
+  rsError = 'خطا';
 
 { TFaSubripMain }
 
@@ -243,6 +246,13 @@ begin
   end;
 end;
 
+function TFaSubripMain.OutputDirValid(const Dir: String): Boolean;
+begin
+  Result := TryDirectoryIsWritable(Dir);
+  if not Result then
+    ShowError(rsDirIsNotWritable, rsError);
+end;
+
 procedure TFaSubripMain.DoRun;
 var
   AFile: String;
@@ -264,6 +274,7 @@ begin
       end;
       FBatchOutDir := SaveDirDlg.FileName;
     end;
+    if not OutputDirValid(FBatchOutDir) then Exit;
     for AFile in FInputFiles do
     begin
       FInputFile := AFile;
@@ -276,6 +287,7 @@ begin
   begin
     FBatchMode := False;
     FInputFile := FInputFiles[0];
+    if not OutputDirValid(OpenDlg.InitialDir) then Exit;
     ProcessSubtitle;
   end;
 end;

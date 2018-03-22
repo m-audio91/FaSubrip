@@ -251,14 +251,19 @@ begin
   if High(FInputFiles) > 0 then
   begin
     FBatchMode := True;
-    ShowMessage(rsSelectOutDir);
-    SaveDirDlg.InitialDir := OpenDlg.InitialDir;
-    if not SaveDirDlg.Execute then
+    if ReplaceSourceFile.State = cbChecked then
+      FBatchOutDir := IncludeTrailingPathDelimiter(OpenDlg.InitialDir)
+    else
     begin
-      FBatchMode := False;
-      Exit;
+      ShowMessage(rsSelectOutDir);
+      SaveDirDlg.InitialDir := OpenDlg.InitialDir;
+      if not SaveDirDlg.Execute then
+      begin
+        FBatchMode := False;
+        Exit;
+      end;
+      FBatchOutDir := SaveDirDlg.FileName;
     end;
-    FBatchOutDir := SaveDirDlg.FileName;
     for AFile in FInputFiles do
     begin
       FInputFile := AFile;

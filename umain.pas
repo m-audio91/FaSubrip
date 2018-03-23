@@ -287,8 +287,8 @@ begin
   begin
     FBatchMode := False;
     FInputFile := FInputFiles[0];
-    if not OutputDirValid(OpenDlg.InitialDir) then Exit;
-    ProcessSubtitle;
+    if OutputDirValid(OpenDlg.InitialDir) then
+      ProcessSubtitle;
   end;
 end;
 
@@ -444,12 +444,16 @@ begin
       begin
         if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
           FileName := FileName + extSrt;
+        if OutputDirValid(ExtractFilePath(FileName)) then
           ExportSubtitle(FileName);
       end;
     end;
   end
   else
-    ExportSubtitle(FInputFile);
+  begin
+    if OutputDirValid(OpenDlg.InitialDir) then
+      ExportSubtitle(FInputFile);
+  end;
 end;
 
 procedure TFaSubripMain.ExportSubtitle(const Subtitle: String);

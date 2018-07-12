@@ -439,7 +439,11 @@ begin
     with SaveDlg do
     begin
       InitialDir := OpenDlg.InitialDir;
-      FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
+      if AppendEncodingToFileName.State = cbChecked then
+        FileName :=
+        GenFileName(FInputFile, '_'+EncodingNames[OutFileEncoding.ItemIndex], extSrt, False)
+      else
+        FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
       if Execute then
       begin
         if not LowerCase(ExtractFileExt(FileName)).Equals(extSrt) then
@@ -466,7 +470,10 @@ begin
   if FInputFile.Equals(Sub) and FileExists(Sub) then
     DeleteFile(Sub);
   if AppendEncodingToFileName.State = cbChecked then
-    Sub := GenFileName(Sub, '_'+EncodingNames[OutFileEncoding.ItemIndex]);
+  begin
+    if not Sub.EndsWith(EncodingNames[OutFileEncoding.ItemIndex]+extSrt) then
+      Sub := GenFileName(Sub, '_'+EncodingNames[OutFileEncoding.ItemIndex]);
+  end;
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try

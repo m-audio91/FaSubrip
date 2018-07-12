@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -20,9 +20,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="1"/>
-      <BuildNr Value="31"/>
-      <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.1.0.0"/>
+      <MinorVersionNr Value="2"/>
+      <BuildNr Value="7"/>
+      <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.0.0"/>
     </VersionInfo>
     <BuildModes Count="7">
       <Item1 Name="Debug" Default="True"/>
@@ -246,12 +246,13 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <DestinationDirectory Value="$(ProjPath)\published\releases\1.1.0"/>
+      <DestinationDirectory Value="$(ProjPath)\published\releases\1.2.0"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>

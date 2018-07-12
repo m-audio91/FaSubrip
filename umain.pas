@@ -131,8 +131,8 @@ resourcestring
   rsLicenseHint = 'فاسابریپ و متن آن تحت این مجوز برای عموم منتشر گردیده است'
     +LineEnding + 'متن برنامه و طریقه کامپایل آن در آدرس زیر موجود است'
     +LineEnding + SourceUrl;
-  rsUpdatesCaption = 'بروزرسانی ها';
-  rsUpdateHint = 'برای مطلع شدن از آخرین بروزرسانی ها کلیک کنید';
+  rsUpdatesCaption = 'بروزرسانی';
+  rsUpdateHint = 'برای مطلع شدن از وجود نسخه های جدیدتر فاسابریپ کلیک کنید';
   rsDirIsNotWritable = 'محل انتخابی برای خروجی قابلیت نوشتن ندارد';
   rsError = 'خطا';
 

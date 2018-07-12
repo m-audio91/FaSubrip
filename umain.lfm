@@ -6,7 +6,7 @@ object FaSubripMain: TFaSubripMain
   AllowDropFiles = True
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FaSubrip v1.1.0'
+  Caption = 'FaSubrip v1.2.0'
   ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
   ChildSizing.EnlargeVertical = crsHomogenousChildResize
   ChildSizing.Layout = cclLeftToRightThenTopToBottom

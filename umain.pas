@@ -74,7 +74,7 @@ type
     procedure DoRun;
     procedure ProcessSubtitle;
     function TryReadSubtitle: Boolean;
-    procedure ClearBOMs(var S: String);
+    procedure ClearUnicodeSpecificChars(var S: String);
     procedure SwapArabicChars(var S: String);
     procedure StripHTMLTags(var S: String);
     procedure CensorshipImpolitePhrases(var S: String);
@@ -119,8 +119,11 @@ const
   ArabicChars: array[0..1] of String = ('ك', 'ي');
   FarsiChars: array[0..1] of String = ('ک', 'ی');
   EncodingNames: array[0..2] of String = ('UTF-8', 'WINDOWS-1256', 'UTF-16');
-  UTFBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
+  UnicodeBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
     UTF32LEBOM);
+  UnicodeDirectionControllers: array[0..9] of String = (#$E2#$80#$8F
+  ,#$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD
+  ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7);
 
 resourcestring
   rsAllDone = 'عملیات انجام شد';
@@ -296,7 +299,7 @@ procedure TFaSubripMain.ProcessSubtitle;
 begin
   if not LowerCase(ExtractFileExt(FInputFile)).Equals(extSrt) then Exit;
   if not TryReadSubtitle then Exit;
-  ClearBOMs(FSrt);
+  ClearUnicodeSpecificChars(FSrt);
   SwapArabicChars(FSrt);
   StripHTMLTags(FSrt);
   CensorshipExtraPhrasesFile(FSrt);
@@ -339,12 +342,14 @@ begin
   Result := not IsEmptyStr(FSrt);
 end;
 
-procedure TFaSubripMain.ClearBOMs(var S: String);
+procedure TFaSubripMain.ClearUnicodeSpecificChars(var S: String);
 var
-  ABOM: String;
+  c: String;
 begin
-  for ABOM in UTFBOMs do
-    DeleteAllOccurrences(ABOM, S);
+  for c in UnicodeBOMs do
+    DeleteAllOccurrences(c, S);
+  for c in UnicodeDirectionControllers do
+    DeleteAllOccurrences(c, S);
 end;
 
 procedure TFaSubripMain.SwapArabicChars(var S: String);

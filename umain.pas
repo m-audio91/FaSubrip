@@ -121,9 +121,10 @@ const
   EncodingNames: array[0..2] of String = ('UTF-8', 'WINDOWS-1256', 'UTF-16');
   UnicodeBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
     UTF32LEBOM);
-  UnicodeDirectionControllers: array[0..9] of String = (#$E2#$80#$8F
+  UnicodeDirectionControllers: array[0..11] of String = (#$E2#$80#$8F
   ,#$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD
-  ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7);
+  ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7, #$E2#$81#$A8
+  ,#$E2#$81#$A9);
 
 resourcestring
   rsAllDone = 'عملیات انجام شد';

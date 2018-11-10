@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, umain
+  Forms, lazcontrols, umain, uhelp, uabout
   { you can add units after this };
   {$ifdef FPC_CROSSCOMPILING}
   {$ifdef Linux}
@@ -58,6 +58,8 @@ begin
       FaSubripMain.FInputFiles[i-1] := Application.Params[i];
     FaSubripMain.FAutoRun := True;
   end;
+  Application.CreateForm(TFaSubripHelp, FaSubripHelp);
+  Application.CreateForm(TFaSubripAbout, FaSubripAbout);
   Application.Run;
 end.
 

@@ -7,10 +7,6 @@ object FaSubripMain: TFaSubripMain
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'FaSubrip v1.2.0'
-  ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-  ChildSizing.EnlargeVertical = crsHomogenousChildResize
-  ChildSizing.Layout = cclLeftToRightThenTopToBottom
-  ChildSizing.ControlsPerLine = 1
   ClientHeight = 281
   ClientWidth = 470
   DefaultMonitor = dmPrimary
@@ -19,12 +15,12 @@ object FaSubripMain: TFaSubripMain
   OnShow = FormShow
   Position = poScreenCenter
   SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensExtraPhrases.Text;CensorshipExtraPhrases.State;CensorshipPhrases.State;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State'
-  LCLVersion = '1.9.0.0'
   object Header: TPanel
-    Left = 8
-    Height = 22
+    Left = 0
+    Height = 30
     Top = 0
-    Width = 582
+    Width = 470
+    Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -33,45 +29,50 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 22
-    ClientWidth = 582
+    ClientHeight = 30
+    ClientWidth = 470
     Color = 4342338
     Font.Color = clWhite
     ParentBidiMode = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 4
     object Description: TLabel
       Left = 8
       Height = 17
       Top = 4
-      Width = 566
+      Width = 454
       BidiMode = bdRightToLeft
       BorderSpacing.Left = 8
       BorderSpacing.Top = 4
       BorderSpacing.Right = 8
       Caption = 'نرم افزاری رایگان برای حل مشکل نمایش بصورت حروف پرت در زیرنویس های SRT فارسی'
+      Font.Color = clWhite
       ParentBidiMode = False
       ParentColor = False
+      ParentFont = False
     end
     object HeaderLinks: TPanel
       Left = 8
       Height = 1
-      Top = 21
-      Width = 566
+      Top = 25
+      Width = 454
+      BorderSpacing.Left = 8
+      BorderSpacing.Top = 4
+      BorderSpacing.Right = 8
+      BorderSpacing.Bottom = 4
       BevelOuter = bvNone
-      ChildSizing.TopBottomSpacing = 6
-      ChildSizing.HorizontalSpacing = 8
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 3
+      Font.Color = clWhite
+      ParentFont = False
       TabOrder = 0
     end
   end
   object OpenSubsContainer: TPanel
     Left = 8
     Height = 30
-    Top = 25
-    Width = 582
+    Top = 33
+    Width = 454
+    Align = alTop
     Alignment = taRightJustify
     AutoSize = True
     BorderSpacing.Left = 8
@@ -83,15 +84,15 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 30
-    ClientWidth = 582
+    ClientWidth = 454
     Color = clForm
     Font.Color = 4342338
     ParentBidiMode = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 0
     object OpenSubs: TButton
-      Left = 220
+      Left = 156
       Height = 30
       Hint = 'با این دکمه زیرنویس (های) خود را بارگزاری کنید.'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و'#13#10'روی آیکون فاسابریپ رها کنید اما این مورد تنها مخصوص سیستم عامل ویندوز می باشد'#13#10#13#10'توجه: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'
       Top = 0
@@ -110,172 +111,295 @@ object FaSubripMain: TFaSubripMain
       Width = 144
       Align = alLeft
       Caption = 'یا بکشید و اینجا رها کنید'
+      Font.Color = 4342338
       Layout = tlCenter
       ParentColor = False
+      ParentFont = False
     end
   end
   object OptionalSettings: TDividerBevel
-    Left = 8
+    Left = 16
     Height = 17
-    Top = 55
-    Width = 582
+    Top = 63
+    Width = 438
+    Align = alTop
+    BorderSpacing.Left = 16
+    BorderSpacing.Right = 16
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object StripHTMLFontTags: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'فعال کردن این گزینه منجر به حذف تگ های <font .....> و </font> می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
-    Top = 72
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'حذف برچسب های HTML رنگ و اندازه قلم'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 2
-  end
-  object StripHTMLStyleTags: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'فعال کردن این گزینه منجر به حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
-    Top = 96
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'حذف برچسب های HTML حالات متن'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 3
-  end
-  object ArabicCharsToFarsi: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'با فعال کردن این گزینه حروف ''ك'' و ''ي'' در صورت موجود بودن'#13#10'با نسخه فارسی خودشان جایگزین  خواهند شد.'#13#10#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#13#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند.'#13#10#13#10'تذکر: هنگامی که با کدگذاری ANSI WINDOWS-1256 خروجی می گیرید این گزینه بطور خودکار'#13#10'غیر فعال می گردد زیرا نسخه فارسی این دو حرف در این کدگذاری در برخی'#13#10'از پخش کننده ها مشکل ساز است!'
-    Top = 120
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'ی و ک فارسی'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 4
-  end
-  object CensorshipPhrases: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین می کند.'#13#10#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات بطور جداگانه و مستقل از این گزینه قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید یا در عین فعال بودن این گزینه، عبارات دیگری را'#13#10'با آن گزینه هدف قرار بدهید.'
-    Top = 144
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'سانسور عبارات نامناسب'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 5
-  end
-  object CensorshipExtraPhrases: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'در صورت فعال کردن این گزینه و ارائه دادن یک فایل معتبر حاوی عبارات مدنظرتان فاسابریپ اقدام'#13#10'به سانسور یا جایگزینی آنها می کند.'#13#10'طریقه تهیه این فایل:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی لینوکس چون هر توزیع ویرایشگر متن متفاوتی استفاده می کند خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'#13#10'همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و غیره'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که اضافه می کنید بجای تبدیل شدن به ***** با چیز'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10#13#10'(نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک)'
-    Top = 168
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'سانسور عبارات موجود در فایل زیر'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 6
-  end
-  object CensExtraPhrases: TFileNameEdit
-    Left = 8
-    Height = 27
-    Hint = 'فایل حاوی عبارات اضافی برای حذف یا جایگزینی'
-    Top = 192
-    Width = 582
-    DialogOptions = [ofReadOnly, ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Filter = 'فایل متنی ساده حاوی عبارات|*.txt;*.dat'
-    FilterIndex = 0
-    DefaultExt = 'txt'
-    HideDirectories = False
-    ButtonWidth = 23
-    NumGlyphs = 1
-    Color = clDefault
-    MaxLength = 0
-    ParentBidiMode = False
-    TabOrder = 7
-    OnKeyDown = CensExtraPhrasesKeyDown
-  end
-  object OutFileEncodingL: TLabel
+  object SettingsNotifier: TPanel
     Left = 8
     Height = 17
-    Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری یا پخش کننده سخت افزاری'#13#10'باز کنید که مثلا تنها از ANSI پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'
-    Top = 219
-    Width = 582
+    Top = 80
+    Width = 454
+    Align = alTop
+    AutoSize = True
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 8
+    BevelOuter = bvNone
+    ClientHeight = 17
+    ClientWidth = 454
+    Color = clForm
+    Font.Color = 4342338
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+    object SettingsNotifierL: TLabel
+      Left = 404
+      Height = 17
+      Top = 0
+      Width = 50
+      Align = alRight
+      Alignment = taCenter
+      Caption = 'تنظیمات'
+      Font.Color = 4342338
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+    end
+    object SettingsShow: TSpeedButton
+      Left = 388
+      Height = 17
+      Top = 0
+      Width = 16
+      Align = alRight
+      AutoSize = True
+      Flat = True
+      Font.Color = 4342338
+      Images = Imgs
+      ImageIndex = 0
+      OnClick = SettingsShowClick
+      ParentFont = False
+    end
+    object SettingsHelps: TSpeedButton
+      Left = 372
+      Height = 17
+      Top = 0
+      Width = 16
+      Align = alRight
+      AutoSize = True
+      Flat = True
+      Font.Color = 4342338
+      Images = Imgs
+      ImageIndex = 2
+      OnClick = SettingsHelpsClick
+      ParentFont = False
+    end
+  end
+  object Settings: TPanel
+    Left = 8
+    Height = 240
+    Top = 105
+    Width = 454
+    Align = alTop
+    AutoSize = True
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 8
+    BevelOuter = bvNone
     BidiMode = bdRightToLeft
-    Caption = 'کدگذاری حروف فایل خروجی'
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 240
+    ClientWidth = 454
+    Color = clForm
     ParentBidiMode = False
     ParentColor = False
-  end
-  object OutFileEncoding: TComboBox
-    Left = 8
-    Height = 27
-    Top = 236
-    Width = 582
-    ItemHeight = 0
-    ItemIndex = 0
-    Items.Strings = (
-      'UTF-8'
-      'ANSI WINDOWS-1256'
-      'Unicode (UTF-16 LE)'
-    )
-    ParentBidiMode = False
-    Style = csDropDownList
-    TabOrder = 8
-    Text = 'UTF-8'
-  end
-  object AppendEncodingToFileName: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'فعال کردن این گزینه صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان مفید می باشد'#13#10#13#10'مثلا خروجی'#13#10'test.srt'#13#10'در حالت عادی'#13#10'test_FaSubrip.srt'#13#10'می باشد که با فعال کردن این گزینه و یو تی اف 8 بودن کدگذاری انتخابی خروجی می شود'#13#10'test_UTF-8.srt'
-    Top = 263
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
-    Checked = True
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    State = cbChecked
-    TabOrder = 9
-  end
-  object ReplaceSourceFile: TCheckBox
-    Left = 8
-    Height = 24
-    Hint = 'در صورت فعال بودن این گزینه فایل جدیدی برای خروجی ایجاد نمی گردد.'#10'فایل خروجی روی فایل ورودی بازنویسی می گردد.'
-    Top = 287
-    Width = 582
-    BidiMode = bdRightToLeft
-    Caption = 'ذخیره مستقیم روی فایل اصلی'
-    Color = clDefault
-    ParentColor = False
-    ParentBidiMode = False
-    TabOrder = 10
+    ParentFont = False
+    TabOrder = 2
+    object StripHTMLFontTags: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'فعال کردن این گزینه منجر به حذف تگ های <font .....> و </font> می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
+      Top = 0
+      Width = 454
+      Caption = 'حذف برچسب های HTML رنگ و اندازه قلم'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+    end
+    object StripHTMLStyleTags: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'فعال کردن این گزینه منجر به حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره می شود.'#13#10#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
+      Top = 24
+      Width = 454
+      Caption = 'حذف برچسب های HTML حالات متن'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+    end
+    object ArabicCharsToFarsi: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'با فعال کردن این گزینه حروف ''ك'' و ''ي'' در صورت موجود بودن'#13#10'با نسخه فارسی خودشان جایگزین  خواهند شد.'#13#10#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#13#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند.'#13#10#13#10'تذکر: هنگامی که با کدگذاری ANSI WINDOWS-1256 خروجی می گیرید این گزینه بطور خودکار'#13#10'غیر فعال می گردد زیرا نسخه فارسی این دو حرف در این کدگذاری در برخی'#13#10'از پخش کننده ها مشکل ساز است!'
+      Top = 48
+      Width = 454
+      Caption = 'ی و ک فارسی'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 2
+    end
+    object CensorshipPhrases: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین می کند.'#13#10#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات بطور جداگانه و مستقل از این گزینه قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید یا در عین فعال بودن این گزینه، عبارات دیگری را'#13#10'با آن گزینه هدف قرار بدهید.'
+      Top = 72
+      Width = 454
+      Caption = 'سانسور عبارات نامناسب'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 3
+    end
+    object CensorshipExtraPhrases: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'در صورت فعال کردن این گزینه و ارائه دادن یک فایل معتبر حاوی عبارات مدنظرتان فاسابریپ اقدام'#13#10'به سانسور یا جایگزینی آنها می کند.'#13#10'طریقه تهیه این فایل:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی لینوکس چون هر توزیع ویرایشگر متن متفاوتی استفاده می کند خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'#13#10'همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و غیره'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که اضافه می کنید بجای تبدیل شدن به ***** با چیز'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10#13#10'(نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک)'
+      Top = 96
+      Width = 454
+      Caption = 'سانسور عبارات موجود در فایل زیر'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 5
+      Visible = False
+    end
+    object CensorshipSettings: TPanel
+      Left = 0
+      Height = 28
+      Top = 120
+      Width = 454
+      AutoSize = True
+      BevelOuter = bvNone
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 28
+      ClientWidth = 454
+      ParentBidiMode = False
+      TabOrder = 4
+      object CensExtraPhrases: TFileNameEdit
+        Left = 0
+        Height = 28
+        Hint = 'فایل حاوی عبارات اضافی برای حذف یا جایگزینی'
+        Top = 0
+        Width = 227
+        DialogOptions = [ofReadOnly, ofFileMustExist, ofEnableSizing, ofViewDetail]
+        Filter = 'فایل متنی ساده حاوی عبارات|*.txt;*.dat'
+        FilterIndex = 0
+        DefaultExt = 'txt'
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Images = Imgs
+        ImageIndex = 3
+        Flat = True
+        Color = clDefault
+        MaxLength = 0
+        ParentBidiMode = False
+        ParentFont = False
+        TabOrder = 1
+        OnKeyDown = CensExtraPhrasesKeyDown
+      end
+      object CensorshipLevel: TComboBox
+        Left = 231
+        Height = 28
+        Top = 0
+        Width = 223
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'در حد متعارف'
+          'حساس'
+          'شخصی - عبارات موجود در فایل روبرو'
+        )
+        ParentBidiMode = False
+        Style = csDropDownList
+        TabOrder = 0
+        Text = 'در حد متعارف'
+      end
+    end
+    object OutFileEncodingL: TLabel
+      Left = 0
+      Height = 17
+      Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری یا پخش کننده سخت افزاری'#13#10'باز کنید که مثلا تنها از ANSI پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'
+      Top = 148
+      Width = 454
+      Caption = 'کدگذاری حروف فایل خروجی'
+      ParentColor = False
+      ParentFont = False
+    end
+    object OutFileEncoding: TComboBox
+      Left = 0
+      Height = 27
+      Top = 165
+      Width = 454
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'UTF-8'
+        'ANSI WINDOWS-1256'
+        'Unicode (UTF-16 LE)'
+      )
+      ParentBidiMode = False
+      ParentFont = False
+      Style = csDropDownList
+      TabOrder = 6
+      Text = 'UTF-8'
+    end
+    object AppendEncodingToFileName: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'فعال کردن این گزینه صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان مفید می باشد'#13#10#13#10'مثلا خروجی'#13#10'test.srt'#13#10'در حالت عادی'#13#10'test_FaSubrip.srt'#13#10'می باشد که با فعال کردن این گزینه و یو تی اف 8 بودن کدگذاری انتخابی خروجی می شود'#13#10'test_UTF-8.srt'
+      Top = 192
+      Width = 454
+      Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
+      Checked = True
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 7
+    end
+    object ReplaceSourceFile: TCheckBox
+      Left = 0
+      Height = 24
+      Hint = 'در صورت فعال بودن این گزینه فایل جدیدی برای خروجی ایجاد نمی گردد.'#10'فایل خروجی روی فایل ورودی بازنویسی می گردد.'
+      Top = 216
+      Width = 454
+      Caption = 'ذخیره مستقیم روی فایل اصلی'
+      Color = clDefault
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 8
+    end
   end
   object Footer: TPanel
     Left = 8
     Height = 1
-    Top = 315
-    Width = 582
+    Top = 281
+    Width = 454
+    Align = alTop
     AutoSize = True
+    BorderSpacing.Left = 8
     BorderSpacing.Top = 4
+    BorderSpacing.Right = 8
     BorderSpacing.Bottom = 4
     BevelOuter = bvNone
     Color = clForm
     Font.Color = clGrayText
     ParentColor = False
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 3
   end
   object SaveDlg: TSaveDialog
     Title = 'محل و نام زیرنویس خروجی را انتخاب کنید'
@@ -304,5 +428,179 @@ object FaSubripMain: TFaSubripMain
     Options = [ofReadOnly, ofAllowMultiSelect, ofFileMustExist, ofEnableSizing, ofViewDetail]
     Left = 192
     Top = 72
+  end
+  object Imgs: TImageList
+    Height = 12
+    Width = 12
+    Left = 256
+    Top = 72
+    Bitmap = {
+      4C69040000000C0000000C000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000004141
+      41B6424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF414141B6424242DE424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242DE2F2F
+      2F50424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF3131315200000000434343AE424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF434343B3000000000000
+      00003030301C424242F2424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242F41D1D1D1E0000000000000000000000003131316E424242FF4242
+      42FF424242FF424242FF424242FF424242FF3131317200000000000000000000
+      00000000000011111102424242CA424242FF424242FF424242FF424242FF4242
+      42CE101010040000000000000000000000000000000000000000212121324242
+      42FC424242FF424242FF424242FD222222350000000000000000000000000000
+      00000000000000000000000000005151518E424242FF424242FF3E3E3E920000
+      0000000000000000000000000000000000000000000000000000000000001010
+      100C424242D5424242D61010100D000000000000000000000000000000000000
+      0000000000000000000000000000000000001515150015151500000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000151515001515150000000000000000000000000000000000000000000000
+      00000000000000000000000000001010100C424242D6424242D61010100D0000
+      0000000000000000000000000000000000000000000000000000000000005151
+      518E424242FF424242FF3E3E3E92000000000000000000000000000000000000
+      0000000000000000000021212132424242FC424242FF424242FF424242FD2222
+      2235000000000000000000000000000000000000000011111102424242CA4242
+      42FF424242FF424242FF424242FF424242CE1010100400000000000000000000
+      0000000000003131316E424242FF424242FF424242FF424242FF424242FF4242
+      42FF313131720000000000000000000000003030301C424242F2424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242F41D1D1D1E000000000000
+      0000434343AE424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF434343B3000000003232324D424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF313131524242
+      42DE424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242DE424242B5424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF414141B60000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000101010073232326D4242
+      42C9424242F3424242F3424242C9323232711111110800000000000000000000
+      00001010101C424242D1484F52FF648594FF709CB0FF709CB0FF62818FFF464A
+      4CFF424242D11010101C0000000011111107424242D1484E51FF7FB8D4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF7CB3CDFF464A4BFF424242D2101010063232
+      326E424242FF617E8BFF86C6E4FF86C6E4FF638291FF698E9FFF86C6E4FF86C6
+      E4FF5C7581FF424242FF3232326D424242CA424242FF484D50FF658695FF5E79
+      85FF424242FF607C89FF86C6E4FF86C6E4FF5B737EFF424242FF424242C84242
+      42F3424242FF424242FF424242FF424242FF607C89FF86C6E3FF86C6E4FF76A8
+      BFFF444647FF424242FF424242F3424242F3424242FF424242FF424242FF5668
+      71FF86C6E4FF86C6E4FF719EB3FF454748FF424242FF424242FF424242F24242
+      42C9424242FF424242FF424242FF5B737EFF84C3E0FF7BB1CBFF444647FF4242
+      42FF424242FF424242FF424242C83232326E424242FF424242FF424242FF484D
+      4FFF586D77FF4F5B61FF424242FF424242FF424242FF424242FF3131316C1010
+      1007424242D0424242FF424242FF6B91A3FF86C6E4FF83C0DCFF424242FF4242
+      42FF424242FF424242D111111106000000001010101C424242D1424242FF6280
+      8EFF86C6E4FF79AEC6FF424242FF424242FF424242D01010101C000000000000
+      000000000000101010063232326C424242C8424242F2424242F2424242C83131
+      3171101010070000000000000000424242C5424242FF424242FF424242FF4242
+      42FF212121400000000000000000000000000000000000000000000000004242
+      42FF424242FF424242FF424242FF424242FF424242C000000000000000000000
+      0000000000000000000000000000424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF414141C44242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42C4424242FF424242FF424242FF424242FF424242FF424242FF424242FF4242
+      42FF424242FF424242FF414141C3
+    }
+    BitmapAdv = {
+      4C69030000004C7A040000000F0000000F0000003E0300000000000078DA6360
+      201F181818041B1A1A6E03E2FDA460A0BE102727A7D740FC9F0C0CD2B79F4CBD
+      FBD5D4D4CC80F42352F5AAABAB9B83FC6C6C6C1C05E4FF2552DF3F6767E73E58
+      78F1F0F0B000C54E10A9F794B8B8B82472783B3A3ADA01C5DF12D2ABA7A7E7C2
+      CCCC8C12572C2C2C4C5656565D04F4EE00AA63C616D740B73003E52FE0D07759
+      4949491D5F5AD1D2D2F202AAFB83A6EF2F50DC9F503AE3E2E20285DB2E34BD7B
+      80E2ACC4A4530707077DA0FABBB038D1D0D03026368D03C3910918E731407D5F
+      81B80BC427359F2828283002C395AC3C46AE5E5555552B7777F71D262626D1A4
+      E8A324AC80F6CD06E981C51130BDCE25461FB96983923409CC0B0958EC84DB0D
+      74FB646CFA28C9836E6E6E6B89C9FB403BD6737070F0C0F4191919459253E668
+      6A6A1A03F90FC829EB80F40212EC44C68B2829DB817EAF05D25F48D50BD457C7
+      4025202A2ACA09CDF3DBA075C54F207E09E203C5E32581009B3E090909797B7B
+      FB75A0B2C2D5C3F37F405CCAFFF0ACE2FF414999FF5DDCDC41EEFC0E8C9B5340
+      757268FAE48072B741FE48EF9AF5BFF9C0DDFF6DC79EC071E3DE9BFF931AFAFF
+      BB797A83CCB8ADA2A262034DFF9C407F83ECFB1F9A51F8BFF5C843147D30DC72
+      E8C1FF98D20658583D01FA8F03E88F5820FB1B48AC62F561B8DABC692BFF87A4
+      E5FDCF9FBD1E2E56B3E90C3C9C81E5092C5CC07CFFE8C4FFB9403D2077BBFBF8
+      FF77F5F0FA9F3379195C6FF58693C8F1B415881F23C79BB3AB2B1883D869EDD3
+      816EBD0FD6D77AF8E1FFF8AA7664BDA078F8811EEF6E5E3EFF33FBE6C3ED6B3E
+      780FEC576878C3F077207E85AE3734A3E07FD3BEDB70BDF1D51DFF9D9D5DD0D3
+      D60BA8BB51C48353B2FFD76EBB000CF347FF0BE66CF8EFECE28A2D4D6E410E67
+      1886A58DA0C44C7098614BCFC076520C305D8801CD40692F4417D7FFAFDF71F9
+      7FC3AE6BFF0BE76EC2A6F73B30798A82D2079086A72B70F876CC4084D3813BE8
+      FA6E03EB0C6BF43A04165FA1E905FF1B765F03C6CB03703C21DB074C8F968C40
+      80251F7140D30B28FC1E42E30F948FB600FD1707F49F045AD9BA0628F71B8B9F
+      A610CAB338F481F06760384810D08BB35C01BA73BDA2A26203360CAC9B1DC92C
+      E74069E301B97A47F1282690B656E3C90FF8F4AD0200B262A1AB4C7A04000000
+      12000000120000000F0400000000000078DAED565B48146114B690A8F04129AA
+      5523050515EA41BC3FB4ED8E6BEEA4B96E9B5ADE4ADD222BBAB85ADA452BAB87
+      A01E821EA28B5DE96A19456916455EA81E824A8B4ABBD24B506949F74EDF3FCC
+      ACA3CCBABBCEF4120D7CCC3F33FFF9E69CF37FE7FCBF8F8F36574848C8D4D0D0
+      5007500DD4780966E300C73483C1D06C341ABF03344C7C07C735DC5FA8E090F0
+      42AFD757E0FE5505C737F8B3262828680AC64D2A789A8383834359AE912B139E
+      9F0F83E3156C53A5350B080818959494B4DD5B1ED8EC80ED68F9FADB6CB6095E
+      E6FC6D6464E424252DC5C6C65AF1FDA3071C3D71717139AE34091FC7711C7700
+      F37E0CC1F11338ECEFEF3FDE158FAFAFAF0F7C4DC4BCA743F0744744444CC7DC
+      11EE6A253A3A7A31E6FF52E0F88D6FCB3CAD399D4E3706362D0A3CED8181817E
+      DED4AFDD6E9F05BB77328EF789898919DEF6013F3FBF31B0DB08FB4F0C18D7E0
+      DDD8E1F414AC890EB5B38401E34035FD09F602D45E5AF0B058C4B84A871B9756
+      79D662DDB5D2A1DABAD0AA4EB5EA1B5AF4312DFAAA567D5E8B7D67322EE8FEB2
+      DA7D10EBE3C0F88BDA7D59AB7302F38B71AA3CB7348BE7A832B5E7289FBF70B1
+      9A81DE27C4C7C79BE16B1D7CEE047A45B0711D743C0B9AD161EE48573CA83F03
+      E69E62769CC944BC752E65E42E1460B6D8884B4E66F9F88C353E072D1B9438C2
+      C3C367B05A66BDC15268A795FB1AA8F26C2BADBF705740E599565ABEE724A5CD
+      9D27F40FA02B2C2C4C2F8F05DC8CA38B33A5505EC566DAD4FC98B6B5BD5144F5
+      95FB94B3AC5CF2AD1BB646C6815827C2CF33EC1FE9D9B9F0A16D90DD03AA6E7C
+      38E05DD9E12BC467DA24BF4EB19C226FBC9847B22E584C5B6E763BE7AFAEBB44
+      D6A22594BDD441EB1AEE38DFD734759225BF58D24F6F42428219BE1C923495C2
+      A751D1A65D547EFC1AADDADF20E497BDB7E49750557D7B3F4F630759F28AE55A
+      3C083C1AAC51532A4F29665E18F3D62CC1AF6DADAF058EADB8AFD85B4FA9B333
+      E5361D524C4A48CFCEA3D5072F0EC84D657D1B65162E2223C70DE88FAE78581E
+      1DC8A764BFF5D64B2A3F76157E5894FEF911BAED54E2C96439BFD1E5E4711C69
+      A4B4AC5C57B5CAE2AA53FA96060D549CB841B5F063C3A57B94555A36381627E0
+      CB7ED412AF141B976C12729C9E932FDCD9B30B5F7A63626252A1A189189F1635
+      D51F57819DCA8F3651D5F9DB82EEE614952A71FC866E4E321DCAEB423EA7B06A
+      7B7F8E5B5E5151CD4EC5BD352A2ACA20DF5B59CD895C825FF357AD73E679F3F5
+      2742DDC9FD009EA1B6F54A352FFAC5FA46CFCCF40C2A585B4B25B5BBA960CD16
+      326758258ECF00EB1B33DCF531562FA2D63B448DF588E303C829CFCE9F83CF09
+      58B35DF8DEE7622DCEC3669227BD74080E860FC8A3C5431E77FBCA658D78DCA1
+      4FCC8D5A1E56177D5AF0FCC77FFC83E8D3A2BEDCF4314F3976FE0106129EE34C
+      7A040000001800000018000000CA0300000000000078DAED59DB4B14511897A2
+      A7087ACE2EF417F4B011C4BEAC574AED32BAEB252D2B54CC75D7356FA1956BAE
+      9707435042B43BE443175408ED8E9859BE4456945B42A62BBD05A5F5E4DAE93B
+      725666CEDCCE4C73A4620FFC5067CEF9CD99EFFB7D9733C6C4FCDBC3E170EC8C
+      8F8F7F03F80540160173BD25DCAF2DE4A581B9BF72E4C7DC6D1CF9DBEC76FB06
+      F819B29A3B2121E10BD87F23F631FC2D58CD1F17179721D6113C6FC042FE215A
+      A74949499BE0FA370BB87F2627276F578A05B8E7B3C0EE156AB1E6F7FBD7C09C
+      F13FD1BBCD665BA715CFE0971D306FD104F712EC7D374BCE80B9ED26F83B5873
+      12F8673DCC9F36A375D601764A31AB75D6016BFBCD689D7530C484AAD60DBC83
+      CF8CD65987464CE86ADD80AF6D544C8401BBACACA3F08C22E09C072C008A79D4
+      6A97CBB51623263A56DD3ED8A7C4B73FACF62F4F7DF28E2F9EF981777EE3999F
+      79D617DEF591677DE7D99FF0EEAF78F687BCFB5B46AD9BEACF8D68DD684C18D5
+      BAD198E07DBE5B85F3E90447FE09529BF0397B89C7F781FFB91F494C4CDC0AF6
+      F382D6EEC3FB0649EF801124D73C788E896F369B617D37E91374F326E0166B9D
+      C47147F61889139496998BB23DD5E8484DE332B2DC5528253D937E0EEE8D042D
+      6EE03A29FECE9457D5804EDF7D899A9FCF29A2E6E6087216944A7403FB2B57C9
+      CD8258A325EDD7557925180BA1A375ADF43332A97ABB456C93DCCA7A366ED133
+      D28F15D3B68A15EDFDAAD8DE67065FC9389A466750C5B5215479E3216A023EFA
+      BEEFE2009D3F2F453448EBA4E1C90729F7D82CCA387E62E57EF1F92B327EBC27
+      CADF616C17D86F19ADB943BE3AE47FF47E656D61F305C9FDA2962E19FF59393F
+      46298913A5FC8D5232B2509A2B4772DD59E84181A7D3327E7767AF621D034CB1
+      E6AD1CEF291418FD2CE36E781C44A9B017853541E26B5DEEFCBA96659DC8B8C1
+      579476681D2DB0EC5B4997D8A7FBB2F2B4D67E077CD4E3AFED1F9771D7F6BD40
+      7BF60B7AEF3D093ABDA73907FCDCF46C46C28D7DA0626F1A8338C7EACD2B0874
+      A2FA07EF96E32A30F2097CD1CADAA39428C5974508E33C4FF2E6654DFF7A6A90
+      B7EB362AEBE943EE8E5E3D9F46D023AE276A3A4A7566CB7489FDADC33D8FFB59
+      2AF71F54EA2170BCD2DAC1F1ABD53B009753A57695D3FFC710F28B64FC383769
+      D44A9FCED94890D80AF459D67D6745A38DC353E870F539459BC0FE0E309EBF62
+      497D5F64ADEF806D46FB0852D74A491E9C14E513FCFB10ECC11DD1A046BF900A
+      73E7F4F60971E23079460F31C6E2B0497EE69834F30E06CF3CC33CF90D22C4E3
+      5C47BDEF2C4FFE28A288228A28FE6A8478D61752C3429C6AD7DEDF6763C5DC
+    }
   end
 end

@@ -24,9 +24,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
-  LCLType, StdCtrls, IniPropStorage, ExtCtrls, LazUTF8, LConvEncoding,
-  uUrlLabel, LazFileUtils, DividerBevel, CommonGUIUtils, CommonStrUtils,
-  CommonFileUtils {$ifdef darwin},Menus{$endif};
+  LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls, LazUTF8,
+  LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uhelp, uabout,
+  CommonGUIUtils, CommonStrUtils, CommonFileUtils {$ifdef darwin},Menus{$endif};
 
 type
 
@@ -34,6 +34,12 @@ type
 
   TFaSubripMain = class(TForm)
     AppendEncodingToFileName: TCheckBox;
+    CensorshipLevel: TComboBox;
+    Imgs: TImageList;
+    CensorshipSettings: TPanel;
+    SettingsNotifierL: TLabel;
+    Settings: TPanel;
+    SettingsNotifier: TPanel;
     ReplaceSourceFile: TCheckBox;
     OutFileEncodingL: TLabel;
     OutFileEncoding: TComboBox;
@@ -45,6 +51,8 @@ type
     SaveDirDlg: TSelectDirectoryDialog;
     ArabicCharsToFarsi: TCheckBox;
     Header: TPanel;
+    SettingsShow: TSpeedButton;
+    SettingsHelps: TSpeedButton;
     StripHTMLStyleTags: TCheckBox;
     StripHTMLFontTags: TCheckBox;
     IniProps: TIniPropStorage;
@@ -61,6 +69,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure OpenSubsClick(Sender: TObject);
+    procedure SettingsHelpsClick(Sender: TObject);
+    procedure SettingsShowClick(Sender: TObject);
   private
     {$ifdef darwin}
     MainMenu: TMainMenu;
@@ -81,13 +91,10 @@ type
     procedure CensorshipExtraPhrasesFile(var S: String);
     procedure PromptExport;
     procedure ExportSubtitle(const Subtitle: String);
-    procedure ShowGuide(Sender: TObject);
+    procedure SupportUrlClick(Sender: TObject);
   public
-    ShowGuideUrlL: TCustomUrlLabel;
-    ContactUrlL: TUrlLabelEx;
-    IssuesUrlL: TUrlLabelEx;
+    SupportUrlL: TCustomUrlLabel;
     LicenseUrlL: TUrlLabelEx;
-    UpdatesUrlL: TUrlLabelEx;
     FInputFiles: array of String;
     FAutoRun: Boolean;
   end;
@@ -101,10 +108,7 @@ implementation
 {$R badphrases.res}
 
 const
-  ContactUrl = 'http://mohammadrezab.blogsky.com';
-  IssuesUrl = 'https://github.com/m-audio91/FaSubrip/issues';
   LicenseUrl = 'https://www.gnu.org/licenses/gpl-3.0.en.html';
-  UpdatesUrl = 'https://github.com/m-audio91/FaSubrip/releases/latest';
   SourceUrl = 'https://github.com/m-audio91/FaSubrip';
   LicenseCaption = 'GNU GPL 3.0';
   HTMLTags: array[0..11] of String = ('<i>', '</i>', '{i}', '{/i}', '<b>',
@@ -129,16 +133,13 @@ const
 resourcestring
   rsAllDone = 'عملیات انجام شد';
   rsSelectOutDir = 'پوشه ای برای قرار دادن فایل های خروجی انتخاب کنید';
-  rsContact = 'ارتباط';
-  rsGuide = 'راهنمای تنظیمات';
-  rsIssueReporting = 'پشتیبانی';
   rsLicenseHint = 'فاسابریپ و متن آن تحت این مجوز برای عموم منتشر گردیده است'
     +LineEnding + 'متن برنامه و طریقه کامپایل آن در آدرس زیر موجود است'
     +LineEnding + SourceUrl;
-  rsUpdatesCaption = 'بروزرسانی';
   rsUpdateHint = 'برای مطلع شدن از وجود نسخه های جدیدتر فاسابریپ کلیک کنید';
   rsDirIsNotWritable = 'محل انتخابی برای خروجی قابلیت نوشتن ندارد';
   rsError = 'خطا';
+  rsSupport = 'پشتیبانی';
 
 { TFaSubripMain }
 
@@ -151,52 +152,24 @@ begin
     AppMenu.Caption := #$EF#$A3#$BF;
     MainMenu.Items.Insert(0, AppMenu);
   {$endif}
-
-  ShowGuideUrlL := TCustomUrlLabel.Create(Self);
-  with ShowGuideUrlL do
+  SupportUrlL := TCustomUrlLabel.Create(Self);
+  with SupportUrlL do
   begin
     Parent := HeaderLinks;
+    Caption := rsSupport;
     Align := alRight;
-    Caption := rsGuide;
-    OnClick := @ShowGuide;
     Font.Color := $0086C6E4;
-  end;
-  ContactUrlL := TUrlLabelEx.Create(Self);
-  with ContactUrlL do
-  begin
-    Parent := HeaderLinks;
-    Caption := rsContact;
-    URL := ContactUrl;
-    Font.Color := $0086C6E4;
-  end;
-  IssuesUrlL := TUrlLabelEx.Create(Self);
-  with IssuesUrlL do
-  begin
-    Parent := HeaderLinks;
-    Caption := rsIssueReporting;
-    URL := IssuesUrl;
-    Font.Color := $0086C6E4;
+    OnClick := @SupportUrlClick;
   end;
   LicenseUrlL := TUrlLabelEx.Create(Self);
   with LicenseUrlL do
   begin
     Parent := Footer;
-    Align := alRight;
+    Align := alLeft;
     Caption := LicenseCaption;
     URL := LicenseUrl;
     ShowHint := True;
     Hint := rsLicenseHint;
-    HighlightColor := clHighlight;
-  end;
-  UpdatesUrlL := TUrlLabelEx.Create(Self);
-  with UpdatesUrlL do
-  begin
-    Parent := Footer;
-    Align := alLeft;
-    Caption := rsUpdatesCaption;
-    URL := UpdatesUrl;
-    ShowHint := True;
-    Hint := rsUpdateHint;
     HighlightColor := clHighlight;
   end;
 end;
@@ -210,13 +183,13 @@ end;
 procedure TFaSubripMain.FormShow(Sender: TObject);
 begin
   {$ifdef darwin}
-  {$ifdef cpu64}
-  OutFileEncodingL.BiDiMode := bdLeftToRight;
-  ShowGuideUrlL.Align := alNone;
-  HeaderLinks.ChildSizing.ControlsPerLine := 1;
+  {$ifdef cpu64} 
+  //Settings.BiDiMode := bdLeftToRight;
+  //OutFileEncodingL.BiDiMode := bdLeftToRight;
   {$endif}
   {$endif}
   AutoSize := True;
+  Settings.Visible := False;
   if FAutoRun then
   begin
     DoRun;
@@ -247,6 +220,21 @@ begin
     for i := 0 to OpenDlg.Files.Count-1 do
       FInputFiles[i] := OpenDlg.Files[i];
     DoRun;
+  end;
+end;
+
+procedure TFaSubripMain.SettingsShowClick(Sender: TObject);
+begin
+  Settings.Visible := Settings.Visible = False;
+  {$ifdef linux}
+  Constraints.MaxHeight := 0;
+  Constraints.MinHeight := Footer.Top+Footer.Height+Footer.BorderSpacing.Bottom;
+  Constraints.MaxHeight := Constraints.MinHeight;
+  AdjustSize;
+  {$endif}
+  case Settings.Visible of
+  True: SettingsShow.ImageIndex:= 1;
+  False: SettingsShow.ImageIndex:= 0;
   end;
 end;
 
@@ -508,73 +496,37 @@ begin
   end;
 end;
 
-procedure TFaSubripMain.ShowGuide(Sender: TObject);
-const
-  SectSep = LineEnding+LineEnding+'**********************'
-    +'**********************';
-  SectHead = '** ';
-  SectHeadEnd = ':';
-var
-  HelpForm: TForm;
-  Memo: TMemo;
+procedure TFaSubripMain.SupportUrlClick(Sender: TObject);
 begin
-  HelpForm := TForm.CreateNew(Self);
-  try
-    with HelpForm do
+  FaSubripAbout.ShowModal;
+end;
+
+procedure TFaSubripMain.SettingsHelpsClick(Sender: TObject);
+begin
+  with FaSubripHelp do
+  begin
+    if not HelpsAreSet then
     begin
-      DefaultMonitor := dmActiveForm;
-      Position := poOwnerFormCenter;
-      Caption := rsGuide;
-      ChildSizing.LeftRightSpacing := 8;
-      ChildSizing.TopBottomSpacing := 8; 
-      Constraints.MinWidth := Self.Width;
-      Constraints.MinHeight := Self.Height-10;
-      Left := Self.Left;
-      Top := Self.Top;
+      AddTitle(OpenSubs.Caption);
+      AddDescription(OpenSubs.Hint);
+      AddTitle(StripHTMLFontTags.Caption);
+      AddDescription(StripHTMLFontTags.Hint);
+      AddTitle(StripHTMLStyleTags.Caption);
+      AddDescription(StripHTMLStyleTags.Hint);
+      AddTitle(ArabicCharsToFarsi.Caption);
+      AddDescription(ArabicCharsToFarsi.Hint);
+      AddTitle(CensorshipPhrases.Caption);
+      AddDescription(CensorshipPhrases.Hint);
+      AddTitle(CensorshipExtraPhrases.Caption);
+      AddDescription(CensorshipExtraPhrases.Hint);
+      AddTitle(OutFileEncodingL.Caption);
+      AddDescription(OutFileEncodingL.Hint);
+      AddTitle(AppendEncodingToFileName.Caption);
+      AddDescription(AppendEncodingToFileName.Hint);
+      AddTitle(ReplaceSourceFile.Caption);
+      AddDescription(ReplaceSourceFile.Hint);
     end;
-
-    Memo := TMemo.Create(HelpForm);
-    with Memo do
-    begin
-      Parent := HelpForm;
-      Align := alClient;
-      ScrollBars := ssAutoVertical;
-      ReadOnly := True;
-      Color := clForm;
-      BiDiMode := bdRightToLeft;
-
-      Lines.Add(SectSep.Trim);
-      Lines.Add(SectHead+OpenSubs.Caption+SectHeadEnd);
-      Lines.Add(OpenSubs.Hint);
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+StripHTMLFontTags.Caption+SectHeadEnd);
-      Lines.Add(StripHTMLFontTags.Hint);
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+StripHTMLStyleTags.Caption+SectHeadEnd);
-      Lines.Add(StripHTMLStyleTags.Hint);
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+ArabicCharsToFarsi.Caption+SectHeadEnd);
-      Lines.Add(ArabicCharsToFarsi.Hint); 
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+CensorshipPhrases.Caption+SectHeadEnd);
-      Lines.Add(CensorshipPhrases.Hint); 
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+CensorshipExtraPhrases.Caption+SectHeadEnd);
-      Lines.Add(CensorshipExtraPhrases.Hint);
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+OutFileEncodingL.Caption+SectHeadEnd);
-      Lines.Add(OutFileEncodingL.Hint);  
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+AppendEncodingToFileName.Caption+SectHeadEnd);
-      Lines.Add(AppendEncodingToFileName.Hint);
-      Lines.Add(SectSep);
-      Lines.Add(SectHead+ReplaceSourceFile.Caption+SectHeadEnd);
-      Lines.Add(ReplaceSourceFile.Hint);
-    end;
-
-    HelpForm.ShowModal;
-  finally
-    HelpForm.Free;
+    ShowModal;
   end;
 end;
 

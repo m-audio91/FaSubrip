@@ -8,7 +8,7 @@ FaSubrip autodetects and converts encoding of Farsi (Persian) subrip files. with
 [**Screenshots**](https://github.com/m-audio91/FaSubrip/wiki)
 
 
-Copyright (C) 2018 Mohammadreza Bahrami, m.audio91 [AT] gmail.com  
+Copyright (C) 2019 Mohammadreza Bahrami, m.audio91 [AT] gmail.com  
   
 ### compilation guide:  
 1. clone this repository plus [CommonUtils](https://github.com/m-audio91/CommonUtils) repository.

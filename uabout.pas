@@ -2,7 +2,7 @@ unit uabout;
 { FaSubrip: autodetects and converts encoding of farsi (persian) subrip files.
   with additional functionalities.
 
-  Copyright (C) 2018 Mohammadreza Bahrami m.audio91@gmail.com
+  Copyright (C) 2019 Mohammadreza Bahrami m.audio91@gmail.com
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

@@ -21,10 +21,10 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
-      <BuildNr Value="78"/>
+      <BuildNr Value="104"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.0.0"/>
     </VersionInfo>
-    <BuildModes Count="7">
+    <BuildModes Count="6">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -165,43 +165,7 @@
           </Linking>
         </CompilerOptions>
       </Item5>
-      <Item6 Name="Release Darwin32">
-        <MacroValues Count="1">
-          <Macro3 Name="LCLWidgetType" Value="carbon"/>
-        </MacroValues>
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="FaSubrip" ApplyConventions="False"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
-          </SearchPaths>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <TargetCPU Value="i386"/>
-            <TargetOS Value="darwin"/>
-            <Optimizations>
-              <OptimizationLevel Value="3"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-        </CompilerOptions>
-      </Item6>
-      <Item7 Name="Release Darwin64">
+      <Item6 Name="Release Darwin64">
         <MacroValues Count="1">
           <Macro4 Name="LCLWidgetType" Value="cocoa"/>
         </MacroValues>
@@ -236,11 +200,11 @@
             </Options>
           </Linking>
         </CompilerOptions>
-      </Item7>
+      </Item6>
       <SharedMatrixOptions Count="4">
         <Item1 ID="714763086769" Modes="Release Win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="470355515500" Modes="Release Linux32,Release Linux64" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item3 ID="401321958054" Modes="Release Darwin32" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
+        <Item3 ID="401321958054" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
         <Item4 ID="162149294469" Modes="Release Darwin64" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
       </SharedMatrixOptions>
     </BuildModes>

@@ -14,7 +14,7 @@ object FaSubripMain: TFaSubripMain
   OnDropFiles = FormDropFiles
   OnShow = FormShow
   Position = poScreenCenter
-  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensExtraPhrases.Text;CensorshipExtraPhrases.State;CensorshipPhrases.State;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State'
+  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;PhrasesCensorship.State;PhrasesCensorshipFile.Text;CensorshipLevel.ItemIndex'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -190,7 +190,7 @@ object FaSubripMain: TFaSubripMain
   end
   object Settings: TPanel
     Left = 8
-    Height = 240
+    Height = 216
     Top = 105
     Width = 454
     Align = alTop
@@ -203,7 +203,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 240
+    ClientHeight = 216
     ClientWidth = 454
     Color = clForm
     ParentBidiMode = False
@@ -246,10 +246,10 @@ object FaSubripMain: TFaSubripMain
       ParentFont = False
       TabOrder = 2
     end
-    object CensorshipPhrases: TCheckBox
+    object PhrasesCensorship: TCheckBox
       Left = 0
       Height = 24
-      Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین می کند.'#13#10#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات بطور جداگانه و مستقل از این گزینه قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید یا در عین فعال بودن این گزینه، عبارات دیگری را'#13#10'با آن گزینه هدف قرار بدهید.'
+      Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین یا'#10'در صورت انتخاب گزینه ((حساس)) در برخی موارد با لغتی دیگر جایگزین می کند.'#13#10#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات شحصی قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید.'#13#10#10'طریقه تهیه فایل حاوی عبارات شخصی برای سانسور:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی لینوکس چون هر توزیع ویرایشگر متن متفاوتی استفاده می کند خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'#13#10'همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و غیره'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که اضافه می کنید بجای تبدیل شدن به ***** با عبارت'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10#13#10'(نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک)'#10#10'درصورت نیاز فایل های حاوی عبارات داخلی فاسابریپ نیز از آدرس زیر قابل دانلود هستند'#10'(دو فایل متنی با پسوند dat):'#10'https://github.com/m-audio91/FaSubrip'
       Top = 72
       Width = 454
       Caption = 'سانسور عبارات نامناسب'
@@ -258,23 +258,10 @@ object FaSubripMain: TFaSubripMain
       ParentFont = False
       TabOrder = 3
     end
-    object CensorshipExtraPhrases: TCheckBox
-      Left = 0
-      Height = 24
-      Hint = 'در صورت فعال کردن این گزینه و ارائه دادن یک فایل معتبر حاوی عبارات مدنظرتان فاسابریپ اقدام'#13#10'به سانسور یا جایگزینی آنها می کند.'#13#10'طریقه تهیه این فایل:'#13#10#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی لینوکس چون هر توزیع ویرایشگر متن متفاوتی استفاده می کند خودتون پیدا کنید'#13#10'ولی دقت کنید در لینوکس بدون پسوند ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید'#13#10'همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و غیره'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که اضافه می کنید بجای تبدیل شدن به ***** با چیز'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10#13#10'(نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک)'
-      Top = 96
-      Width = 454
-      Caption = 'سانسور عبارات موجود در فایل زیر'
-      Color = clDefault
-      ParentColor = False
-      ParentFont = False
-      TabOrder = 5
-      Visible = False
-    end
     object CensorshipSettings: TPanel
       Left = 0
       Height = 28
-      Top = 120
+      Top = 96
       Width = 454
       AutoSize = True
       BevelOuter = bvNone
@@ -287,7 +274,7 @@ object FaSubripMain: TFaSubripMain
       ClientWidth = 454
       ParentBidiMode = False
       TabOrder = 4
-      object CensExtraPhrases: TFileNameEdit
+      object PhrasesCensorshipFile: TFileNameEdit
         Left = 0
         Height = 28
         Hint = 'فایل حاوی عبارات اضافی برای حذف یا جایگزینی'
@@ -308,7 +295,7 @@ object FaSubripMain: TFaSubripMain
         ParentBidiMode = False
         ParentFont = False
         TabOrder = 1
-        OnKeyDown = CensExtraPhrasesKeyDown
+        OnKeyDown = PhrasesCensorshipFileKeyDown
       end
       object CensorshipLevel: TComboBox
         Left = 231
@@ -332,7 +319,7 @@ object FaSubripMain: TFaSubripMain
       Left = 0
       Height = 17
       Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست'#13#10'تا نیازی به تغییر System Locale نباشد دلیل خاصی'#13#10'برای تغییر این گزینه وجود ندارد مگر اینکه خواسته باشید'#13#10'زیرنویس خروجی را در نرم افزاری یا پخش کننده سخت افزاری'#13#10'باز کنید که مثلا تنها از ANSI پشتیبانی می کند.'#13#10'که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#13#10'Subtitle Creator هستند.'#13#10#13#10'در مورد UTF-16 هم به همین صورت.'
-      Top = 148
+      Top = 124
       Width = 454
       Caption = 'کدگذاری حروف فایل خروجی'
       ParentColor = False
@@ -341,7 +328,7 @@ object FaSubripMain: TFaSubripMain
     object OutFileEncoding: TComboBox
       Left = 0
       Height = 27
-      Top = 165
+      Top = 141
       Width = 454
       ItemHeight = 0
       ItemIndex = 0
@@ -353,14 +340,14 @@ object FaSubripMain: TFaSubripMain
       ParentBidiMode = False
       ParentFont = False
       Style = csDropDownList
-      TabOrder = 6
+      TabOrder = 5
       Text = 'UTF-8'
     end
     object AppendEncodingToFileName: TCheckBox
       Left = 0
       Height = 24
       Hint = 'فعال کردن این گزینه صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان مفید می باشد'#13#10#13#10'مثلا خروجی'#13#10'test.srt'#13#10'در حالت عادی'#13#10'test_FaSubrip.srt'#13#10'می باشد که با فعال کردن این گزینه و یو تی اف 8 بودن کدگذاری انتخابی خروجی می شود'#13#10'test_UTF-8.srt'
-      Top = 192
+      Top = 168
       Width = 454
       Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
       Checked = True
@@ -368,19 +355,19 @@ object FaSubripMain: TFaSubripMain
       ParentColor = False
       ParentFont = False
       State = cbChecked
-      TabOrder = 7
+      TabOrder = 6
     end
     object ReplaceSourceFile: TCheckBox
       Left = 0
       Height = 24
       Hint = 'در صورت فعال بودن این گزینه فایل جدیدی برای خروجی ایجاد نمی گردد.'#10'فایل خروجی روی فایل ورودی بازنویسی می گردد.'
-      Top = 216
+      Top = 192
       Width = 454
       Caption = 'ذخیره مستقیم روی فایل اصلی'
       Color = clDefault
       ParentColor = False
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 7
     end
   end
   object Footer: TPanel

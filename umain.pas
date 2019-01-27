@@ -18,7 +18,7 @@ unit umain;
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
-{$mode objfpc}{$H+}
+{$mode objfpc}{$H+}{$modeswitch arrayoperators+}
 
 interface
 
@@ -44,7 +44,7 @@ type
     OutFileEncodingL: TLabel;
     OutFileEncoding: TComboBox;
     OpenSubs: TButton;
-    CensorshipPhrases: TCheckBox;
+    PhrasesCensorship: TCheckBox;
     Description: TLabel;
     OpenDlg: TOpenDialog;
     OpenSubsContainer: TPanel;
@@ -56,14 +56,13 @@ type
     StripHTMLStyleTags: TCheckBox;
     StripHTMLFontTags: TCheckBox;
     IniProps: TIniPropStorage;
-    CensExtraPhrases: TFileNameEdit;
+    PhrasesCensorshipFile: TFileNameEdit;
     SaveDlg: TSaveDialog;
     Footer: TPanel;
-    CensorshipExtraPhrases: TCheckBox;
     DragNotifierL: TLabel;
     HeaderLinks: TPanel;
     OptionalSettings: TDividerBevel;
-    procedure CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
+    procedure PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -87,8 +86,7 @@ type
     procedure ClearUnicodeSpecificChars(var S: String);
     procedure SwapArabicChars(var S: String);
     procedure StripHTMLTags(var S: String);
-    procedure CensorshipImpolitePhrases(var S: String);
-    procedure CensorshipExtraPhrasesFile(var S: String);
+    procedure CensorPhrases(var S: String);
     procedure PromptExport;
     procedure ExportSubtitle(const Subtitle: String);
     procedure SupportUrlClick(Sender: TObject);
@@ -106,6 +104,7 @@ implementation
 
 {$R *.lfm}
 {$R badphrases.res}
+{$R badphrasesmore.res}
 
 const
   LicenseUrl = 'https://www.gnu.org/licenses/gpl-3.0.en.html';
@@ -120,6 +119,7 @@ const
   wFaSubed = '_FaSubrip';
   extSrt = '.srt';
   BadPhrasesResName = 'BADPHRASES';
+  MoreBadPhrasesResName = 'BADPHRASESMORE';
   ArabicChars: array[0..1] of String = ('ك', 'ي');
   FarsiChars: array[0..1] of String = ('ک', 'ی');
   EncodingNames: array[0..2] of String = ('UTF-8', 'WINDOWS-1256', 'UTF-16');
@@ -136,7 +136,6 @@ resourcestring
   rsLicenseHint = 'فاسابریپ و متن آن تحت این مجوز برای عموم منتشر گردیده است'
     +LineEnding + 'متن برنامه و طریقه کامپایل آن در آدرس زیر موجود است'
     +LineEnding + SourceUrl;
-  rsUpdateHint = 'برای مطلع شدن از وجود نسخه های جدیدتر فاسابریپ کلیک کنید';
   rsDirIsNotWritable = 'محل انتخابی برای خروجی قابلیت نوشتن ندارد';
   rsError = 'خطا';
   rsSupport = 'پشتیبانی';
@@ -174,7 +173,7 @@ begin
   end;
 end;
 
-procedure TFaSubripMain.CensExtraPhrasesKeyDown(Sender: TObject; var Key: Word;
+procedure TFaSubripMain.PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_RETURN then (Sender as TFileNameEdit).RunDialog;
@@ -182,12 +181,6 @@ end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);
 begin
-  {$ifdef darwin}
-  {$ifdef cpu64} 
-  //Settings.BiDiMode := bdLeftToRight;
-  //OutFileEncodingL.BiDiMode := bdLeftToRight;
-  {$endif}
-  {$endif}
   AutoSize := True;
   Settings.Visible := False;
   if FAutoRun then
@@ -291,8 +284,7 @@ begin
   ClearUnicodeSpecificChars(FSrt);
   SwapArabicChars(FSrt);
   StripHTMLTags(FSrt);
-  CensorshipExtraPhrasesFile(FSrt);
-  CensorshipImpolitePhrases(FSrt);
+  CensorPhrases(FSrt);
   if FBatchMode then
     ExportSubtitle(GenFileName(FInputFile, EmptyStr, extSrt, True, FBatchOutDir, true))
   else
@@ -367,51 +359,50 @@ begin
   end;
 end;
 
-procedure TFaSubripMain.CensorshipImpolitePhrases(var S: String);
+procedure TFaSubripMain.CensorPhrases(var S: String);
 var
   rs: TResourceStream;
   sl: TStringList;
-  i,j: Cardinal;
+  sa: TStringArray;
+  i: Cardinal;
   Enc: TEncoding;
 begin
-  if CensorshipPhrases.State <> cbChecked then Exit;
-  Enc := Default(TEncoding);
-  sl := TStringList.Create;
-  try
-    rs := TResourceStream.Create(HInstance, BadPhrasesResName, RT_RCDATA);
-    sl.LoadFromStream(rs, Enc.UTF8);
-    for i := 0 to sl.Count-1 do
-        sl[i] := ReplaceStrings(sl[i], ArabicChars, FarsiChars);
-    j := sl.Count;
-    for i := 0 to j-1 do
-      sl.Add(ReplaceStrings(sl[i], FarsiChars, ArabicChars));
-    for i := 0 to sl.Count-1 do
-      DeleteAllOccurrences(sl[i], S, CensorMask);
-  finally
-    sl.Free;
-    rs.Free;
+  if PhrasesCensorship.State <> cbChecked then Exit;
+  i := CensorshipLevel.ItemIndex;
+  if i = 2 then
+  begin
+    if IsEmptyStr(PhrasesCensorshipFile.Text) then Exit;
+    if not FileExists(PhrasesCensorshipFile.Text) then Exit;
+    if not FileIsText(PhrasesCensorshipFile.Text) then Exit;
   end;
-end;
-
-procedure TFaSubripMain.CensorshipExtraPhrasesFile(var S: String);
-var
-  sl: TStringList;
-  i,j: Cardinal;
-  Enc: TEncoding;
-begin
-  if CensorshipExtraPhrases.State <> cbChecked then Exit;
-  if IsEmptyStr(CensExtraPhrases.Text) then Exit;
-  if not FileExists(CensExtraPhrases.Text) then Exit;
-  if not FileIsText(CensExtraPhrases.Text) then Exit;
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try
-    sl.LoadFromFile(CensExtraPhrases.Text, Enc.UTF8);
-    for i := 0 to sl.Count-1 do
-      sl[i] := ReplaceStrings(sl[i], ArabicChars, FarsiChars);
-    j := sl.Count;
-    for i := 0 to j-1 do
-      sl.Add(ReplaceStrings(sl[i], FarsiChars, ArabicChars));
+    case i of
+    0..1: begin
+      rs := TResourceStream.Create(HInstance, BadPhrasesResName, RT_RCDATA);
+      sl.LoadFromStream(rs, Enc.UTF8);
+      rs.Free;
+      sa := StringListToArray(sl);
+      if i = 1 then
+      begin
+        sl.Clear;
+        rs := TResourceStream.Create(HInstance, MoreBadPhrasesResName, RT_RCDATA);
+        sl.LoadFromStream(rs, Enc.UTF8);
+        rs.Free;
+        sa := sa + StringListToArray(sl);
+      end;
+      end;
+    2: begin
+      sl.LoadFromFile(PhrasesCensorshipFile.Text, Enc.UTF8);
+      sa := StringListToArray(sl);
+      end;
+    end;
+    for i := 0 to High(sa) do
+    begin
+      sl.Add(ReplaceStrings(sa[i], ArabicChars, FarsiChars));
+      sl.Add(ReplaceStrings(sa[i], FarsiChars, ArabicChars));
+    end;
     for i := 0 to sl.Count-1 do
     begin
       if (sl.Values[sl.Names[i]] <> EmptyStr) then
@@ -515,10 +506,8 @@ begin
       AddDescription(StripHTMLStyleTags.Hint);
       AddTitle(ArabicCharsToFarsi.Caption);
       AddDescription(ArabicCharsToFarsi.Hint);
-      AddTitle(CensorshipPhrases.Caption);
-      AddDescription(CensorshipPhrases.Hint);
-      AddTitle(CensorshipExtraPhrases.Caption);
-      AddDescription(CensorshipExtraPhrases.Hint);
+      AddTitle(PhrasesCensorship.Caption);
+      AddDescription(PhrasesCensorship.Hint);
       AddTitle(OutFileEncodingL.Caption);
       AddDescription(OutFileEncodingL.Hint);
       AddTitle(AppendEncodingToFileName.Caption);

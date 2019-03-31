@@ -33,6 +33,7 @@ type
   TFaSubripAbout = class(TForm)
     Header: TPanel;
     Logo: TImage;
+    LinksBox: TPanel;
     procedure FormCreate(Sender: TObject);
   private
 
@@ -69,7 +70,7 @@ begin
   UpdatesUrlL := TUrlLabelEx.Create(Self);
   with UpdatesUrlL do
   begin
-    Parent := Self;
+    Parent := LinksBox;
     Alignment := taCenter;
     Caption := rsUpdatesCaption;
     URL := UpdatesUrl;
@@ -79,7 +80,7 @@ begin
   IssuesUrlL := TUrlLabelEx.Create(Self);
   with IssuesUrlL do
   begin
-    Parent := Self;
+    Parent := LinksBox;
     Alignment := taCenter;
     Caption := rsIssueReporting;
     URL := IssuesUrl;
@@ -88,7 +89,7 @@ begin
   MailUrlL := TUrlLabelEx.Create(Self);
   with MailUrlL do
   begin
-    Parent := Self;
+    Parent := LinksBox;
     Alignment := taCenter;
     Caption := rsMail;
     URL := MailUrl;
@@ -97,7 +98,7 @@ begin
   ContactUrlL := TUrlLabelEx.Create(Self);
   with ContactUrlL do
   begin
-    Parent := Self;
+    Parent := LinksBox;
     Alignment := taCenter;
     Caption := rsBlog;
     URL := ContactUrl;

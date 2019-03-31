@@ -1,25 +1,22 @@
 object FaSubripAbout: TFaSubripAbout
   Left = 310
-  Height = 96
+  Height = 97
   Top = 250
   Width = 360
   AutoSize = True
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'پشتیبانی'
-  ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-  ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-  ChildSizing.Layout = cclLeftToRightThenTopToBottom
-  ChildSizing.ControlsPerLine = 1
-  ClientHeight = 96
+  ClientHeight = 97
   ClientWidth = 360
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 96
     Top = 0
     Width = 360
+    Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 96
@@ -203,5 +200,21 @@ object FaSubripAbout: TFaSubripAbout
         C320F87FB16A50F15804A8860000000049454E44AE426082
       }
     end
+  end
+  object LinksBox: TPanel
+    Left = 0
+    Height = 1
+    Top = 96
+    Width = 360
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    Color = clForm
+    ParentColor = False
+    TabOrder = 1
   end
 end

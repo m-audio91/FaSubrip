@@ -24,8 +24,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
-  LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls, LazUTF8,
-  LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uhelp, uabout,
+  LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls,
+  LazUTF8, LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uhelp, uabout,
   CommonGUIUtils, CommonStrUtils, CommonFileUtils {$ifdef darwin},Menus{$endif};
 
 type
@@ -34,11 +34,30 @@ type
 
   TFaSubripMain = class(TForm)
     AppendEncodingToFileName: TCheckBox;
+    EndingPunctuationsL: TLabel;
+    EndingPunctuations: TComboBox;
     CensorshipLevel: TComboBox;
+    ArabicCharsToFarsiL: TLabel;
+    AppendEncodingToFileNameL: TLabel;
+    Container1: TPanel;
+    SubContainer5: TPanel;
+    Container6: TPanel;
+    SubContainer6: TPanel;
+    SubContainer1: TPanel;
+    Container2: TPanel;
+    SubContainer2: TPanel;
+    Container3: TPanel;
+    SubContainer3: TPanel;
+    Container4: TPanel;
+    SubContainer4: TPanel;
+    Container5: TPanel;
+    SettingContainersGrid: TPanel;
+    ReplaceSourceFileL: TLabel;
+    PhrasesCensorshipL: TLabel;
+    StripHTMLFontTagsL: TLabel;
+    StripHTMLStyleTagsL: TLabel;
     Imgs: TImageList;
-    CensorshipSettings: TPanel;
     SettingsNotifierL: TLabel;
-    Settings: TPanel;
     SettingsNotifier: TPanel;
     ReplaceSourceFile: TCheckBox;
     OutFileEncodingL: TLabel;
@@ -79,6 +98,7 @@ type
     FBatchMode: Boolean;
     FBatchOutDir: String;
     FInputFile: String;
+    TotalHeight: Integer;
     function OutputDirValid(const Dir: String): Boolean;
     procedure DoRun;
     procedure ProcessSubtitle;
@@ -87,6 +107,7 @@ type
     procedure SwapArabicChars(var S: String);
     procedure StripHTMLTags(var S: String);
     procedure CensorPhrases(var S: String);
+    procedure CorrectEndingPunctuations(var S: String);
     procedure PromptExport;
     procedure ExportSubtitle(const Subtitle: String);
     procedure SupportUrlClick(Sender: TObject);
@@ -111,7 +132,7 @@ const
   SourceUrl = 'https://github.com/m-audio91/FaSubrip';
   LicenseCaption = 'GNU GPL 3.0';
   HTMLTags: array[0..11] of String = ('<i>', '</i>', '{i}', '{/i}', '<b>',
-  '</b>', '{b}', '{/b}', '<u>', '</u>', '{u}', '{/u}');
+    '</b>', '{b}', '{/b}', '<u>', '</u>', '{u}', '{/u}');
   HTMLFontTagOpen = '<font';
   HTMLFontTagClose = '</font>';
   HTMLTagEnd = '>';
@@ -129,6 +150,8 @@ const
   ,#$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD
   ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7, #$E2#$81#$A8
   ,#$E2#$81#$A9);
+  CommonEndingPunctuations: array[0..9] of String = ('!',',','.',':',';',
+    '?','‚','؟','؛','،');
 
 resourcestring
   rsAllDone = 'عملیات انجام شد';
@@ -182,7 +205,12 @@ end;
 procedure TFaSubripMain.FormShow(Sender: TObject);
 begin
   AutoSize := True;
-  Settings.Visible := False;
+  TotalHeight := Height;
+  with SettingContainersGrid do
+  begin
+    Visible := False;
+    Self.Constraints.MinWidth := Width+BorderSpacing.Left+BorderSpacing.Right;
+  end;
   if FAutoRun then
   begin
     DoRun;
@@ -218,16 +246,25 @@ end;
 
 procedure TFaSubripMain.SettingsShowClick(Sender: TObject);
 begin
-  Settings.Visible := Settings.Visible = False;
-  {$ifdef linux}
-  Constraints.MaxHeight := 0;
-  Constraints.MinHeight := Footer.Top+Footer.Height+Footer.BorderSpacing.Bottom;
-  Constraints.MaxHeight := Constraints.MinHeight;
-  AdjustSize;
-  {$endif}
-  case Settings.Visible of
-  True: SettingsShow.ImageIndex:= 1;
-  False: SettingsShow.ImageIndex:= 0;
+  SettingContainersGrid.Visible := SettingContainersGrid.Visible = False;
+  case SettingContainersGrid.Visible of
+  True: begin
+    {$ifdef linux}
+    Constraints.MinHeight := TotalHeight;
+    Constraints.MaxHeight := TotalHeight;
+    AdjustSize;
+    {$endif}
+    SettingsShow.ImageIndex:= 1;
+    end;
+  False: begin
+    {$ifdef linux}
+    Constraints.MaxHeight := 0;
+    Constraints.MinHeight := Footer.Top+Footer.Height+Footer.BorderSpacing.Bottom;
+    Constraints.MaxHeight := Constraints.MinHeight;
+    AdjustSize;
+    {$endif}
+     SettingsShow.ImageIndex:= 0;
+    end;
   end;
 end;
 
@@ -285,6 +322,7 @@ begin
   SwapArabicChars(FSrt);
   StripHTMLTags(FSrt);
   CensorPhrases(FSrt);
+  CorrectEndingPunctuations(FSrt);
   if FBatchMode then
     ExportSubtitle(GenFileName(FInputFile, EmptyStr, extSrt, True, FBatchOutDir, true))
   else
@@ -417,6 +455,35 @@ begin
   end;
 end;
 
+procedure TFaSubripMain.CorrectEndingPunctuations(var S: String);
+var
+  sa: TStringArray;
+  i,j,c: Integer;
+  r: String;
+begin
+  if EndingPunctuations.ItemIndex < 1 then Exit;
+  sa := S.Split(LineEndings);
+  for j := Low(sa) to High(sa) do
+  begin
+    r := UTF8ReverseString(sa[j]);
+    c := 0;
+    repeat
+      i := UTF8Copy(r,c+1,1).IndexOfAny(CommonEndingPunctuations);
+      if i>-1 then
+        Inc(c);
+    until i<0;
+    if c>0 then
+    begin
+      if EndingPunctuations.ItemIndex=1 then
+        sa[j] := UTF8Copy(sa[j],(UTF8Length(sa[j])-c)+1,c)
+          +UTF8Copy(sa[j],1,UTF8Length(sa[j])-c)
+      else
+        sa[j] := UTF8Copy(sa[j],1,UTF8Length(sa[j])-c);
+    end;
+  end;
+  S := S.Join(LineEnding,sa);
+end;
+
 procedure TFaSubripMain.PromptExport;
 begin
   if ReplaceSourceFile.State <> cbChecked then
@@ -500,20 +567,22 @@ begin
     begin
       AddTitle(OpenSubs.Caption);
       AddDescription(OpenSubs.Hint);
-      AddTitle(StripHTMLFontTags.Caption);
-      AddDescription(StripHTMLFontTags.Hint);
-      AddTitle(StripHTMLStyleTags.Caption);
-      AddDescription(StripHTMLStyleTags.Hint);
-      AddTitle(ArabicCharsToFarsi.Caption);
-      AddDescription(ArabicCharsToFarsi.Hint);
-      AddTitle(PhrasesCensorship.Caption);
-      AddDescription(PhrasesCensorship.Hint);
+      AddTitle(StripHTMLFontTagsL.Caption);
+      AddDescription(StripHTMLFontTagsL.Hint);
+      AddTitle(StripHTMLStyleTagsL.Caption);
+      AddDescription(StripHTMLStyleTagsL.Hint);
+      AddTitle(ArabicCharsToFarsiL.Caption);
+      AddDescription(ArabicCharsToFarsiL.Hint);
+      AddTitle(EndingPunctuationsL.Caption);
+      AddDescription(EndingPunctuationsL.Hint);
+      AddTitle(PhrasesCensorshipL.Caption);
+      AddDescription(PhrasesCensorshipL.Hint);
       AddTitle(OutFileEncodingL.Caption);
       AddDescription(OutFileEncodingL.Hint);
-      AddTitle(AppendEncodingToFileName.Caption);
-      AddDescription(AppendEncodingToFileName.Hint);
-      AddTitle(ReplaceSourceFile.Caption);
-      AddDescription(ReplaceSourceFile.Hint);
+      AddTitle(AppendEncodingToFileNameL.Caption);
+      AddDescription(AppendEncodingToFileNameL.Hint);
+      AddTitle(ReplaceSourceFileL.Caption);
+      AddDescription(ReplaceSourceFileL.Hint);
     end;
     ShowModal;
   end;

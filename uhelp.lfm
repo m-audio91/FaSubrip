@@ -10,7 +10,8 @@ object FaSubripHelp: TFaSubripHelp
   VertScrollBar.Smooth = True
   VertScrollBar.Range = 36
   VertScrollBar.Tracking = True
-  BorderStyle = bsDialog
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'راهنما'
   ClientHeight = 480
   ClientWidth = 500
@@ -18,7 +19,6 @@ object FaSubripHelp: TFaSubripHelp
   Constraints.MinWidth = 500
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 33

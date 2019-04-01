@@ -247,26 +247,25 @@ begin
 end;
 
 procedure TFaSubripMain.SettingsShowClick(Sender: TObject);
+var
+  h: Integer;
 begin
   SettingContainersGrid.Visible := SettingContainersGrid.Visible = False;
   case SettingContainersGrid.Visible of
   True: begin
-    {$ifdef linux}
-    Constraints.MinHeight := FMaxHeight;
-    Constraints.MaxHeight := FMaxHeight;
-    AdjustSize;
-    {$endif}
+    h := FMaxHeight;
     SettingsShow.ImageIndex:= 1;
     end;
   False: begin
-    {$ifdef linux}
-    Constraints.MinHeight := FMinHeight;
-    Constraints.MaxHeight := FMinHeight;
-    AdjustSize;
-    {$endif}
+    h := FMinHeight;
      SettingsShow.ImageIndex:= 0;
     end;
   end;
+  {$ifdef linux}
+  Constraints.MinHeight := h;
+  Constraints.MaxHeight := h;
+  AdjustSize;
+  {$endif}
 end;
 
 function TFaSubripMain.OutputDirValid(const Dir: String): Boolean;

@@ -98,7 +98,8 @@ type
     FBatchMode: Boolean;
     FBatchOutDir: String;
     FInputFile: String;
-    TotalHeight: Integer;
+    FMaxHeight: Integer;
+    FMinHeight: Integer;
     function OutputDirValid(const Dir: String): Boolean;
     procedure DoRun;
     procedure ProcessSubtitle;
@@ -205,12 +206,13 @@ end;
 procedure TFaSubripMain.FormShow(Sender: TObject);
 begin
   AutoSize := True;
-  TotalHeight := Height;
+  FMaxHeight := Height;
   with SettingContainersGrid do
   begin
-    Visible := False;
     Self.Constraints.MinWidth := Width+BorderSpacing.Left+BorderSpacing.Right;
+    Visible := False;
   end;
+  FMinHeight := Height;
   if FAutoRun then
   begin
     DoRun;
@@ -250,17 +252,16 @@ begin
   case SettingContainersGrid.Visible of
   True: begin
     {$ifdef linux}
-    Constraints.MinHeight := TotalHeight;
-    Constraints.MaxHeight := TotalHeight;
+    Constraints.MinHeight := FMaxHeight;
+    Constraints.MaxHeight := FMaxHeight;
     AdjustSize;
     {$endif}
     SettingsShow.ImageIndex:= 1;
     end;
   False: begin
     {$ifdef linux}
-    Constraints.MaxHeight := 0;
-    Constraints.MinHeight := Footer.Top+Footer.Height+Footer.BorderSpacing.Bottom;
-    Constraints.MaxHeight := Constraints.MinHeight;
+    Constraints.MinHeight := FMinHeight;
+    Constraints.MaxHeight := FMinHeight;
     AdjustSize;
     {$endif}
      SettingsShow.ImageIndex:= 0;

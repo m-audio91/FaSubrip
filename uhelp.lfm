@@ -19,6 +19,7 @@ object FaSubripHelp: TFaSubripHelp
   Constraints.MinWidth = 500
   OnShow = FormShow
   Position = poScreenCenter
+  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 33
@@ -42,7 +43,7 @@ object FaSubripHelp: TFaSubripHelp
       Align = alTop
       Alignment = taCenter
       BorderSpacing.Around = 8
-      Caption = 'راهنمای تنظیمات'
+      Caption = 'راهنمای تنظیمات فاسابریپ'
       Font.Color = clWhite
       Font.Style = [fsBold]
       ParentColor = False
@@ -73,6 +74,10 @@ object FaSubripHelp: TFaSubripHelp
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
       TabOrder = 0
     end
   end

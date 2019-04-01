@@ -53,17 +53,10 @@ implementation
 { TFaSubripHelp }
 
 procedure TFaSubripHelp.FormShow(Sender: TObject);
-var
-  i: Integer;
 begin
   ContentsContainer.VertScrollBar.Position := 0;
-  if HelpsAreSet then Exit;
-  for i := 0 to Contents.ControlCount-1 do
-  begin
-    Contents.Controls[i].Align := alTop;
-    Contents.Controls[i].Top := Contents.Height;
-  end;
-  FHelpsAreSet := True;
+  if not HelpsAreSet then
+    FHelpsAreSet := True;
 end;
 
 procedure TFaSubripHelp.AddTitle(const S: String);
@@ -76,7 +69,6 @@ begin
     Parent := Contents;
     BiDiMode := bdRightToLeft;
     BorderSpacing.Around := 4;
-    BorderSpacing.Top := Font.GetTextHeight(S)*3;
     Caption := S+':';
     Font.Style := Font.Style+[fsBold];
     WordWrap := True;
@@ -92,7 +84,8 @@ begin
   begin
     Parent := Contents;
     BiDiMode := bdRightToLeft;
-    BorderSpacing.Around := 4;
+    BorderSpacing.Around := 4; 
+    BorderSpacing.Bottom := Font.GetTextHeight(S)*3;
     Caption := S;
     WordWrap := True;
   end;

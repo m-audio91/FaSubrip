@@ -15,8 +15,7 @@ object FaSubripMain: TFaSubripMain
   OnShow = FormShow
   ParentFont = True
   Position = poScreenCenter
-  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;PhrasesCensorship.State;PhrasesCensorshipFile.Text;CensorshipLevel.ItemIndex'
-  LCLVersion = '2.1.0.0'
+  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;EndingPunctuations.ItemIndex'
   object Header: TPanel
     Left = 0
     Height = 30

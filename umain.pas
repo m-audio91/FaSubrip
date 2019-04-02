@@ -211,9 +211,9 @@ begin
   SubContainer2.BorderSpacing.Right := 6;
   SubContainer4.BorderSpacing.Right := 6;
   SubContainer5.BorderSpacing.Right := 6;
-  OpenSubsContainer := clDefault;
+  OpenSubsContainer.Color := clDefault;
   SettingsNotifier.Color := clDefault;
-  SettingContainersGrid := clDefault;
+  SettingContainersGrid.Color := clDefault;
   Footer.Color := clDefault;
   {$endif}
   AutoSize := True;

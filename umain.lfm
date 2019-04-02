@@ -16,7 +16,6 @@ object FaSubripMain: TFaSubripMain
   ParentFont = True
   Position = poScreenCenter
   SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;EndingPunctuations.ItemIndex'
-  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -298,10 +297,10 @@ object FaSubripMain: TFaSubripMain
       ClientWidth = 566
       TabOrder = 1
       object SubContainer2: TPanel
-        Left = 203
+        Left = 139
         Height = 28
         Top = 0
-        Width = 363
+        Width = 427
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
@@ -309,10 +308,20 @@ object FaSubripMain: TFaSubripMain
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 28
-        ClientWidth = 363
+        ClientWidth = 427
         TabOrder = 0
+        object EndingPunctuationsL: TLabel
+          Left = 202
+          Height = 28
+          Hint = 'یکی از مشکلات شایع برخی نرم افزارها با زبان فارسی مشکل نمایش'#10'کامل راست به چپ هست که حتی اگر متن به درستی نمایش داده شود'#10'باز علایمی مانند نقطه و علامت سوال و غیره که در انتهای خط تایپ'#10'شده اند در هنگام نمایش در ابتدای خط نمایش داده می شوند.'#10'کاری که این گزینه می کند این است که فقط علایم انتهای خطوط را به'#10'ابتدای خط منتقل می کند یا بلعکس تا شاید در زمان نمایش در'#10'پخش کننده های مذکور در جایی که باید نمایش داده بشوند.'#10'همچنین امکان حذف جدا یا همه علایم ابتدایی و انتهایی نیز گنجانده شده.'#10'تذکر: '#10'این عملیات قابلیت برگشت ندارد لذا درصورت لزوم یک نسخه کپی'#10'از زیرنویس اصلی نگه دارید.'
+          Top = 0
+          Width = 225
+          Caption = 'علایم نگارشی ابتدا و انتهای سطور را'
+          Layout = tlCenter
+          ParentColor = False
+        end
         object EndingPunctuations: TComboBox
-          Left = 163
+          Left = 0
           Height = 28
           Top = 0
           Width = 200
@@ -320,25 +329,18 @@ object FaSubripMain: TFaSubripMain
           ItemHeight = 0
           ItemIndex = 0
           Items.Strings = (
-            'عدم تغییر در'
-            'انتقال'
-            'حذف'
+            'تغییر نده'
+            'منتقل کن به ابتدای سطر'
+            'منتقل کن به انتهای سطر'
+            'تنها از ابتدای سطر حذف کن'
+            'تنها از انتهای سطر حذف کن'
+            'حذف کن'
           )
           ParentBidiMode = False
           ParentColor = True
           Style = csDropDownList
           TabOrder = 0
-          Text = 'عدم تغییر در'
-        end
-        object EndingPunctuationsL: TLabel
-          Left = 0
-          Height = 28
-          Hint = 'یکی از مشکلات شایع برخی نرم افزارها با زبان فارسی مشکل نمایش کامل راست به چپ هست'#10'که حتی اگر متن به درستی نمایش داده شود باز علایمی مانند نقطه و علامت سوال و غیره که در'#10'انتهای خط تایپ شده اند در هنگام نمایش در ابتدای خط نمایش داده می شوند.'#10'کاری که این گزینه می کند این است که فقط علایم انتهای خطوط را به ابتدای خط منتقل می کند تا'#10'شاید در زمان نمایش در پخش کننده های مذکور در انتهای خط نمایش داده بشوند.'#10'تذکر: '#10'این انتقال در فاسابریپ قابلیت برگشت ندارد لذا درصورت لزوم یک نسخه کپی'#10'از زیرنویس اصلی نگه دارید.'
-          Top = 0
-          Width = 161
-          Caption = 'علایم نگارشی انتهای سطر'
-          Layout = tlCenter
-          ParentColor = False
+          Text = 'تغییر نده'
         end
       end
     end

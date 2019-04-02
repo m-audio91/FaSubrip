@@ -119,6 +119,13 @@ type
     FAutoRun: Boolean;
   end;
 
+  TIntegerDict = record
+    s,
+    e: Integer;
+  end;
+
+  TIntegerDictArray = array of TIntegerDict;
+
 var
   FaSubripMain: TFaSubripMain;
 
@@ -153,7 +160,7 @@ const
   ,#$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD
   ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7, #$E2#$81#$A8
   ,#$E2#$81#$A9);
-  CommonEndingPunctuations: array[0..9] of String = ('!',',','.',':',';',
+  CommonPunctuations: array[0..9] of String = ('!',',','.',':',';',
     '?','‚','؟','؛','،');
 
 resourcestring
@@ -475,27 +482,42 @@ end;
 procedure TFaSubripMain.CorrectEndingPunctuations(var S: String);
 var
   sa: TStringArray;
-  i,j,c: Integer;
+  i,j,sCount,eCount: Integer;
   r: String;
+  d: TIntegerDictArray;
 begin
   if EndingPunctuations.ItemIndex < 1 then Exit;
   sa := S.Split(LineEndings);
+  SetLength(d, Length(sa));
   for j := Low(sa) to High(sa) do
   begin
-    r := UTF8ReverseString(sa[j]);
-    c := 0;
+    sCount := 0;
     repeat
-      i := UTF8Copy(r,c+1,1).IndexOfAny(CommonEndingPunctuations);
+      i := UTF8Copy(sa[j],sCount+1,1).IndexOfAny(CommonPunctuations);
       if i>-1 then
-        Inc(c);
+        Inc(sCount);
     until i<0;
-    if c>0 then
-    begin
-      if EndingPunctuations.ItemIndex=1 then
-        sa[j] := UTF8Copy(sa[j],(UTF8Length(sa[j])-c)+1,c)
-          +UTF8Copy(sa[j],1,UTF8Length(sa[j])-c)
-      else
-        sa[j] := UTF8Copy(sa[j],1,UTF8Length(sa[j])-c);
+    d[j].s := sCount;
+    r := UTF8ReverseString(sa[j]);
+    eCount := 0;
+    repeat
+      i := UTF8Copy(r,eCount+1,1).IndexOfAny(CommonPunctuations);
+      if i>-1 then
+        Inc(eCount);
+    until i<0;
+    d[j].e := eCount;
+  end;
+  for i := Low(sa) to High(sa) do
+  begin
+    j := UTF8Length(sa[i]);
+    case EndingPunctuations.ItemIndex of
+    1: sa[i] := UTF8RightStr(sa[i],d[i].e)
+        +UTF8LeftStr(sa[i],j-d[i].e);
+    2: sa[i] := UTF8RightStr(sa[i],j-d[i].s)
+        +UTF8LeftStr(sa[i],d[i].s);
+    3: sa[i] := UTF8RightStr(sa[i],j-d[i].s);
+    4: sa[i] := UTF8LeftStr(sa[i],j-d[i].e);
+    5: sa[i] := UTF8Copy(sa[i],d[i].s+1,j-(d[i].s+d[i].e));
     end;
   end;
   S := S.Join(LineEnding,sa);

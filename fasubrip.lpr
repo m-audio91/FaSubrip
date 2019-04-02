@@ -49,6 +49,7 @@ begin
   RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TFaSubripMain, FaSubripMain);
+  {$ifndef darwin}
   if Application.ParamCount < 1 then
     FaSubripMain.FAutoRun := False
   else
@@ -58,6 +59,7 @@ begin
       FaSubripMain.FInputFiles[i-1] := Application.Params[i];
     FaSubripMain.FAutoRun := True;
   end;
+  {$endif}
   Application.CreateForm(TFaSubripHelp, FaSubripHelp);
   Application.CreateForm(TFaSubripAbout, FaSubripAbout);
   Application.Run;

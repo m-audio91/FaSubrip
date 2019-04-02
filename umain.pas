@@ -206,7 +206,16 @@ begin
 end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);
-begin
+begin 
+  {$ifdef darwin}
+  SubContainer2.BorderSpacing.Right := 6;
+  SubContainer4.BorderSpacing.Right := 6;
+  SubContainer5.BorderSpacing.Right := 6;
+  OpenSubsContainer := clDefault;
+  SettingsNotifier.Color := clDefault;
+  SettingContainersGrid := clDefault;
+  Footer.Color := clDefault;
+  {$endif}
   AutoSize := True;
   FMaxHeight := Height;
   with SettingContainersGrid do
@@ -215,11 +224,13 @@ begin
     Visible := False;
   end;
   FMinHeight := Height;
+  {$ifndef darwin}
   if FAutoRun then
   begin
     DoRun;
     Close;
   end;
+  {$endif}
 end;
 
 procedure TFaSubripMain.FormDropFiles(Sender: TObject;

@@ -126,7 +126,6 @@ implementation
 
 {$R *.lfm}
 {$R badphrases.res}
-{$R badphrasesmore.res}
 
 const
   LicenseUrl = 'https://www.gnu.org/licenses/gpl-3.0.en.html';
@@ -141,7 +140,10 @@ const
   wFaSubed = '_FaSubrip';
   extSrt = '.srt';
   BadPhrasesResName = 'BADPHRASES';
-  MoreBadPhrasesResName = 'BADPHRASESMORE';
+  BadPhrasesStartMarker = '[startofbadphrases]';
+  BadPhrasesEndMarker = '[endofbadphrases]';
+  MoreBadPhrasesStartMarker = '[startofmorebadphrases]';
+  MoreBadPhrasesEndMarker = '[endofmorebadphrases]';
   ArabicChars: array[0..1] of String = ('ك', 'ي');
   FarsiChars: array[0..1] of String = ('ک', 'ی');
   EncodingNames: array[0..2] of String = ('UTF-8', 'WINDOWS-1256', 'UTF-16');
@@ -402,7 +404,7 @@ var
   rs: TResourceStream;
   sl: TStringList;
   sa: TStringArray;
-  i: Cardinal;
+  i,j: Cardinal;
   Enc: TEncoding;
 begin
   if PhrasesCensorship.State <> cbChecked then Exit;
@@ -415,20 +417,21 @@ begin
   end;
   Enc := Default(TEncoding);
   sl := TStringList.Create;
+  sa := nil;
   try
     case i of
     0..1: begin
       rs := TResourceStream.Create(HInstance, BadPhrasesResName, RT_RCDATA);
       sl.LoadFromStream(rs, Enc.UTF8);
       rs.Free;
-      sa := StringListToArray(sl);
+      for j := sl.IndexOf(BadPhrasesStartMarker)+1
+      to sl.IndexOf(BadPhrasesEndMarker)-1 do
+        sa := sa+[sl.Strings[j]];
       if i = 1 then
       begin
-        sl.Clear;
-        rs := TResourceStream.Create(HInstance, MoreBadPhrasesResName, RT_RCDATA);
-        sl.LoadFromStream(rs, Enc.UTF8);
-        rs.Free;
-        sa := sa + StringListToArray(sl);
+        for j := sl.IndexOf(MoreBadPhrasesStartMarker)+1
+        to sl.IndexOf(MoreBadPhrasesEndMarker)-1 do
+          sa := sa+[sl.Strings[j]];
       end;
       end;
     2: begin
@@ -436,11 +439,14 @@ begin
       sa := StringListToArray(sl);
       end;
     end;
+    sl.AddStrings(sa,True);
+    sl.Duplicates := TDuplicates.dupIgnore;
     for i := 0 to High(sa) do
     begin
       sl.Add(ReplaceStrings(sa[i], ArabicChars, FarsiChars));
       sl.Add(ReplaceStrings(sa[i], FarsiChars, ArabicChars));
     end;
+    s := NoChainedSpaces(s);
     for i := 0 to sl.Count-1 do
     begin
       if (sl.Values[sl.Names[i]] <> EmptyStr) then

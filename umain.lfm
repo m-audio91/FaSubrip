@@ -14,8 +14,7 @@ object FaSubripMain: TFaSubripMain
   OnDropFiles = FormDropFiles
   OnShow = FormShow
   ParentFont = True
-  Position = poScreenCenter
-  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;EndingPunctuations.ItemIndex'
+  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Left;Top'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -602,6 +601,7 @@ object FaSubripMain: TFaSubripMain
   end
   object IniProps: TIniPropStorage
     StoredValues = <>
+    OnRestoringProperties = IniPropsRestoringProperties
     Left = 80
     Top = 72
   end

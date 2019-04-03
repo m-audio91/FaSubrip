@@ -81,6 +81,7 @@ type
     DragNotifierL: TLabel;
     HeaderLinks: TPanel;
     OptionalSettings: TDividerBevel;
+    procedure IniPropsRestoringProperties(Sender: TObject);
     procedure PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -100,6 +101,7 @@ type
     FInputFile: String;
     FMaxHeight: Integer;
     FMinHeight: Integer;
+    FCollapsed: Boolean;
     function OutputDirValid(const Dir: String): Boolean;
     procedure DoRun;
     procedure ProcessSubtitle;
@@ -117,6 +119,8 @@ type
     LicenseUrlL: TUrlLabelEx;
     FInputFiles: array of String;
     FAutoRun: Boolean;
+  published
+    property Collapsed: Boolean read FCollapsed write FCollapsed;
   end;
 
   TIntegerDict = record
@@ -204,12 +208,18 @@ begin
     Hint := rsLicenseHint;
     HighlightColor := clHighlight;
   end;
+  Collapsed := True;
 end;
 
 procedure TFaSubripMain.PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_RETURN then (Sender as TFileNameEdit).RunDialog;
+end;
+
+procedure TFaSubripMain.IniPropsRestoringProperties(Sender: TObject);
+begin
+  SessionProperties := SessionProperties+';Collapsed';
 end;
 
 procedure TFaSubripMain.FormShow(Sender: TObject);
@@ -231,6 +241,8 @@ begin
     Visible := False;
   end;
   FMinHeight := Height;
+  if not Collapsed then
+    SettingsShowClick(SettingsShow);
   {$ifndef darwin}
   if FAutoRun then
   begin
@@ -281,6 +293,7 @@ begin
      SettingsShow.ImageIndex:= 0;
     end;
   end;
+  Collapsed := not SettingContainersGrid.Visible;
   {$ifdef linux}
   Constraints.MinHeight := h;
   Constraints.MaxHeight := h;

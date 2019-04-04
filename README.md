@@ -1,6 +1,6 @@
 # FaSubrip
 ![Image of FaSubrip](https://github.com/m-audio91/FaSubrip/raw/master/extra/icon/128.png)  
-v1.2.0
+v1.2.1
 
 FaSubrip autodetects and converts encoding of Farsi (Persian) subrip files. with additional functionalities.  
 

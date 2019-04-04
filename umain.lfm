@@ -15,6 +15,7 @@ object FaSubripMain: TFaSubripMain
   OnShow = FormShow
   ParentFont = True
   SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Left;Top'
+  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -312,7 +313,7 @@ object FaSubripMain: TFaSubripMain
         object EndingPunctuationsL: TLabel
           Left = 202
           Height = 28
-          Hint = 'یکی از مشکلات شایع برخی نرم افزارها با زبان فارسی مشکل نمایش'#10'کامل راست به چپ هست که حتی اگر متن به درستی نمایش داده شود'#10'باز علایمی مانند نقطه و علامت سوال و غیره که در انتهای خط تایپ'#10'شده اند در هنگام نمایش در ابتدای خط نمایش داده می شوند.'#10'کاری که این گزینه می کند این است که فقط علایم انتهای خطوط را به'#10'ابتدای خط منتقل می کند یا بلعکس تا شاید در زمان نمایش در'#10'پخش کننده های مذکور در جایی که باید نمایش داده بشوند.'#10'همچنین امکان حذف جدا یا همه علایم ابتدایی و انتهایی نیز گنجانده شده.'#10'تذکر: '#10'این عملیات قابلیت برگشت ندارد لذا درصورت لزوم یک نسخه کپی'#10'از زیرنویس اصلی نگه دارید.'
+          Hint = 'یکی از مشکلات شایع برخی نرم افزارها با زبان فارسی مشکل نمایش'#10'کامل راست به چپ هست که حتی اگر متن به درستی نمایش داده شود'#10'باز علایمی مانند نقطه و علامت سوال و غیره که در انتهای خط تایپ'#10'شده اند در هنگام نمایش در ابتدای خط نمایش داده می شوند.'#10'کاری که این گزینه می کند این است که فقط علایم انتهای خطوط را به'#10'ابتدای خط منتقل می کند یا بلعکس تا شاید در زمان نمایش در'#10'پخش کننده های مذکور در جایی که باید نمایش داده بشوند.'#10'همچنین امکان حذف جدا یا همه علایم ابتدایی و انتهایی نیز گنجانده شده.'#10'تذکر: '#10'این عملیات قابلیت برگشت ندارد لذا درصورت لزوم یک نسخه کپی'#10'از زیرنویس اصلی نگه دارید.'#10'این گزینه عمدتا برای خروجی های ویندوز-۱۲۵۶ و دو یونیکدی'#10'که در نامشان no Right-To-Left Mark دارند قرار داده شده.'
           Top = 0
           Width = 225
           Caption = 'علایم نگارشی ابتدا و انتهای سطور را'
@@ -500,8 +501,10 @@ object FaSubripMain: TFaSubripMain
           ItemIndex = 0
           Items.Strings = (
             'UTF-8'
+            'UTF-8 - no Right-To-Left mark'
             'ANSI WINDOWS-1256'
             'Unicode (UTF-16 LE)'
+            'Unicode (UTF-16 LE) - no Right-To-Left mark'
           )
           ParentBidiMode = False
           ParentColor = True

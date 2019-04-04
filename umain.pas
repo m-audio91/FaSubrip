@@ -157,13 +157,14 @@ const
   MoreBadPhrasesEndMarker = '[endofmorebadphrases]';
   ArabicChars: array[0..1] of String = ('ك', 'ي');
   FarsiChars: array[0..1] of String = ('ک', 'ی');
-  EncodingNames: array[0..2] of String = ('UTF-8', 'WINDOWS-1256', 'UTF-16');
+  EncodingNames: array[0..4] of String = ('UTF-8', 'UTF-8noRTL',
+    'WINDOWS-1256', 'UTF-16', 'UTF-16noRTL');
   UnicodeBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
     UTF32LEBOM);
-  UnicodeDirectionControllers: array[0..11] of String = (#$E2#$80#$8F
-  ,#$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD
-  ,#$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7, #$E2#$81#$A8
-  ,#$E2#$81#$A9);
+  UnicodeDirectionControllers: array[0..11] of String = (#$E2#$80#$8F,
+    #$D8#$9C, #$E2#$80#$8E, #$E2#$80#$AA, #$E2#$80#$AB, #$E2#$80#$AD,
+    #$E2#$80#$AC, #$E2#$80#$AE, #$E2#$81#$A6, #$E2#$81#$A7, #$E2#$81#$A8,
+    #$E2#$81#$A9);
   CommonPunctuations: array[0..9] of String = ('!',',','.',':',';',
     '?','‚','؟','؛','،');
 
@@ -406,8 +407,11 @@ var
 begin
   for c in UnicodeBOMs do
     DeleteAllOccurrences(c, S);
-  for c in UnicodeDirectionControllers do
-    DeleteAllOccurrences(c, S);
+  case OutFileEncoding.ItemIndex of
+  1,2,4:
+    for c in UnicodeDirectionControllers do
+      DeleteAllOccurrences(c, S);
+  end;
 end;
 
 procedure TFaSubripMain.SwapArabicChars(var S: String);
@@ -575,32 +579,34 @@ var
   sl: TStringList;
   Enc: TEncoding;
   Sub: String;
+  OutEnc: Integer;
 begin
   Sub := Subtitle;
+  OutEnc := OutFileEncoding.ItemIndex;
   if FInputFile.Equals(Sub) and FileExists(Sub) then
     DeleteFile(Sub);
   if AppendEncodingToFileName.State = cbChecked then
   begin
-    if not Sub.EndsWith(EncodingNames[OutFileEncoding.ItemIndex]+extSrt) then
-      Sub := GenFileName(Sub, '_'+EncodingNames[OutFileEncoding.ItemIndex]);
+    if not Sub.EndsWith(EncodingNames[OutEnc]+extSrt) then
+      Sub := GenFileName(Sub, '_'+EncodingNames[OutEnc]);
   end;
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try
-    case OutFileEncoding.ItemIndex of
-    0:begin
+    case OutEnc of
+    0..1:begin
       sl.DefaultEncoding := Enc.UTF8;
       sl.Text := FSrt;
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
       sl.SaveToFile(Sub, Enc.UTF8);
       end;
-    1:begin
+    2:begin
       sl.DefaultEncoding := Enc.ANSI;
       sl.Text := ConvertEncoding(FSrt, EncodingUTF8, EncodingCP1256);
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
       sl.SaveToFile(Sub);
       end;
-    2:begin
+    3..4:begin
       sl.DefaultEncoding := Enc.Unicode;
       sl.Text := FSrt;
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;

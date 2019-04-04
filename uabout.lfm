@@ -10,7 +10,9 @@ object FaSubripAbout: TFaSubripAbout
   ClientHeight = 97
   ClientWidth = 360
   OnCreate = FormCreate
-  Position = poScreenCenter
+  OnShow = FormShow
+  Position = poMainFormCenter
+  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 96

@@ -18,7 +18,7 @@ object FaSubripHelp: TFaSubripHelp
   Constraints.MinHeight = 480
   Constraints.MinWidth = 500
   OnShow = FormShow
-  Position = poScreenCenter
+  Position = poMainFormCenter
   LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0

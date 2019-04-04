@@ -35,6 +35,7 @@ type
     Logo: TImage;
     LinksBox: TPanel;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
 
   public
@@ -104,6 +105,16 @@ begin
     URL := ContactUrl;
     HighlightColor := clHighlight;
   end;
+end;
+
+procedure TFaSubripAbout.FormShow(Sender: TObject);
+begin
+  if Top<0 then
+    Top := 0;
+  if Left<0 then
+    Left := 0;
+  if Left+Width > Screen.Width then
+    Left := Left - ((Left+Width)-Screen.Width);
 end;
 
 

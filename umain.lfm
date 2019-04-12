@@ -6,7 +6,7 @@ object FaSubripMain: TFaSubripMain
   AllowDropFiles = True
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FaSubrip v1.2.1'
+  Caption = 'FaSubrip v1.2.2'
   ClientHeight = 414
   ClientWidth = 582
   DefaultMonitor = dmPrimary

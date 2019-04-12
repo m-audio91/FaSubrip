@@ -416,7 +416,7 @@ end;
 
 procedure TFaSubripMain.SwapArabicChars(var S: String);
 begin
-  if OutFileEncoding.ItemIndex = 1 then
+  if OutFileEncoding.ItemIndex = 2 then
     ArabicCharsToFarsi.State := cbUnchecked;
   if ArabicCharsToFarsi.State <> cbChecked then
     S := ReplaceStrings(S, FarsiChars, ArabicChars)

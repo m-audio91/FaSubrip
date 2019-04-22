@@ -60,6 +60,18 @@ begin
     Left := 0;
   if Left+Width > Screen.Width then
     Left := Left - ((Left+Width)-Screen.Width);
+  if Height>Screen.Height then
+    Height := Screen.Height;
+  if Top+Height>Screen.Height then
+  begin
+    if Height<Screen.Height then
+      Top := Screen.Height-Height
+    else
+    begin
+      Top := 0;
+      Height := Screen.Height;
+    end;
+  end;
   ContentsContainer.VertScrollBar.Position := 0;
   if not HelpsAreSet then
     FHelpsAreSet := True;

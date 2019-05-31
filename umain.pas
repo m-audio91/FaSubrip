@@ -40,6 +40,7 @@ type
     ArabicCharsToFarsiL: TLabel;
     AppendEncodingToFileNameL: TLabel;
     Container1: TPanel;
+    ImgsLight: TImageList;
     SubContainer5: TPanel;
     Container6: TPanel;
     SubContainer6: TPanel;
@@ -81,6 +82,7 @@ type
     DragNotifierL: TLabel;
     HeaderLinks: TPanel;
     OptionalSettings: TDividerBevel;
+    procedure FormActivate(Sender: TObject);
     procedure IniPropsRestoringProperties(Sender: TObject);
     procedure PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -251,6 +253,19 @@ begin
     Close;
   end;
   {$endif}
+end; 
+
+procedure TFaSubripMain.FormActivate(Sender: TObject);
+begin
+  if HasDarkBackgroundColor(Self) then
+  begin
+    SettingsShow.Images := ImgsLight;
+    SettingsHelps.Images := ImgsLight;
+    PhrasesCensorshipFile.Images := ImgsLight;
+    DragNotifierL.Font.Color := clDefault;
+    SettingsNotifierL.Font.Color := clDefault;
+  end;
+  OnActivate := nil;
 end;
 
 procedure TFaSubripMain.FormDropFiles(Sender: TObject;

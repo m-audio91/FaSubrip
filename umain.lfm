@@ -10,6 +10,7 @@ object FaSubripMain: TFaSubripMain
   ClientHeight = 414
   ClientWidth = 582
   DefaultMonitor = dmPrimary
+  OnActivate = FormActivate
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   OnShow = FormShow
@@ -69,7 +70,7 @@ object FaSubripMain: TFaSubripMain
   end
   object OpenSubsContainer: TPanel
     Left = 8
-    Height = 30
+    Height = 32
     Top = 33
     Width = 566
     Align = alTop
@@ -83,7 +84,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 30
+    ClientHeight = 32
     ClientWidth = 566
     Color = clForm
     Font.Color = 4342338
@@ -92,11 +93,11 @@ object FaSubripMain: TFaSubripMain
     ParentFont = False
     TabOrder = 0
     object OpenSubs: TButton
-      Left = 212
-      Height = 30
+      Left = 209
+      Height = 32
       Hint = 'با این دکمه زیرنویس (های) خود را باز کنید.'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و'#13#10'روی آیکون فاسابریپ رها کنید اما این مورد تنها مخصوص سیستم عامل ویندوز می باشد'#13#10'توجه: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'
       Top = 0
-      Width = 142
+      Width = 148
       AutoSize = True
       Caption = 'بازکنید زیرنویس ها را'
       OnClick = OpenSubsClick
@@ -106,9 +107,9 @@ object FaSubripMain: TFaSubripMain
     end
     object DragNotifierL: TLabel
       Left = 0
-      Height = 30
+      Height = 32
       Top = 0
-      Width = 144
+      Width = 152
       Align = alLeft
       Caption = 'یا بکشید و اینجا رها کنید'
       Font.Color = 4342338
@@ -120,7 +121,7 @@ object FaSubripMain: TFaSubripMain
   object OptionalSettings: TDividerBevel
     Left = 16
     Height = 17
-    Top = 63
+    Top = 65
     Width = 550
     Align = alTop
     BorderSpacing.Left = 16
@@ -131,7 +132,7 @@ object FaSubripMain: TFaSubripMain
   object SettingsNotifier: TPanel
     Left = 8
     Height = 17
-    Top = 80
+    Top = 82
     Width = 566
     Align = alTop
     AutoSize = True
@@ -147,10 +148,10 @@ object FaSubripMain: TFaSubripMain
     ParentFont = False
     TabOrder = 1
     object SettingsNotifierL: TLabel
-      Left = 516
+      Left = 512
       Height = 17
       Top = 0
-      Width = 50
+      Width = 54
       Align = alRight
       Alignment = taCenter
       Caption = 'تنظیمات'
@@ -160,7 +161,7 @@ object FaSubripMain: TFaSubripMain
       ParentFont = False
     end
     object SettingsShow: TSpeedButton
-      Left = 500
+      Left = 496
       Height = 17
       Top = 0
       Width = 16
@@ -174,7 +175,7 @@ object FaSubripMain: TFaSubripMain
       ParentFont = False
     end
     object SettingsHelps: TSpeedButton
-      Left = 484
+      Left = 480
       Height = 17
       Top = 0
       Width = 16
@@ -190,8 +191,8 @@ object FaSubripMain: TFaSubripMain
   end
   object SettingContainersGrid: TPanel
     Left = 8
-    Height = 228
-    Top = 105
+    Height = 223
+    Top = 107
     Width = 566
     Align = alTop
     Alignment = taRightJustify
@@ -204,7 +205,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 228
+    ClientHeight = 223
     ClientWidth = 566
     Color = clForm
     ParentBidiMode = False
@@ -212,73 +213,73 @@ object FaSubripMain: TFaSubripMain
     TabOrder = 4
     object Container1: TPanel
       Left = 0
-      Height = 72
+      Height = 69
       Top = 0
       Width = 566
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 72
+      ClientHeight = 69
       ClientWidth = 566
       TabOrder = 0
       object SubContainer1: TPanel
-        Left = 278
-        Height = 72
+        Left = 275
+        Height = 69
         Top = 0
-        Width = 288
+        Width = 291
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 72
-        ClientWidth = 288
+        ClientHeight = 69
+        ClientWidth = 291
         TabOrder = 0
         object StripHTMLFontTags: TCheckBox
-          Left = 264
-          Height = 24
+          Left = 268
+          Height = 23
           Top = 0
-          Width = 24
+          Width = 23
           TabOrder = 0
         end
         object StripHTMLFontTagsL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'فعال کردن این گزینه منجر به حذف تگ های <font .....> و </font> می شود.'#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
           Top = 0
-          Width = 264
+          Width = 268
           Caption = 'حذف برچسب های HTML رنگ و اندازه قلم'
           ParentColor = False
         end
         object StripHTMLStyleTags: TCheckBox
-          Left = 264
-          Height = 24
-          Top = 24
-          Width = 24
+          Left = 268
+          Height = 23
+          Top = 23
+          Width = 23
           TabOrder = 1
         end
         object StripHTMLStyleTagsL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'فعال کردن این گزینه منجر به حذف تگ های Italic ،Bold و Underline مانند <i></b> و غیره می شود.'#13#10'این تگ ها در اکثر پلیرهای کامپیوتری عمل می کنند اما پخش کننده های سخت افزاری و'#13#10'گوشی یا مستقیما خود تگ را نشان می دهند یا در بهترین حالت فقط نشان نمی دهند.'#13#10'پس در نتیجه حذفشان ضرری ایجاد نمی کند.'
-          Top = 24
-          Width = 264
+          Top = 23
+          Width = 268
           Caption = 'حذف برچسب های HTML حالات متن'
           ParentColor = False
         end
         object ArabicCharsToFarsi: TCheckBox
-          Left = 264
-          Height = 24
-          Top = 48
-          Width = 24
+          Left = 268
+          Height = 23
+          Top = 46
+          Width = 23
           TabOrder = 2
         end
         object ArabicCharsToFarsiL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'با فعال کردن این گزینه حروف ''ك'' و ''ي'' در صورت موجود بودن'#13#10'با نسخه فارسی خودشان جایگزین خواهند شد.'#13#10'تذکر:'#13#10'اگر مشاهده کردید در نرم افزار پخش کننده تان این دو حرف در زیرنویس خروجی'#13#10'بصورت علامت سوال یا مربع و امثال آن دیده می شوند موقعیت این گزینه را تغییر'#13#10'داده و مجددا امتحان کنید.'#13#10'همچنین برخی فونت ها از حالت فارسی این دو حرف پشتیبانی نمی کنند.'#13#10'نکته:'#10'هنگامی که با کدگذاری ANSI WINDOWS-1256 خروجی می گیرید این گزینه بطور خودکار'#13#10'غیر فعال می گردد زیرا نسخه فارسی این دو حرف در این کدگذاری در برخی'#13#10'از پخش کننده ها مشکل ساز است!'
-          Top = 48
-          Width = 264
+          Top = 46
+          Width = 268
           Caption = 'ی و ک فارسی'
           ParentColor = False
         end
@@ -287,7 +288,7 @@ object FaSubripMain: TFaSubripMain
     object Container2: TPanel
       Left = 0
       Height = 28
-      Top = 72
+      Top = 69
       Width = 566
       Align = alTop
       AutoSize = True
@@ -296,10 +297,10 @@ object FaSubripMain: TFaSubripMain
       ClientWidth = 566
       TabOrder = 1
       object SubContainer2: TPanel
-        Left = 139
+        Left = 132
         Height = 28
         Top = 0
-        Width = 427
+        Width = 434
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
@@ -307,14 +308,14 @@ object FaSubripMain: TFaSubripMain
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 28
-        ClientWidth = 427
+        ClientWidth = 434
         TabOrder = 0
         object EndingPunctuationsL: TLabel
           Left = 202
           Height = 28
           Hint = 'یکی از مشکلات شایع برخی نرم افزارها با زبان فارسی مشکل نمایش'#10'کامل راست به چپ هست که حتی اگر متن به درستی نمایش داده شود'#10'باز علایمی مانند نقطه و علامت سوال و غیره که در انتهای خط تایپ'#10'شده اند در هنگام نمایش در ابتدای خط نمایش داده می شوند.'#10'کاری که این گزینه می کند این است که فقط علایم انتهای خطوط را به'#10'ابتدای خط منتقل می کند یا بلعکس تا شاید در زمان نمایش در'#10'پخش کننده های مذکور در جایی که باید نمایش داده بشوند.'#10'همچنین امکان حذف جدا یا همه علایم ابتدایی و انتهایی نیز گنجانده شده.'#10'تذکر: '#10'این عملیات قابلیت برگشت ندارد لذا درصورت لزوم یک نسخه کپی'#10'از زیرنویس اصلی نگه دارید.'#10'این گزینه عمدتا برای خروجی های ویندوز-۱۲۵۶ و دو یونیکدی'#10'که در نامشان no Right-To-Left Mark دارند قرار داده شده.'
           Top = 0
-          Width = 225
+          Width = 232
           Caption = 'علایم نگارشی ابتدا و انتهای سطور را'
           Layout = tlCenter
           ParentColor = False
@@ -345,41 +346,41 @@ object FaSubripMain: TFaSubripMain
     end
     object Container3: TPanel
       Left = 0
-      Height = 24
-      Top = 100
+      Height = 23
+      Top = 97
       Width = 566
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 24
+      ClientHeight = 23
       ClientWidth = 566
       TabOrder = 2
       object SubContainer3: TPanel
-        Left = 392
-        Height = 24
+        Left = 384
+        Height = 23
         Top = 0
-        Width = 174
+        Width = 182
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 24
-        ClientWidth = 174
+        ClientHeight = 23
+        ClientWidth = 182
         TabOrder = 0
         object PhrasesCensorship: TCheckBox
-          Left = 150
-          Height = 24
+          Left = 159
+          Height = 23
           Top = 0
-          Width = 24
+          Width = 23
           TabOrder = 0
         end
         object PhrasesCensorshipL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'با فعال کردن این گزینه فاسابریپ دسته ای از کلمات و عبارات ناشایست عامیانه فارسی (تقریبا اکثر آنها)'#13#10'را که بطور داخلی برایش تعریف شده سانسور می کند. به این معنی که با چند ستاره ***** جایگزین می کند.'#10'گزینه [حساس] حاوی عبارات معمولی تری می باشد و شامل تمام عبارات گزینه [در حد متعارف]  که'#10'عبارت ناشایست و دشنام ها را پوشش می دهد هم می شود.'#13#10'چنانچه نیاز داشته باشید امکان اضافه کردن فایل حاوی عبارات شحصی قرار داده شده'#13#10'که می توانید شخصا اقدام به تعریف عبارت مدنظر خود کنید.'#10'طریقه تهیه:'#13#10'مثلا تو سیستم عامل ویندوز'#13#10'نت پد رو باز کنید'#13#10'File > Save As'#13#10'رو بزنید و پائین دیالوگ باز شده'#13#10'Encoding > UTF-8'#13#10'رو انتخاب کنید و در مسیر دلخواه ذخیره کنید'#13#10'بعد عبارات مدنظر خودتون رو هر کدام "در یک خط جدید" وارد کنید و ذخیره کنید و وارد فاسابریپ کنید'#10'و گزینه [شخصی - طبق فایل روبرو] رو هم انتخاب کنید.'#13#10'مثال:'#13#10'عبارت1'#13#10'عبارت2'#13#10'عبارت3'#13#10#13#10'توی سیستم عامل های دیگه ویرایشگر متن رو خودتون پیدا کنید ولی دقت کنید که فایل رو بدون پسوند'#10'ذخیره نکنید چون نمی تونید با فاسابریپ بازش کنید همچنین با فرمت فایل متنی ساده باشه نه فایل آفیس و...'#13#10#13#10'جایگزینی بجای سانسور:'#13#10'اگر می خواهید عبارتی که دستی اضافه می کنید بجای سانسور شدن با عبارت'#13#10'دیگری مثلا شکل دیگری از آن عبارت جایگزین بشود کافیست آن را نوشته'#13#10'سپس یک مساوی = نوشته و بعد عبارت جایگزین را بنویسید.'#13#10'مثال:'#13#10'filth=fi**h'#13#10'کثافت=چرک'#13#10'نکته: هر لغتی که اول نوشتید با لغتی که بعد از تایپ مساوی نوشتید جایگزین می شود.'#13#10'نگران نمایش راست به چپ عبارات فارسی نباشید. در مثال بالا کلمه filth با fi**h جایگزین'#10'می شود و کثافت با چرک.'#10'همچنین اگر تنها یک مساوی = بگذارید و بعد از آن دیگر هیچ چیزی تایپ نکنید مثل'#10'filth='#10'عبارت مد نظرتان در صورت یافته شدن فقط حذف می شود. یعنی هرچی filth هست حذف می شود.'#10#10'درصورت نیاز فایل عبارات داخلی فاسابریپ نیز از آدرس زیر قابل دانلود هست'#10'(فایل متنی badphrases.dat):'#10'https://github.com/m-audio91/FaSubrip'
           Top = 0
-          Width = 150
+          Width = 159
           Caption = 'سانسور عبارات نامناسب'
           ParentColor = False
         end
@@ -387,18 +388,18 @@ object FaSubripMain: TFaSubripMain
     end
     object Container4: TPanel
       Left = 0
-      Height = 28
-      Top = 124
+      Height = 29
+      Top = 120
       Width = 566
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 28
+      ClientHeight = 29
       ClientWidth = 566
       TabOrder = 3
       object SubContainer4: TPanel
         Left = 186
-        Height = 28
+        Height = 29
         Top = 0
         Width = 380
         Align = alRight
@@ -407,12 +408,12 @@ object FaSubripMain: TFaSubripMain
         ChildSizing.HorizontalSpacing = 2
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 28
+        ClientHeight = 29
         ClientWidth = 380
         TabOrder = 0
         object CensorshipLevel: TComboBox
           Left = 180
-          Height = 28
+          Height = 29
           Top = 0
           Width = 200
           Constraints.MinWidth = 200
@@ -431,7 +432,7 @@ object FaSubripMain: TFaSubripMain
         end
         object PhrasesCensorshipFile: TFileNameEdit
           Left = 0
-          Height = 28
+          Height = 29
           Hint = 'فایل حاوی عبارات اضافی برای حذف یا جایگزینی'
           Top = 0
           Width = 178
@@ -457,7 +458,7 @@ object FaSubripMain: TFaSubripMain
     object Container5: TPanel
       Left = 0
       Height = 27
-      Top = 153
+      Top = 150
       Width = 566
       Align = alTop
       AutoSize = True
@@ -467,10 +468,10 @@ object FaSubripMain: TFaSubripMain
       ClientWidth = 566
       TabOrder = 4
       object SubContainer5: TPanel
-        Left = 186
+        Left = 183
         Height = 27
         Top = 0
-        Width = 380
+        Width = 383
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
@@ -478,14 +479,14 @@ object FaSubripMain: TFaSubripMain
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 27
-        ClientWidth = 380
+        ClientWidth = 383
         TabOrder = 0
         object OutFileEncodingL: TLabel
           Left = 202
           Height = 27
           Hint = 'با توجه به اینکه اصل فاسابریپ تبدیل زیرنویس به UTF-8 هست تا'#10'نیازی به تغییر System Locale نباشد دلیل خاصی برای تغییر این گزینه'#10'وجود ندارد مگر اینکه خواسته باشید زیرنویس خروجی را در'#10'نرم افزاری یا پخش کننده سخت افزاری باز کنید که مثلا تنها'#10'از ANSI پشتیبانی می کند.که برای آن منظور این گزینه قرار داده شده.'#13#10'دو مورد از این نرم افزار ها که به ذهنم می رسد TxtToVobSub و'#10'نرم افزار Subtitle Creator هستند. در مورد UTF-16 هم به همین صورت.'
           Top = 0
-          Width = 178
+          Width = 181
           Caption = 'کدگذاری حروف فایل خروجی'
           Layout = tlCenter
           ParentColor = False
@@ -515,59 +516,59 @@ object FaSubripMain: TFaSubripMain
     end
     object Container6: TPanel
       Left = 0
-      Height = 48
-      Top = 180
+      Height = 46
+      Top = 177
       Width = 566
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 48
+      ClientHeight = 46
       ClientWidth = 566
       TabOrder = 5
       object SubContainer6: TPanel
-        Left = 252
-        Height = 48
+        Left = 245
+        Height = 46
         Top = 0
-        Width = 314
+        Width = 321
         Align = alRight
         AutoSize = True
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 48
-        ClientWidth = 314
+        ClientHeight = 46
+        ClientWidth = 321
         TabOrder = 0
         object AppendEncodingToFileName: TCheckBox
-          Left = 290
-          Height = 24
+          Left = 298
+          Height = 23
           Top = 0
-          Width = 24
+          Width = 23
           Checked = True
           State = cbChecked
           TabOrder = 0
         end
         object AppendEncodingToFileNameL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'فعال کردن این گزینه صرفا برای شناسایی کدگذاری از نام فایل بعدا توسط خودتان مفید می باشد'#13#10'مثلا خروجی'#13#10'test.srt'#13#10'در حالت عادی'#13#10'test_FaSubrip.srt'#13#10'می باشد که با فعال کردن این گزینه و یو تی اف 8 بودن کدگذاری انتخابی خروجی می شود'#13#10'test_UTF-8.srt'
           Top = 0
-          Width = 290
+          Width = 298
           Caption = 'افزودن نام کدگذاری انتخابی به نام فایل خروجی'
           ParentColor = False
         end
         object ReplaceSourceFile: TCheckBox
-          Left = 290
-          Height = 24
-          Top = 24
-          Width = 24
+          Left = 298
+          Height = 23
+          Top = 23
+          Width = 23
           TabOrder = 1
         end
         object ReplaceSourceFileL: TLabel
           Left = 0
-          Height = 24
+          Height = 23
           Hint = 'در صورت فعال بودن این گزینه فایل جدیدی برای خروجی ایجاد نمی گردد.'#10'فایل خروجی روی فایل ورودی بازنویسی می گردد.'
-          Top = 24
-          Width = 290
+          Top = 23
+          Width = 298
           Caption = 'ذخیره مستقیم روی فایل اصلی'
           ParentColor = False
         end
@@ -577,7 +578,7 @@ object FaSubripMain: TFaSubripMain
   object Footer: TPanel
     Left = 8
     Height = 1
-    Top = 337
+    Top = 334
     Width = 566
     Align = alTop
     AutoSize = True
@@ -794,6 +795,181 @@ object FaSubripMain: TFaSubripMain
       497D5F64ADEF806D46FB0852D74A491E9C14E513FCFB10ECC11DD1A046BF900A
       73E7F4F60971E23079460F31C6E2B0497EE69834F30E06CF3CC33CF90D22C4E3
       5C47BDEF2C4FFE28A288228A28FE6A8478D61752C3429C6AD7DEDF6763C5DC
+    }
+  end
+  object ImgsLight: TImageList
+    Height = 12
+    Scaled = True
+    Width = 12
+    Left = 304
+    Top = 72
+    Bitmap = {
+      4C69040000000C0000000C000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000000000000086C6
+      E4B686C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4B686C7E4DE86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C7E4DE6594
+      AD5086C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF6393AA520000000087C6E4AE86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C7E5B3000000000000
+      00004171791C86C6E4F286C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4F447646C1E0000000000000000000000006594AB6E86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF6494AB7200000000000000000000
+      00000000000022343A0286C6E4CA86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4CE202F370400000000000000000000000000000000000000004462713286C6
+      E4FC86C6E4FF86C6E4FF86C6E4FD426473350000000000000000000000000000
+      000000000000000000000000000085D5EB8E86C6E4FF86C6E4FF8BC8DE920000
+      0000000000000000000000000000000000000000000000000000000000002132
+      390C86C6E4D586C7E4D62131380D000000000000000000000000000000000000
+      0000000000000000000000000000000000002A2A40002A2A4000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00002A2A40002A2A400000000000000000000000000000000000000000000000
+      00000000000000000000000000002132390C86C7E4D686C7E4D62131380D0000
+      00000000000000000000000000000000000000000000000000000000000085D5
+      EB8E86C6E4FF86C6E4FF8BC8DE92000000000000000000000000000000000000
+      000000000000000000004462713286C6E4FC86C6E4FF86C6E4FF86C6E4FD4264
+      7335000000000000000000000000000000000000000022343A0286C6E4CA86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4CE202F370400000000000000000000
+      0000000000006594AB6E86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF6494AB720000000000000000000000004171791C86C6E4F286C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4F447646C1E000000000000
+      000087C6E4AE86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C7E5B3000000006697AC4D86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF6393AA5286C7
+      E4DE86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C7E4DE86C7E5B586C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4B60000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000213138066594AC6D86C7
+      E4C986C6E4F386C6E4F386C6E5C96496AB712131390800000000000000000000
+      00002131381B86C6E5D086C6E4E76595AB7E43637251436372526495AB8686C6
+      E4EF86C7E5CF2131381B000000002232390786C6E5D086C6E4E7213139190000
+      000000000000000000000000000061B1B92586C6E4F086C7E5CF223138066594
+      AB6E86C6E4FF6595AB78000000004040400084CBE083A5D4EB6C000000000000
+      000086C7E59C86C6E4FF6595AB6D86C7E4C986C6E4FF85C6E5B36393B2776594
+      AB6E86C6E4FF85C5E38F000000000000000085C7E6A086C6E4FF86C7E5C886C6
+      E4F386C6E4FF86C6E4FF86C6E4FF86C6E4FF85D4EB8F242D3601000000006595
+      AA3A86C6E4F786C6E4FF86C6E4F286C6E4F386C6E4FF86C6E4FF86C6E4FF86C6
+      E4B500000000000000006495AC4D86C6E4F586C6E4FF86C6E4FF86C6E4F286C6
+      E5C986C6E4FF86C6E4FF86C6E4FF83A3B275000000004270780986C6E4F686C6
+      E4FF86C6E4FF86C6E4FF86C6E5C86496AB6D86C6E4FF86C6E4FF86C6E4FF86C6
+      E4C887C6E4AA87C6E4AA86C6E4FF86C6E4FF86C6E4FF86C6E4FF6595AB6C2131
+      380686C7E4CE86C6E4FF86C6E4FF43637259000000000000000086C6E4FF86C6
+      E4FF86C6E4FF86C7E4CF21303806000000002131381B86C7E5CF86C6E4FF4363
+      7259000000000000000086C6E4FF86C6E4FF86C6E4CF2131381B000000000000
+      000000000000213039056595AB6A86C6E5C886C6E4F286C6E4F286C6E5C86595
+      AB6F21303806000000000000000086C6E4C586C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF4363724000000000000000000000000000000000000000000000000086C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C7E4C000000000000000000000
+      000000000000000000000000000086C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4C486C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4C486C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6E4FF86C6
+      E4FF86C6E4FF86C6E4FF86C6E4C3
+    }
+    BitmapAdv = {
+      4C69030000004C7A040000000F0000000F0000004D0300000000000078DA6360
+      201F244F59159C3275F53620DE4F0A06EA0B693BF6E43510FF2703BF6E3FFE64
+      3F397A41FA822A7ACC80EC47A4EA0D28EF3207F93975CAAA2820FF2F91FAFEB5
+      1D7FD6070B2F49152D16A0D80922F59ED275F1974409EF459BEC80E26F09E9CD
+      9CB6D48593870725AE3878F898CA379CEEC2AFF7E90EA03A666C71ADEBE2C30C
+      54730187DECBAEE915EAF8D24A48759F1750DD1F347D7F836BFAFD09A5335139
+      6550B8ED42D3BB47445E859598741A356B997EDBF1A777617192D435D598D834
+      CEC6C9C594397B530C50DF5760FAE902F149CD270E0E098C1C1C3C64E53172F5
+      FA143458F5EF7FBD236BF6E66852F45112566DA79FCF06A779587E3BF6782E31
+      FAC84D1B94A4C9B20D2713B0D809B7BBF5C893C958CB3C0AF260DBA9676B892A
+      A78E3D5E2F282103D70C2C7322C9297382AB7B8C81FC07E49475ED279E2E20C1
+      4E64BCA8ED389965FB7150D9FEB416C8FE42AADED6A38FEB18A804B41DBD38D2
+      A76F8801BA671BB04C04D5153FDB8F3D7909646F4D9BB93ECEC82B4C129B3EA0
+      B85CE381BBA038FE0AF5C3A9D6634F3603E98340FC1D829F9E04AA9345D70794
+      BB05F2474CC7DC122D3B776E6479205FB0E5C6DB76A0DE4F2075DE058D96E0F4
+      EFE8CDD904B10F14069B8165130B3677591516B1B75C7A35175AC63FD27500F9
+      6F7D2C90FF0D94966DA3D25540EA6C6C6C18BA0F9E8F0695B5EB6EBC0D86A7BF
+      A96BD460E19C31633D285CB642F9CF5B8F3DAD0B289F181154D11D0AF5C3E796
+      A38F93E0F965DA5A6D44FC3EDD020D4FE4B8FB05C41F4079B1FBC0C32A3D471F
+      0E903E550B07D6DA5DD72623A97B040D43F4B8FF1052DD9FA3E0E0000D2B0FAE
+      B6A38F417EFD81A406A4EF1516BDDB140D2DF8606EADDF776B227A99008B7774
+      BD150B364D94909000EB2BD97F5E18EA0FF4FA740B30BDC440C31959EE0E10EF
+      47C218E91918CED1865EA16240F67164F184BE25358A8696A2308C45EF3723CF
+      105148BA0A9586A52B100EA9E92F40298F50F3DE2DAF82460B6479503A83C517
+      1EBDDFBCF31B2C98989919D1D39D8EBD0F5BC6CCF551A07000AA7B088D135078
+      6E01FA2F16E84E313433D700F16F2CE5C21482750F367D10FC19180E1204F4E2
+      2C5780EDD5F5CEC9450D5871529123996DD8FFE494CBA3781413858F3E598D27
+      3FE0C3AB00C5FD696D4C7A0400000012000000120000001B0400000000000078
+      DAED566B485361189E4562595224B695D15190D0A8662539451B5AE125E8625A
+      7FFA519B84D12C73DA4D4AB06D423009128A306D5291D70AA29C4645EA667623
+      C8A2D6D54DA5A05A2565377BBEB3B37992739CF39CFE44071E3CEEBCEF73BEF7
+      F6BC472211E74ADA92373F59B54B0B1C048A7D04F1D1826381BEDDDE027C0306
+      C708E27B15782980C38D97A5EDBD85F8FB5500C7C0A1D6EEDDF159D973706F16
+      C0D3A2C85485915C27ABF256E0FF17BE73385E23CF29EE9A8547C7FA17D65B0D
+      BEF268EBAD87A9457101ECFA6FBE640EF131E73D3B8E9D9472F5526E65D33A3C
+      FF308A789C9A2AF346BE9E0C5FAC986EE8709C84EDF711787EE85ABB4D943C36
+      988F27604A90647D519902B64F47E0799EB1CF98181038C5CFDBAC641FADD90A
+      FB9F1C1CBFD4E575DB473B738B533327C2A79583C7129DBE61B22FF35BD2F339
+      1D7E6F591CEF8E743C5AEDAB0EC822E64D2C6CE83800FF4F04050D96626944D4
+      A4B1684A58B4425652FD208700F73385E81345C96908BDC4E021B130716D1B6B
+      5C62E5598CBA8BD58742E742AC39154B37C4D0313174552C9D1763EFC46F54CF
+      C66F9785EEC1D2CE1E2DEEBF08DDCB627D27E82D0EF2DD3220F0BBA525599D4F
+      BEA3F2857E4749FEC2153039C80F7A15925BD59CAAB3D8AB50D72E9CF9A30B8E
+      2E43BBA3727BB5398DE8366CC7F1F16414952975EDF61AC697C4FD0AB8C7C04E
+      660BF88C9C36629E977171A4EF284EC43B9F116D00AC9A534D6BF15E393097C1
+      228DA969139E3D71D9386CC4871D0BB8950CC700E6E3B82C226A3ADF9973DA3A
+      437577FB1A5D6773D8E09BC8E46386C162AFA5DF61B1772D57EDF2E49E8A89F1
+      4BCADE19BA6E5B8154A954D2BF4DA52889AAFAE24AD8BF263E06E481C9691A93
+      8F41C4726A9A2C743CB197CBE51253DBFD149DB5FB86B1A3E702B82287E6313F
+      0439EA6466EC63AEC99CE2AA8BABA790E3732537DFAF5264E6C4C567A9E2F0AE
+      3AE6D92D768F24A9B5529DC5717BC88F681F5DDB3F3498D935A4564ED2F37BCF
+      B6A6510B97D2759E2A0B1DA72EAFCD845F9FC7C7627FC8D8F2E94217F6CFAA59
+      E1911E2DD6545E59083FEBB03DE01C818768CB0AB73FCE3141636A26FDD5C761
+      EBE4888B46F99DDEEB9BF3F604B26A9484733CE67C27E222BDCEA999A79BEB28
+      F8D37B7E499CBFFE766F29CF4E1B044705E625D55DF761203BF9210B6F78E277
+      E69A9A52C2A263C99EA861EAE4795E506F3D81FC44B9915D5E7B946BBFEADBBA
+      CF110ED2D31945C684E13B14B5D5B3E781680D473D6DF0A5E762D89CDADCE7F2
+      C2436C6CE93B8B13B86690CC1CB8CE001F10D74DB6F681F71AC3F109B1D466EC
+      372678D1B160322F7ABAD73D7DEA646A5B819CA6221F33D8B1900B7D5506BB7E
+      9EBE380F5EE968B49497C385F7EB8B8C6B46C9E36DAF5C1689C71BFAF56D746E
+      0645E11287E73FFEE35F43BF88B32A84AB1F5A68FC0D4D2B9CB24C7A04000000
+      1800000018000000A20300000000000078DAED59496B1441141E774104453CB8
+      47F1287A70C39B7873C505FF808720EEE0CD53C0E9990C0A626EC178F1382006
+      2451101D49A6AB2712C128D1A8872453D5938004CC444F9349FBDEA413BBAB97
+      A9EA7489CA343CD24C577DD5FDEA7BDFF7BA9348FCDB47325FDC9722EC3DC40C
+      84155320D6071B7B20465C3E107B4221FE44DA607755E1237626FF6D359C5305
+      F8A596DCF01ADCE334A16762BF779D9E73F24823B433366CC2BA799E66F2C58D
+      70ED7B0CF83F6FF78D6FF7AB05B87663A1F89ACE6E06D55A8B652D86318585F0
+      BDBDBF7F59583DB7F6B23D30AE1201BB9AD2D92111CD80B1F7A4F175B34D5493
+      EE0C8CAF8239C351B82E7AA4F2F45854AE0BAF41E893285C173D046A2290EBE2
+      CF105C13615C173D426AA22ED7458F74A1B497AB89E924A107E2F451D8C766C0
+      2D434C81AE5F54E1D5D9ACB50423D138FE787E704F716F217EC4BDBF2AF9A9BA
+      BE54EA836A7D53A9CF2AFD45B53FAAF47795FD89EAFE4A657FA8BABF15E17AD4
+      FE5C86EBB2351181EB5235A1FAFD4EF5FB69CA60EF94E103B6ED4D03B5FA53F0
+      7DE07FEE475AF3A5AD9A41AFA688F91C6A66087B875AFF503BC7DFCC2BC937E6
+      16E96F36846ED2086BC73E41483709CBA68DB12631ED2F9DB6FB9CF9BDB2EFFD
+      31AE39BB6E4D4B46B875CA29C33C1586AD117ADDCD23DA91267467E0BD18F420
+      8C7BE9F6007A2DE4BEAB0E8D6A16EE8F0CF3BE6B0DEE393205B6D99D13DA21DB
+      8381EEF73A73857AEFC8CB43E7FAB89E076370703970E9685A67472CCB5AE493
+      ABB36E9F311FCC7190E309E1E7221ED4FAABDF5EEECD31F287DBEF69BCCF597E
+      3BD625B433A997B6B5E4ACA5F373F5E27E4E576EF1F8E8591EAF24E665A89367
+      01BCAED8BEF01AF65A77FCFE02747DA5977BE6051F7DEB829EE2B3846E65DBBA
+      BFAEF0E4BE8FADF3F328BB6ECAA2FD13F2C493F7DED1B5703D1F30AF2C889FF5
+      7FA7196B827AFE1832AF2C921F4D2FEEF2E4BB4077C3B5F13A7DC450C8FECED5
+      DA24CF77CC13CCFD22E05F5DA8B175C68DFAE47C87588F625E42FD16D461D9A8
+      CCE900EA4DC8B8B7908BF37CD4FB9E8F3AEEF493101E3D0DE88567C2F64CEB19
+      D9E0E2036857409E64F1AB49C33CE93B0774CBA74F91C1AFA29E85FA23780397
+      2B417C3A097F4F087970CFD87ADB932A82FEFE88CFB7D0FB35EA37682CF6F380
+      F1C9F6B8A9DA39D60EF0DBCF8B5CFBAAB3E3309ED5EF85E9E188DF1744FF3792
+      8B882FD1CFCB3F8364CDE714E3CB0455F15EE7F63C56548ADF884634A2118DF8
+      9B832AF597590FA32AB0B1A7FD05E4E0DD71
     }
   end
 end

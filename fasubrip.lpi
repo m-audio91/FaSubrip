@@ -24,10 +24,10 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="52"/>
+      <BuildNr Value="53"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.2.0"/>
     </VersionInfo>
-    <BuildModes Count="6">
+    <BuildModes Count="7">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -170,7 +170,7 @@
       </Item5>
       <Item6 Name="Release Darwin64">
         <MacroValues Count="1">
-          <Macro4 Name="LCLWidgetType" Value="cocoa"/>
+          <Macro3 Name="LCLWidgetType" Value="cocoa"/>
         </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
@@ -206,11 +206,47 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
           </Linking>
         </CompilerOptions>
       </Item6>
+      <Item7 Name="Release Linux64Qt5">
+        <MacroValues Count="1">
+          <Macro4 Name="LCLWidgetType" Value="qt5"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="fasubrip-$(TargetCPU)-$(TargetOS)-Qt5"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\commonutils"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-Qt5"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item7>
       <SharedMatrixOptions Count="4">
         <Item1 ID="714763086769" Modes="Release Win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="470355515500" Modes="Release Linux32,Release Linux64" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item3 ID="401321958054" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
-        <Item4 ID="162149294469" Modes="Release Darwin64" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
+        <Item3 ID="162149294469" Modes="Release Darwin64" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
+        <Item4 ID="293044981887" Modes="Release Linux64Qt5" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>

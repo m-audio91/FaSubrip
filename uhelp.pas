@@ -23,7 +23,8 @@ unit uhelp;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
+  CommonStrUtils;
 
 type
 
@@ -102,9 +103,8 @@ begin
   begin
     Parent := Contents;
     BiDiMode := bdRightToLeft;
-    BorderSpacing.Around := 4; 
-    BorderSpacing.Bottom := Font.GetTextHeight(S)*3;
-    Caption := S;
+    BorderSpacing.Around := 4;
+    Caption := AddLineEndings(S,2,True);
     WordWrap := True;
   end;
 end;

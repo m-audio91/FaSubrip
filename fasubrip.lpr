@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, lazcontrols, umain, uhelp, uabout
+  Classes, Forms, lazcontrols, umain, uhelp, uabout
   { you can add units after this };
   {$ifdef FPC_CROSSCOMPILING}
   {$ifdef Linux}
@@ -46,7 +46,10 @@ var
 begin
   Application.Scaled:=True;
   Application.Title:='FaSubrip';
-  RequireDerivedFormResource:=True;
+  RequireDerivedFormResource:=True; 
+  {$IFDEF LCLQt5}
+  Application.BidiMode := bdRightToLeft;
+  {$ENDIF}
   Application.Initialize;
   Application.CreateForm(TFaSubripMain, FaSubripMain);
   {$ifndef darwin}

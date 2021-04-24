@@ -16,6 +16,7 @@ object FaSubripMain: TFaSubripMain
   OnShow = FormShow
   ParentFont = True
   SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Left;Top'
+  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -95,7 +96,7 @@ object FaSubripMain: TFaSubripMain
     object OpenSubs: TButton
       Left = 220
       Height = 27
-      Hint = 'با این دکمه زیرنویس (های) خود را باز کنید.'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و'#13#10'روی آیکون فاسابریپ رها کنید اما این مورد تنها مخصوص سیستم عامل ویندوز می باشد'#13#10'توجه: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'
+      Hint = 'با این دکمه زیرنویس (های) خود را باز کنید.'#13#10'همچنین می توانید از فایل اکسپلورر بکشید (شان) و روی صفحه فاسابریپ رها کنید'#13#10'بعلاوه می توانید بدون باز کردن فاسابریپ، از فایل اکسپلورر بکشید (شان) و'#13#10'روی آیکون فاسابریپ رها کنید اما این مورد تنها مخصوص سیستم عامل ویندوز می باشد'#13#10'توجه: User Account Control در سیستم عامل ویندوز ممکن است مانع کشیدن و رها کردن بشود!'#10'بعلاوه می توانید از طریق خط فرمان یا ترمینال بصورت زیر زیرنویس خود را پردازش کنید:'#10'fasubrip.exe SUBTITLE'
       Top = 0
       Width = 127
       AutoSize = True
@@ -163,6 +164,7 @@ object FaSubripMain: TFaSubripMain
     object SettingsShow: TSpeedButton
       Left = 502
       Height = 17
+      Hint = 'نمایش/مخفی کردن تنظیمات'
       Top = 0
       Width = 16
       Align = alRight
@@ -177,6 +179,7 @@ object FaSubripMain: TFaSubripMain
     object SettingsHelps: TSpeedButton
       Left = 486
       Height = 17
+      Hint = 'راهنمای تنظیمات فاسابریپ'
       Top = 0
       Width = 16
       Align = alRight

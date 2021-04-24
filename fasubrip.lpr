@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Classes, Forms, lazcontrols, umain, uhelp, uabout
+  Classes, Forms, lazcontrols, umain, uabout
   { you can add units after this };
   {$ifdef FPC_CROSSCOMPILING}
   {$ifdef Linux}
@@ -36,7 +36,7 @@ uses
       // {$linklib GLESv2}
     {$ENDIF}
   {$endif}
-{$endif}
+ {$endif}
 
 var
   i: Word;
@@ -63,7 +63,6 @@ begin
     FaSubripMain.FAutoRun := True;
   end;
   {$endif}
-  Application.CreateForm(TFaSubripHelp, FaSubripHelp);
   Application.CreateForm(TFaSubripAbout, FaSubripAbout);
   Application.Run;
 end.

@@ -25,8 +25,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls,
-  LazUTF8, LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uhelp, uabout,
-  CommonGUIUtils, CommonStrUtils, CommonFileUtils {$ifdef darwin},Menus{$endif};
+  LazUTF8, LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uabout,
+  CommonGUIUtils, CommonStrUtils, CommonFileUtils, uSimpleHelp
+  {$ifdef darwin},Menus{$endif};
 
 type
 
@@ -93,6 +94,7 @@ type
     procedure SettingsHelpsClick(Sender: TObject);
     procedure SettingsShowClick(Sender: TObject);
   private
+    FHelpWindow: TSimpleHelp;
     {$ifdef darwin}
     MainMenu: TMainMenu;
     AppMenu: TMenuItem;
@@ -179,6 +181,8 @@ resourcestring
   rsDirIsNotWritable = 'محل انتخابی برای خروجی قابلیت نوشتن ندارد';
   rsError = 'خطا';
   rsSupport = 'پشتیبانی';
+  rsProcessSettings = 'تنظیمات پردازش زیرنویس';
+  rsOutputFileSettings = 'تنظیمات ذخیره خروجی';
 
 { TFaSubripMain }
 
@@ -640,31 +644,29 @@ end;
 
 procedure TFaSubripMain.SettingsHelpsClick(Sender: TObject);
 begin
-  with FaSubripHelp do
+  if not Assigned(FHelpWindow) then
   begin
-    if not HelpsAreSet then
+    FHelpWindow := TSimpleHelp.Create(Self);
+    with FHelpWindow do
     begin
-      AddTitle(OpenSubs.Caption);
-      AddDescription(OpenSubs.Hint);
-      AddTitle(StripHTMLFontTagsL.Caption);
-      AddDescription(StripHTMLFontTagsL.Hint);
-      AddTitle(StripHTMLStyleTagsL.Caption);
-      AddDescription(StripHTMLStyleTagsL.Hint);
-      AddTitle(ArabicCharsToFarsiL.Caption);
-      AddDescription(ArabicCharsToFarsiL.Hint);
-      AddTitle(EndingPunctuationsL.Caption);
-      AddDescription(EndingPunctuationsL.Hint);
-      AddTitle(PhrasesCensorshipL.Caption);
-      AddDescription(PhrasesCensorshipL.Hint);
-      AddTitle(OutFileEncodingL.Caption);
-      AddDescription(OutFileEncodingL.Hint);
-      AddTitle(AppendEncodingToFileNameL.Caption);
-      AddDescription(AppendEncodingToFileNameL.Hint);
-      AddTitle(ReplaceSourceFileL.Caption);
-      AddDescription(ReplaceSourceFileL.Hint);
+      BiDiModeContents := bdRightToLeft;
+      Title := SettingsHelps.Hint;
+      AllowWrap := False;
+      AddSection('');
+      AddCollapsible(OpenSubs.Caption,OpenSubs.Hint);
+      AddSection(rsProcessSettings);
+      AddCollapsible(StripHTMLFontTagsL.Caption,StripHTMLFontTagsL.Hint);
+      AddCollapsible(StripHTMLStyleTagsL.Caption,StripHTMLStyleTagsL.Hint);
+      AddCollapsible(ArabicCharsToFarsiL.Caption,ArabicCharsToFarsiL.Hint);
+      AddCollapsible(EndingPunctuationsL.Caption,EndingPunctuationsL.Hint);
+      AddCollapsible(PhrasesCensorshipL.Caption,PhrasesCensorshipL.Hint);
+      AddSection(rsOutputFileSettings);
+      AddCollapsible(OutFileEncodingL.Caption,OutFileEncodingL.Hint);
+      AddCollapsible(AppendEncodingToFileNameL.Caption,AppendEncodingToFileNameL.Hint);
+      AddCollapsible(ReplaceSourceFileL.Caption,ReplaceSourceFileL.Hint);
     end;
-    ShowModal;
   end;
+  FHelpWindow.Show;
 end;
 
 end.

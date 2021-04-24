@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="53"/>
+      <BuildNr Value="75"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.2.0"/>
     </VersionInfo>
     <BuildModes Count="7">
@@ -253,6 +253,8 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
       <Version Value="2"/>
       <DestinationDirectory Value="$(ProjPath)\published\releases\1.2.2"/>
       <CompressFinally Value="False"/>
+      <UseFileFilters Value="True"/>
+      <FileFilter Value="*.(res)"/>
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -268,7 +270,7 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="fasubrip.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -282,19 +284,12 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
-        <Filename Value="uhelp.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="FaSubripHelp"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit2>
-      <Unit3>
         <Filename Value="uabout.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FaSubripAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit3>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -26,8 +26,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls,
   LazUTF8, LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uabout,
-  CommonGUIUtils, CommonStrUtils, CommonFileUtils, uSimpleHelp
-  {$ifdef darwin},Menus{$endif};
+  CommonGUIUtils, CommonStrUtils, CommonFileUtils, uSimpleHelp;
 
 type
 
@@ -95,10 +94,6 @@ type
     procedure SettingsShowClick(Sender: TObject);
   private
     FHelpWindow: TSimpleHelp;
-    {$ifdef darwin}
-    MainMenu: TMainMenu;
-    AppMenu: TMenuItem;
-    {$endif}
     FSrt: String;
     FBatchMode: Boolean;
     FBatchOutDir: String;
@@ -188,13 +183,7 @@ resourcestring
 
 procedure TFaSubripMain.FormCreate(Sender: TObject);
 begin
-  {$ifdef darwin}
-    MainMenu := TMainMenu.Create(Self);
-    MainMenu.Parent := Self;
-    AppMenu := TMenuItem.Create(Self);
-    AppMenu.Caption := #$EF#$A3#$BF;
-    MainMenu.Items.Insert(0, AppMenu);
-  {$endif}
+  DefaultMacOSMenu(Self);
   SupportUrlL := TCustomUrlLabel.Create(Self);
   with SupportUrlL do
   begin

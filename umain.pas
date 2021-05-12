@@ -641,7 +641,7 @@ begin
     begin
       BiDiModeContents := bdRightToLeft;
       Title := SettingsHelps.Hint;
-      AllowWrap := False;
+      MaxLineLength := 120;
       AddSection('');
       AddCollapsible(OpenSubs.Caption,OpenSubs.Hint);
       AddSection(rsProcessSettings);

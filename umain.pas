@@ -246,6 +246,7 @@ begin
     Close;
   end;
   {$endif}
+  CheckDisplayInScreen(Self);
 end; 
 
 procedure TFaSubripMain.FormActivate(Sender: TObject);

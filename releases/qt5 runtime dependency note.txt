@@ -1,0 +1,6 @@
+برای اجرای نسخه کیوت۵ نصب پکیجی که در زیر آمده لازم است. این پکیج تنها روی توزیع های اصلی و بروز (اوبونتو ۲۰+ و فدورا ۳۲+) و زیرتوزیع های  اصلی آنها موجود است.
+The following dependency is needed to run Qt5 version. available only in main distros with recent versions (Ubunto 20+, Fedora32+ etc).
+Using your distros repository -
+
+Fedora, Mageia... - sudo dnf install qt5pas <enter>
+Ubuntu, Debian... - sudo apt install libqt5pas1 <enter>

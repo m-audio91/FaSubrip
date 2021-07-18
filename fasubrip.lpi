@@ -24,10 +24,10 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
       <RevisionNr Value="2"/>
-      <BuildNr Value="108"/>
+      <BuildNr Value="109"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.2.0"/>
     </VersionInfo>
-    <BuildModes Count="7">
+    <BuildModes Count="8">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -242,9 +242,46 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
           </Linking>
         </CompilerOptions>
       </Item7>
+      <Item8 Name="Release ARM7-HF-Linux">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="fasubrip-$(TargetCPU)-$(TargetOS)"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\commonutils"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetProcessor Value="ARMV7"/>
+            <TargetCPU Value="arm"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item8>
       <SharedMatrixOptions Count="4">
         <Item1 ID="714763086769" Modes="Release Win32" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
-        <Item2 ID="470355515500" Modes="Release Linux32,Release Linux64" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item2 ID="470355515500" Modes="Release Linux32,Release Linux64,Release ARM7-HF-Linux" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item3 ID="162149294469" Modes="Release Darwin64" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
         <Item4 ID="293044981887" Modes="Release Linux64Qt5" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
       </SharedMatrixOptions>

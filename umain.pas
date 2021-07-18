@@ -40,6 +40,8 @@ type
     ArabicCharsToFarsiL: TLabel;
     AppendEncodingToFileNameL: TLabel;
     Container1: TPanel;
+    EnglishNumbers: TCheckBox;
+    EnglishNumbersL: TLabel;
     ImgsLight: TImageList;
     SubContainer5: TPanel;
     Container6: TPanel;
@@ -107,6 +109,7 @@ type
     function TryReadSubtitle: Boolean;
     procedure ClearUnicodeSpecificChars(var S: String);
     procedure SwapArabicChars(var S: String);
+    procedure ReplaceFarsiNums(var S: String);
     procedure StripHTMLTags(var S: String);
     procedure CensorPhrases(var S: String);
     procedure CorrectEndingPunctuations(var S: String);
@@ -156,6 +159,8 @@ const
   MoreBadPhrasesEndMarker = '[endofmorebadphrases]';
   ArabicChars: array[0..1] of String = ('ك', 'ي');
   FarsiChars: array[0..1] of String = ('ک', 'ی');
+  FarsiNums: array[0..9] of String = ('۰','۱','۲','۳','۴','۵','۶','۷','۸','۹');
+  EnglishNums: array[0..9] of String = ('0','1','2','3','4','5','6','7','8','9');
   EncodingNames: array[0..4] of String = ('UTF-8', 'UTF-8noRTL',
     'WINDOWS-1256', 'UTF-16', 'UTF-16noRTL');
   UnicodeBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
@@ -363,6 +368,7 @@ begin
   if not TryReadSubtitle then Exit;
   ClearUnicodeSpecificChars(FSrt);
   SwapArabicChars(FSrt);
+  ReplaceFarsiNums(FSrt);
   StripHTMLTags(FSrt);
   CensorPhrases(FSrt);
   CorrectEndingPunctuations(FSrt);
@@ -431,6 +437,14 @@ begin
     S := ReplaceStrings(S, FarsiChars, ArabicChars)
   else
     S := ReplaceStrings(S, ArabicChars, FarsiChars);
+end;
+
+procedure TFaSubripMain.ReplaceFarsiNums(var S: String);
+begin
+  if OutFileEncoding.ItemIndex = 2 then
+    EnglishNumbers.State := cbChecked;
+  if EnglishNumbers.State = cbChecked then
+    S := ReplaceStrings(s, FarsiNums, EnglishNums);
 end;
 
 procedure TFaSubripMain.StripHTMLTags(var S: String);
@@ -647,7 +661,8 @@ begin
       AddSection(rsProcessSettings);
       AddCollapsible(StripHTMLFontTagsL.Caption,StripHTMLFontTagsL.Hint);
       AddCollapsible(StripHTMLStyleTagsL.Caption,StripHTMLStyleTagsL.Hint);
-      AddCollapsible(ArabicCharsToFarsiL.Caption,ArabicCharsToFarsiL.Hint);
+      AddCollapsible(ArabicCharsToFarsiL.Caption,ArabicCharsToFarsiL.Hint); 
+      AddCollapsible(EnglishNumbersL.Caption,EnglishNumbersL.Hint);
       AddCollapsible(EndingPunctuationsL.Caption,EndingPunctuationsL.Hint);
       AddCollapsible(PhrasesCensorshipL.Caption,PhrasesCensorshipL.Hint);
       AddSection(rsOutputFileSettings);

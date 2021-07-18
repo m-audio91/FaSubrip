@@ -15,8 +15,7 @@ object FaSubripMain: TFaSubripMain
   OnDropFiles = FormDropFiles
   OnShow = FormShow
   ParentFont = True
-  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorshipFile.Text;PhrasesCensorship.State;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Left;Top'
-  LCLVersion = '2.1.0.0'
+  SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;Left;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorship.State;PhrasesCensorshipFile.Text;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Top;EnglishNumbers.State'
   object Header: TPanel
     Left = 0
     Height = 30
@@ -194,7 +193,7 @@ object FaSubripMain: TFaSubripMain
   end
   object SettingContainersGrid: TPanel
     Left = 8
-    Height = 203
+    Height = 224
     Top = 102
     Width = 566
     Align = alTop
@@ -208,7 +207,7 @@ object FaSubripMain: TFaSubripMain
     ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 203
+    ClientHeight = 224
     ClientWidth = 566
     Color = clForm
     ParentBidiMode = False
@@ -216,18 +215,19 @@ object FaSubripMain: TFaSubripMain
     TabOrder = 4
     object Container1: TPanel
       Left = 0
-      Height = 63
+      Height = 84
       Top = 0
       Width = 566
       Align = alTop
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 63
+      ClientHeight = 84
       ClientWidth = 566
       TabOrder = 0
       object SubContainer1: TPanel
         Left = 307
-        Height = 63
+        Height = 84
+        Hint = 'object EnglishNumbers: TCheckBox'#10'  Left = 260'#10'  Height = 21'#10'  Top = 0'#10'  Width = 21'#10'  TabOrder = 0'#10'end'#10
         Top = 0
         Width = 259
         Align = alRight
@@ -235,7 +235,7 @@ object FaSubripMain: TFaSubripMain
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 63
+        ClientHeight = 84
         ClientWidth = 259
         TabOrder = 0
         object StripHTMLFontTags: TCheckBox
@@ -286,12 +286,28 @@ object FaSubripMain: TFaSubripMain
           Caption = 'ی و ک فارسی'
           ParentColor = False
         end
+        object EnglishNumbers: TCheckBox
+          Left = 238
+          Height = 21
+          Top = 63
+          Width = 21
+          TabOrder = 3
+        end
+        object EnglishNumbersL: TLabel
+          Left = 0
+          Height = 21
+          Hint = 'اعداد در رایانه ممکنه به دو شکل فارسی باشند. یا انگلیسی هستند و فقط فارسی نمایش داده می شوند (بنا به تنظیمات سیستم عامل یا فونت نمایش). یا واقعا فارسی تایپ و ذخیره شده اند. با توجه به اینکه استفاده از اعداد فارسی در زیرنویس های فارسی فیلم های روز مرسوم شده اما این اعداد فقط در کدگذاری یونیکد تعریف شده هستند لذا با این گزینه می توان این اعداد را در صورت وجود با انگلیسی جایگزین کرد (اگر مشکل علامت سوال شدن اعداد را دارید). این عمل برای خروجی ANSI بطور اجباری توسط فاسابریپ اتفاق خواهد افتاد!'
+          Top = 63
+          Width = 238
+          Caption = 'اعداد انگلیسی'
+          ParentColor = False
+        end
       end
     end
     object Container2: TPanel
       Left = 0
       Height = 25
-      Top = 63
+      Top = 84
       Width = 566
       Align = alTop
       AutoSize = True
@@ -350,7 +366,7 @@ object FaSubripMain: TFaSubripMain
     object Container3: TPanel
       Left = 0
       Height = 21
-      Top = 88
+      Top = 109
       Width = 566
       Align = alTop
       AutoSize = True
@@ -392,7 +408,7 @@ object FaSubripMain: TFaSubripMain
     object Container4: TPanel
       Left = 0
       Height = 26
-      Top = 109
+      Top = 130
       Width = 566
       Align = alTop
       AutoSize = True
@@ -461,7 +477,7 @@ object FaSubripMain: TFaSubripMain
     object Container5: TPanel
       Left = 0
       Height = 25
-      Top = 136
+      Top = 157
       Width = 566
       Align = alTop
       AutoSize = True
@@ -520,7 +536,7 @@ object FaSubripMain: TFaSubripMain
     object Container6: TPanel
       Left = 0
       Height = 42
-      Top = 161
+      Top = 182
       Width = 566
       Align = alTop
       AutoSize = True
@@ -581,7 +597,7 @@ object FaSubripMain: TFaSubripMain
   object Footer: TPanel
     Left = 8
     Height = 1
-    Top = 309
+    Top = 330
     Width = 566
     Align = alTop
     AutoSize = True

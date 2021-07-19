@@ -6,7 +6,7 @@ object FaSubripMain: TFaSubripMain
   AllowDropFiles = True
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FaSubrip v1.2.2'
+  Caption = 'FaSubrip v1.2.3'
   ClientHeight = 414
   ClientWidth = 582
   DefaultMonitor = dmPrimary
@@ -16,6 +16,7 @@ object FaSubripMain: TFaSubripMain
   OnShow = FormShow
   ParentFont = True
   SessionProperties = 'AppendEncodingToFileName.State;ArabicCharsToFarsi.State;CensorshipLevel.ItemIndex;EndingPunctuations.ItemIndex;Left;OpenDlg.InitialDir;OutFileEncoding.ItemIndex;PhrasesCensorship.State;PhrasesCensorshipFile.Text;ReplaceSourceFile.State;StripHTMLFontTags.State;StripHTMLStyleTags.State;Top;EnglishNumbers.State'
+  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 30

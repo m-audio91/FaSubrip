@@ -12,7 +12,6 @@ object FaSubripAbout: TFaSubripAbout
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '2.1.0.0'
   object Header: TPanel
     Left = 0
     Height = 96

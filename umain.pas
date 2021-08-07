@@ -642,7 +642,7 @@ begin
     'ANSI':begin
       sl.DefaultEncoding := Enc.ANSI;
       sl.Text := ConvertEncoding(FSrt, EncodingUTF8, EncodingCP1256);
-      sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
+      sl.TextLineBreakStyle := tlbsCRLF;
       sl.SaveToFile(Sub,True);
       end;
     'UTF-16':begin

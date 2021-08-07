@@ -627,7 +627,7 @@ begin
       sl.DefaultEncoding := Enc.ANSI;
       sl.Text := ConvertEncoding(FSrt, EncodingUTF8, EncodingCP1256);
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
-      sl.SaveToFile(Sub);
+      sl.SaveToFile(Sub,True);
       end;
     3..4:begin
       sl.DefaultEncoding := Enc.Unicode;

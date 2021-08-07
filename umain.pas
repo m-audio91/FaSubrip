@@ -103,6 +103,8 @@ type
     FMaxHeight: Integer;
     FMinHeight: Integer;
     FCollapsed: Boolean;
+    function OutputEncoding: String;
+    function OutputSuffix: String;
     function OutputDirValid(const Dir: String): Boolean;
     procedure DoRun;
     procedure ProcessSubtitle;
@@ -161,8 +163,6 @@ const
   FarsiChars: array[0..1] of String = ('ک', 'ی');
   FarsiNums: array[0..9] of String = ('۰','۱','۲','۳','۴','۵','۶','۷','۸','۹');
   EnglishNums: array[0..9] of String = ('0','1','2','3','4','5','6','7','8','9');
-  EncodingNames: array[0..4] of String = ('UTF-8', 'UTF-8noRTL',
-    'WINDOWS-1256', 'UTF-16', 'UTF-16noRTL');
   UnicodeBOMs: array[0..4] of String = (UTF8BOM, UTF16BEBOM, UTF16LEBOM, UTF32BEBOM,
     UTF32LEBOM);
   UnicodeDirectionControllers: array[0..11] of String = (#$E2#$80#$8F,
@@ -316,6 +316,25 @@ begin
   {$endif}
 end;
 
+function TFaSubripMain.OutputEncoding: String;
+begin
+  Result := 'UTF-8';
+  if String(OutFileEncoding.Text).Contains('ANSI') then
+    Result := 'ANSI'
+  else if String(OutFileEncoding.Text).Contains('UTF-16') then
+    Result := 'UTF-16';
+end;
+
+function TFaSubripMain.OutputSuffix: String;
+begin
+  Result := EmptyStr;
+  if String(OutFileEncoding.Text).Contains('mark') then
+    Result := 'noRTL';
+  if String(OutFileEncoding.Text).Contains('ANSI') then
+    Result := '(1256)';
+  Result := OutputEncoding+Result;
+end;
+
 function TFaSubripMain.OutputDirValid(const Dir: String): Boolean;
 begin
   Result := TryDirectoryIsWritable(Dir);
@@ -422,16 +441,15 @@ var
 begin
   for c in UnicodeBOMs do
     DeleteAllOccurrences(c, S);
-  case OutFileEncoding.ItemIndex of
-  1,2,4:
+  if OutputSuffix.Contains('noRTL')
+  or OutputSuffix.Contains('ANSI') then
     for c in UnicodeDirectionControllers do
       DeleteAllOccurrences(c, S);
-  end;
 end;
 
 procedure TFaSubripMain.SwapArabicChars(var S: String);
 begin
-  if OutFileEncoding.ItemIndex = 2 then
+  if OutputEncoding.Equals('ANSI') then
     ArabicCharsToFarsi.State := cbUnchecked;
   if ArabicCharsToFarsi.State <> cbChecked then
     S := ReplaceStrings(S, FarsiChars, ArabicChars)
@@ -441,7 +459,7 @@ end;
 
 procedure TFaSubripMain.ReplaceFarsiNums(var S: String);
 begin
-  if OutFileEncoding.ItemIndex = 2 then
+  if OutputEncoding.Equals('ANSI') then
     EnglishNumbers.State := cbChecked;
   if EnglishNumbers.State = cbChecked then
     S := ReplaceStrings(s, FarsiNums, EnglishNums);
@@ -578,7 +596,7 @@ begin
       InitialDir := OpenDlg.InitialDir;
       if AppendEncodingToFileName.State = cbChecked then
         FileName :=
-        GenFileName(FInputFile, '_'+EncodingNames[OutFileEncoding.ItemIndex], extSrt, False)
+        GenFileName(FInputFile, '_'+OutputSuffix, extSrt, False)
       else
         FileName := GenFileName(FInputFile, wFaSubed, extSrt, False);
       if Execute then
@@ -602,34 +620,32 @@ var
   sl: TStringList;
   Enc: TEncoding;
   Sub: String;
-  OutEnc: Integer;
 begin
   Sub := Subtitle;
-  OutEnc := OutFileEncoding.ItemIndex;
   if FInputFile.Equals(Sub) and FileExists(Sub) then
     DeleteFile(Sub);
   if AppendEncodingToFileName.State = cbChecked then
   begin
-    if not Sub.EndsWith(EncodingNames[OutEnc]+extSrt) then
-      Sub := GenFileName(Sub, '_'+EncodingNames[OutEnc]);
+    if not Sub.EndsWith(OutputSuffix+extSrt) then
+      Sub := GenFileName(Sub, '_'+OutputSuffix);
   end;
   Enc := Default(TEncoding);
   sl := TStringList.Create;
   try
-    case OutEnc of
-    0..1:begin
+    case OutputEncoding of
+    'UTF-8':begin
       sl.DefaultEncoding := Enc.UTF8;
       sl.Text := FSrt;
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
       sl.SaveToFile(Sub, Enc.UTF8);
       end;
-    2:begin
+    'ANSI':begin
       sl.DefaultEncoding := Enc.ANSI;
       sl.Text := ConvertEncoding(FSrt, EncodingUTF8, EncodingCP1256);
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;
       sl.SaveToFile(Sub,True);
       end;
-    3..4:begin
+    'UTF-16':begin
       sl.DefaultEncoding := Enc.Unicode;
       sl.Text := FSrt;
       sl.TextLineBreakStyle := DefaultTextLineBreakStyle;

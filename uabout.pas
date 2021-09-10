@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  uUrlLabel;
+  uUrlLabel, CommonGUIUtils;
 
 type
 
@@ -37,8 +37,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-
-  public
     MailUrlL: TUrlLabelEx;
     ContactUrlL: TUrlLabelEx;
     IssuesUrlL: TUrlLabelEx;
@@ -109,12 +107,7 @@ end;
 
 procedure TFaSubripAbout.FormShow(Sender: TObject);
 begin
-  if Top<0 then
-    Top := 0;
-  if Left<0 then
-    Left := 0;
-  if Left+Width > Screen.Width then
-    Left := Left - ((Left+Width)-Screen.Width);
+  CheckDisplayInScreen(Self);
 end;
 
 

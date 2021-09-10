@@ -26,7 +26,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
   LCLType, StdCtrls, IniPropStorage, ExtCtrls, Buttons, ComCtrls,
   LazUTF8, LConvEncoding, uUrlLabel, LazFileUtils, DividerBevel, uabout,
-  CommonGUIUtils, CommonStrUtils, CommonFileUtils, uSimpleHelp;
+  CommonGUIUtils, CommonStrUtils, CommonFileUtils, uSimpleHelp, uNumeditFloat,
+  uTimeSlice, uSubripFile;
 
 type
 
@@ -84,6 +85,8 @@ type
     DragNotifierL: TLabel;
     HeaderLinks: TPanel;
     OptionalSettings: TDividerBevel;
+    SubtitleDelay: TBitBtn;
+    SubtitleDelayL: TLabel;
     procedure FormActivate(Sender: TObject);
     procedure IniPropsRestoringProperties(Sender: TObject);
     procedure PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
@@ -94,9 +97,11 @@ type
     procedure OpenSubsClick(Sender: TObject);
     procedure SettingsHelpsClick(Sender: TObject);
     procedure SettingsShowClick(Sender: TObject);
+    procedure SubtitleDelayClick(Sender: TObject);
   private
     FHelpWindow: TSimpleHelp;
     FSrt: String;
+    FDelay: Double;
     FBatchMode: Boolean;
     FBatchOutDir: String;
     FInputFile: String;
@@ -112,6 +117,7 @@ type
     procedure ClearUnicodeSpecificChars(var S: String);
     procedure SwapArabicChars(var S: String);
     procedure ReplaceFarsiNums(var S: String);
+    procedure ApplyDelay(var S: String);
     procedure StripHTMLTags(var S: String);
     procedure CensorPhrases(var S: String);
     procedure CorrectEndingPunctuations(var S: String);
@@ -210,6 +216,7 @@ begin
     HighlightColor := clHighlight;
   end;
   Collapsed := True;
+  FDelay := 0;
 end;
 
 procedure TFaSubripMain.PhrasesCensorshipFileKeyDown(Sender: TObject; var Key: Word;
@@ -260,6 +267,7 @@ begin
   begin
     SettingsShow.Images := ImgsLight;
     SettingsHelps.Images := ImgsLight;
+    SubtitleDelay.Images := ImgsLight;
     PhrasesCensorshipFile.Images := ImgsLight;
     DragNotifierL.Font.Color := clDefault;
     SettingsNotifierL.Font.Color := clDefault;
@@ -314,6 +322,24 @@ begin
   Constraints.MaxHeight := h;
   AdjustSize;
   {$endif}
+end;
+
+procedure TFaSubripMain.SubtitleDelayClick(Sender: TObject);
+var
+  ne: TNumEditFloat;
+begin
+  ne := TNumEditFloat.Create(nil);
+  try
+    ne.HeaderText := SubtitleDelayL.Caption;
+    ne.DecimalPlaces := 3;
+    ne.Value := FDelay;
+    ne.Increment := 0.1;
+    if ne.ShowModal = mrOK then
+      FDelay := ne.Value;
+  finally
+    SubtitleDelay.Caption := ': '+FDelay.ToString;
+    ne.Free;
+  end;
 end;
 
 function TFaSubripMain.OutputEncoding: String;
@@ -379,6 +405,8 @@ begin
     if OutputDirValid(OpenDlg.InitialDir) then
       ProcessSubtitle;
   end;
+  FDelay := 0;
+  SubtitleDelay.Caption := ': '+FDelay.ToString;
 end;
 
 procedure TFaSubripMain.ProcessSubtitle;
@@ -388,6 +416,7 @@ begin
   ClearUnicodeSpecificChars(FSrt);
   SwapArabicChars(FSrt);
   ReplaceFarsiNums(FSrt);
+  ApplyDelay(FSrt);
   StripHTMLTags(FSrt);
   CensorPhrases(FSrt);
   CorrectEndingPunctuations(FSrt);
@@ -463,6 +492,33 @@ begin
     EnglishNumbers.State := cbChecked;
   if EnglishNumbers.State = cbChecked then
     S := ReplaceStrings(s, FarsiNums, EnglishNums);
+end;
+
+procedure TFaSubripMain.ApplyDelay(var S: String);
+var
+  sa: TStringArray;
+  ts: TTimeSlice;
+  i,j: Integer;
+begin
+  if FDelay=0 then Exit;
+  ts.Initialize(DefaultSubripTimeSliceFormat);
+  sa := S.Split(LineEndings);
+  j := 0;
+  repeat
+    i := FindInArray(sa, ts.TimeSliceFormat.SliceSep, j);
+    if i>=0 then
+    begin
+      ts.ValueAsString := sa[i];
+      if ts.Valid then
+      begin
+        ts.Delay := FDelay;
+        ts.Value := ts.ValueWithDelay;
+        sa[i] := ts.ValueAsString;
+      end;
+    end;
+    j := i+1;
+  until i<0;
+  S := S.Join(LineEnding,sa);
 end;
 
 procedure TFaSubripMain.StripHTMLTags(var S: String);
@@ -679,6 +735,7 @@ begin
       AddCollapsible(StripHTMLStyleTagsL.Caption,StripHTMLStyleTagsL.Hint);
       AddCollapsible(ArabicCharsToFarsiL.Caption,ArabicCharsToFarsiL.Hint); 
       AddCollapsible(EnglishNumbersL.Caption,EnglishNumbersL.Hint);
+      AddCollapsible(SubtitleDelayL.Caption,SubtitleDelayL.Hint);
       AddCollapsible(EndingPunctuationsL.Caption,EndingPunctuationsL.Hint);
       AddCollapsible(PhrasesCensorshipL.Caption,PhrasesCensorshipL.Hint);
       AddSection(rsOutputFileSettings);

@@ -24,7 +24,7 @@
       <MajorVersionNr Value="1"/>
       <MinorVersionNr Value="2"/>
       <RevisionNr Value="4"/>
-      <BuildNr Value="12"/>
+      <BuildNr Value="31"/>
       <StringTable Comments="http://mohammadrezab.blogsky.com" CompanyName="MohammadReza Bahrami" FileDescription="FaSubrip: autodetects and converts encoding of farsi (persian) subrip files. with additional functionalities." InternalName="FaSubrip" LegalCopyright="MohammadReza Bahrami" OriginalFilename="fasubrip" ProductName="FaSubrip" ProductVersion="1.2.4.0"/>
     </VersionInfo>
     <BuildModes Count="8">
@@ -38,7 +38,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -72,7 +72,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -108,7 +108,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -144,7 +144,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -180,7 +180,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Conditionals Value="// to support older MacOS versions
@@ -218,7 +218,7 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-Qt5"/>
           </SearchPaths>
           <CodeGeneration>
@@ -254,7 +254,7 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+            <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -337,7 +337,7 @@ LinkerOptions += &apos; -WM10.7&apos;;"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\commonutils;..\codecutils"/>
+      <OtherUnitFiles Value="..\codecutils;..\commonutils"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

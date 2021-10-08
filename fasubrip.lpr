@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Classes, Forms, lazcontrols, umain, uabout
+  Classes, Forms, SysUtils, lazcontrols, umain, uabout
   { you can add units after this };
   {$ifdef FPC_CROSSCOMPILING}
   {$ifdef Linux}
@@ -64,6 +64,7 @@ begin
   end;
   {$endif}
   Application.CreateForm(TFaSubripAbout, FaSubripAbout);
+  DefaultFormatSettings.DecimalSeparator:='.';
   Application.Run;
 end.
 

@@ -189,6 +189,9 @@ resourcestring
   rsSupport = 'پشتیبانی';
   rsProcessSettings = 'تنظیمات پردازش زیرنویس';
   rsOutputFileSettings = 'تنظیمات ذخیره خروجی';
+  rsDelayHint = '(-) عدد منفی یعنی زودتر پخش می شود.'+LineEnding+
+    '(+) عدد مثبت یعنی دیرتر پخش می شود.'+LineEnding+
+    'S.mmm ثانیه ممیز هزارم ثانیه';
 
 { TFaSubripMain }
 
@@ -330,7 +333,7 @@ var
 begin
   ne := TNumEditFloat.Create(nil);
   try
-    ne.HeaderText := SubtitleDelayL.Caption;
+    ne.HeaderText := SubtitleDelayL.Caption +LineEnding +rsDelayHint;
     ne.DecimalPlaces := 3;
     ne.Value := FDelay;
     ne.Increment := 0.1;
